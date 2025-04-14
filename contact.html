@@ -25,26 +25,43 @@
 
       <!-- Formulär med redirect till thanks.html -->
       <form
-  action="https://formspree.io/f/mvgkyzpp"
-  method="POST"
-  class="space-y-4"
->
-  <!-- Viktigt! Det här gör att du inte hamnar på Formspree-sidan -->
-  <input type="hidden" name="_redirect" value="thanks.html" />
+        action="https://formspree.io/f/mvgkyzpp"
+        method="POST"
+        class="space-y-4"
+      >
+        <!-- Detta gör att du slipper Formspree-sidan -->
+        <input type="hidden" name="_redirect" value="https://appywebtw3.vercel.app/thanks.html" />
 
-  <input type="text" name="name" placeholder="Ditt namn" required
-    class="w-full px-4 py-3 ..." />
+        <input
+          type="text"
+          name="name"
+          placeholder="Ditt namn"
+          required
+          class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        />
 
-  <input type="email" name="email" placeholder="Din e-post" required
-    class="w-full px-4 py-3 ..." />
+        <input
+          type="email"
+          name="email"
+          placeholder="Din e-post"
+          required
+          class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        />
 
-  <textarea name="message" placeholder="Skriv ditt meddelande här..." required
-    class="w-full px-4 py-3 ..."></textarea>
+        <textarea
+          name="message"
+          placeholder="Skriv ditt meddelande här..."
+          required
+          class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        ></textarea>
 
-  <button type="submit" class="bg-yellow-400 px-6 py-3 ...">
-    Skicka meddelande
-  </button>
-</form>
+        <button
+          type="submit"
+          class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition"
+        >
+          Skicka meddelande
+        </button>
+      </form>
     </div>
   </div>
 </section>
