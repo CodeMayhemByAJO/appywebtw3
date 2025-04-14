@@ -89,14 +89,17 @@
       if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
         url = file.replace('./pages/', './pages/').replace('.html', '');
       }
-      console.log('Fetching:', url); // Bra för felsökning
-
+      console.log('Fetching:', url);
+    
       fetch(url)
-        .then(res => res.text())
+        .then(res => {
+          console.log('Fetch Response:', res);
+          return res.text();
+        })
         .then(html => document.getElementById('content').innerHTML = html)
         .catch(err => {
+          console.error('Fetch Error:', err);
           document.getElementById('content').innerHTML = '<p class="text-red-400 text-center">Kunde inte ladda innehållet.</p>';
-          console.error(err);
         });
     }
   </script>
