@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="sv">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tack!</title>
-  <meta http-equiv="refresh" content="2;url=index.html" />
-  <link rel="stylesheet" href="output.css" />
-</head>
-<body class="bg-black text-white flex items-center justify-center min-h-screen">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold text-green-400 mb-4">Tack för ditt meddelande!</h1>
-    <p class="text-white/60">Du skickas nu tillbaka till startsidan...</p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tack!</title>
+    <meta http-equiv="refresh" content="4;url=index.html" />
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body class="bg-black text-white">
+    <section class="py-16 px-6 max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+        
+        <div class="w-full md:w-1/2 flex justify-center">
+          <img
+            src="thanksillustration.png"
+            alt="Tackillustration"
+            class="max-w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
+          />
+        </div>
+
+        <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+          <h1 class="text-4xl font-semibold mb-6 text-yellow-400">Tack för ditt meddelande!</h1>
+          <div class="text-white/80 text-lg leading-relaxed space-y-6">
+            <p>
+              Vi har tagit emot ditt meddelande och återkommer så snart vi kan.
+            </p>
+            <p class="text-white/60 italic">
+              Du skickas strax tillbaka till startsidan...
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </body>
 </html>
