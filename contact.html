@@ -1,19 +1,19 @@
 <section class="py-16 px-6 max-w-6xl mx-auto">
   <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
 
-    <!-- Bild -->
+    <!-- Bild till vänster -->
     <div class="w-full md:w-1/2 flex justify-center">
       <img
         src="images/contactillustration.png"
-        alt="Illustration"
+        alt="Kontakt illustration"
         class="max-w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
       />
     </div>
 
-    <!-- Formulärsektion -->
-    <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+    <!-- Formulär -->
+    <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300" id="formContainer">
       <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
-        Ska vi göra nåt kul tillsammans?<br />Hojta till!
+        Ska vi göra nåt kul tillsammans? <br />Hojta till!
       </h1>
 
       <div class="text-white/80 text-lg leading-relaxed space-y-6 mb-8">
@@ -22,10 +22,7 @@
         </p>
       </div>
 
-      <!-- Formulär -->
       <form id="contactForm" method="POST" class="space-y-4">
-        <input type="hidden" name="_captcha" value="false">
-
         <input type="text" name="name" placeholder="Ditt namn" required
           class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white" />
 
@@ -33,26 +30,21 @@
           class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white" />
 
         <textarea name="message" placeholder="Skriv ditt meddelande här..." required
-          class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white"></textarea>
+          class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none"></textarea>
 
         <button type="submit"
           class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition">
           Skicka meddelande
         </button>
       </form>
-
-      <!-- Tackmeddelande -->
-      <div id="thankYouMessage" class="hidden text-green-400 text-lg mt-6">
-        Tack för ditt meddelande! Vi hör av oss så snart vi kan.
-      </div>
     </div>
+
   </div>
 </section>
 
-<!-- JS -->
 <script>
   const form = document.getElementById("contactForm");
-  const thankYouMessage = document.getElementById("thankYouMessage");
+  const formContainer = document.getElementById("formContainer");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -68,15 +60,19 @@
     })
     .then(response => {
       if (response.ok) {
-        form.reset();
-        form.classList.add("hidden");
-        thankYouMessage.classList.remove("hidden");
+        // Ladda in tackmeddelande i samma ruta
+        formContainer.innerHTML = `
+          <div class="text-green-400 text-lg mt-6">
+            <h2 class="text-3xl font-semibold mb-4">Tack för ditt meddelande!</h2>
+            <p class="text-white/70">Vi hör av oss så snart vi kan.</p>
+          </div>
+        `;
       } else {
-        alert("Något gick fel. Försök igen senare.");
+        alert("Kunde inte skicka meddelandet. Försök igen senare.");
       }
     })
     .catch(() => {
-      alert("Kunde inte ansluta till servern. Försök igen.");
+      alert("Något gick fel. Kontrollera din internetanslutning.");
     });
   });
 </script>
