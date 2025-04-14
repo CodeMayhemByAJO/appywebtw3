@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv" class="bg-black min-h-screen text-white">
+<html lang="sv" class="bg-black text-white">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,11 +20,11 @@
   <header class="py-8">
     <div class="max-w-screen-xl mx-auto w-full flex flex-col items-center text-center px-4">
       <a href="#" class="block">
-        <img src="images/appychapplogga.png" alt="appyChap logotyp" class="h-24 w-auto mb-6 mx-auto" />
+        <img src="images/appychapplogga.png" alt="appyChap logotyp" class="h-24 w-auto mb-10 mx-auto" />
       </a>
       <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg">
-        <a href="#" onclick="loadContent('about.html'); return false;" class="hover:text-appyYellow">Om oss</a>
-        <a href="#" onclick="loadContent('whatwedo.html'); return false;" class="hover:text-appyOrange transition">Vad vi gör</a>
+        <a href="#" onclick="loadContent('about.html'); return false;" class="hover:text-yellow-400">Om oss</a>
+        <a href="#" onclick="loadContent('whatwedo.html'); return false;" class="hover:text-orange-400 transition">Vad vi gör</a>
         <a href="#" onclick="loadContent('kontakt.html'); return false;" class="hover:text-blue-400 transition">Kontakta oss</a>
       </nav>
     </div>
@@ -32,8 +32,10 @@
 
   <!-- Main Content -->
   <main id="content" class="flex-grow bg-black px-4 py-12 text-center">
-    <!-- Default illustration (kan ersättas av dynamiskt innehåll) -->
-    <img src="images/appychapillustration.PNG" alt="Illustration" class="mx-auto max-w-2xl h-auto rounded-lg shadow-lg" />
+    <!-- Default illustration -->
+    <img src="images/nyfirstillustration.PNG"
+         alt="Illustration"
+         class="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-3xl h-auto mx-auto mt-8 sm:mt-12 md:mt-16 rounded-lg shadow-lg" />
   </main>
 
   <!-- Footer -->
@@ -42,7 +44,7 @@
       <div class="col-span-2 flex justify-center gap-6">
         <!-- Facebook -->
         <a href="https://www.facebook.com/profile.php?id=61574910691438" target="_blank" aria-label="Facebook" class="text-white/80 hover:text-blue-500 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-10 w-10" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-14 w-14" viewBox="0 0 24 24">
             <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5 
               3.657 9.127 8.438 9.876v-6.988H7.898v-2.888h2.54V9.845
               c0-2.507 1.493-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.464h-1.26
@@ -53,7 +55,7 @@
 
         <!-- Instagram -->
         <a href="https://www.instagram.com/sundsvallshundsalong/" target="_blank" aria-label="Instagram" class="text-white/80 hover:text-pink-500 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-10 w-10" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-14 w-14" viewBox="0 0 24 24">
             <path d="M7.75 2A5.75 5.75 0 0 0 2 7.75v8.5A5.75 5.75 0 0 0 
               7.75 22h8.5A5.75 5.75 0 0 0 22 16.25v-8.5A5.75 5.75 0 0 0 
               16.25 2h-8.5zm0 1.5h8.5A4.25 4.25 0 0 1 20.5 7.75v8.5A4.25 
@@ -64,7 +66,7 @@
 
         <!-- LinkedIn -->
         <a href="https://www.linkedin.com/company/appychap" target="_blank" aria-label="LinkedIn" class="text-white/80 hover:text-blue-400 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-10 w-10" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-14 w-14" viewBox="0 0 24 24">
             <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 
             1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 
             8.5h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.9 2.65 
