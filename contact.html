@@ -2,53 +2,82 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
-  <title>Kontaktformulär – Test</title>
+  <title>Kontakta oss – appyChap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: #111;
+      border: 1px solid #444;
+      color: #fff;
+      border-radius: 5px;
+    }
+    button {
+      background: #facc15;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    #successMessage {
+      color: #22c55e;
+      display: none;
+    }
+  </style>
 </head>
-<body style="background:black; color:white; font-family:sans-serif; padding:2rem;">
-
-  <h1>Testa kontaktformuläret</h1>
+<body>
+  <h1>Kontakta oss</h1>
 
   <form id="contactForm">
-    <input type="text" name="name" placeholder="Ditt namn" required><br><br>
-    <input type="email" name="email" placeholder="Din e-post" required><br><br>
-    <textarea name="message" placeholder="Ditt meddelande" required></textarea><br><br>
+    <input type="text" name="name" placeholder="Ditt namn" required />
+    <input type="email" name="email" placeholder="Din e-post" required />
+    <textarea name="message" placeholder="Ditt meddelande" required></textarea>
     <button type="submit">Skicka</button>
   </form>
 
-  <p id="successMessage" style="display:none; color:lime;">✅ Tack! Meddelandet är skickat.</p>
+  <p id="successMessage">✅ Tack! Meddelandet har skickats.</p>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("contactForm");
-      const successMessage = document.getElementById("successMessage");
+    const form = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        console.log("🚀 Formulär skickat!");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      console.log("Formulär skickat");
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log("📨 Data:", data);
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      console.log("Data:", data);
 
-        try {
-          const res = await fetch("https://appybackend-production.up.railway.app/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-          });
+      try {
+        const res = await fetch("https://appybackend-production.up.railway.app/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
 
-          console.log("✅ Backend svar:", res);
-          if (res.ok) {
-            form.reset();
-            successMessage.style.display = "block";
-          } else {
-            alert("🚨 Något gick snett (backend).");
-          }
-        } catch (err) {
-          console.error("❌ Fetch-fel:", err);
-          alert("❌ Nätverksfel – kunde inte skicka.");
+        if (res.ok) {
+          form.reset();
+          successMessage.style.display = "block";
+        } else {
+          alert("Något gick snett (backend).");
         }
-      });
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("Nätverksfel – kunde inte skicka.");
+      }
     });
   </script>
 </body>
