@@ -94,6 +94,7 @@
           if (res.ok) {
             form.reset();
             successMessage.classList.remove("hidden");
+            successMessage.classList.add("opacity-100");
           } else {
             alert("Något gick snett (backend).");
           }

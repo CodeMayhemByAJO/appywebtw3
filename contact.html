@@ -1,84 +1,40 @@
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-  <meta charset="UTF-8">
-  <title>Kontakta oss – appyChap</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: sans-serif;
-      padding: 2rem;
-    }
-    input, textarea, button {
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      background: #111;
-      border: 1px solid #444;
-      color: #fff;
-      border-radius: 5px;
-    }
-    button {
-      background: #facc15;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-    #successMessage {
-      color: #22c55e;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <h1>Kontakta oss</h1>
+<section class="py-16 px-6 max-w-6xl mx-auto text-white">
+  <h1 class="text-4xl font-semibold mb-6 text-yellow-400 text-center">Ska vi göra nåt kul tillsammans?</h1>
 
-  <form id="contactForm">
-    <input type="text" name="name" placeholder="Ditt namn" required />
-    <input type="email" name="email" placeholder="Din e-post" required />
-    <textarea name="message" placeholder="Ditt meddelande" required></textarea>
-    <button type="submit">Skicka</button>
+  <form id="contactForm" class="space-y-4 max-w-xl mx-auto">
+    <input
+      type="text"
+      name="name"
+      placeholder="Ditt namn"
+      required
+      class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+    />
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Din e-post"
+      required
+      class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+    />
+
+    <textarea
+      name="message"
+      placeholder="Skriv ditt meddelande här..."
+      required
+      class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+    ></textarea>
+
+    <button
+      type="submit"
+      class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition"
+    >
+      Skicka meddelande
+    </button>
+
+    <!-- Tackmeddelande -->
+    <p id="successMessage" class="text-green-400 mt-4 hidden transition-opacity duration-300 opacity-0">
+      ✅ Tack för ditt meddelande! Vi hörs snart. 🐶
+    </p>
   </form>
-
-  <p id="successMessage">✅ Tack! Meddelandet har skickats.</p>
-
-  <script>
-    const form = document.getElementById("contactForm");
-    const successMessage = document.getElementById("successMessage");
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      console.log("Formulär skickat");
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      console.log("Data:", data);
-
-      try {
-        const res = await fetch("https://appybackend-production.up.railway.app/contact", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          form.reset();
-          successMessage.style.display = "block";
-        } else {
-          alert("Något gick snett (backend).");
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-        alert("Nätverksfel – kunde inte skicka.");
-      }
-    });
-  </script>
-</body>
-</html>
+</section>
