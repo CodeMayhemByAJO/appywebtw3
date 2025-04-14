@@ -85,7 +85,13 @@
   <!-- Loader -->
   <script>
     function loadContent(file) {
-      fetch(file)
+      let url = file;
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        // Körs inte lokalt (förmodligen på Railway), ta bort .html-ändelsen
+        url = file.replace('.html', '');
+      }
+    
+      fetch(url)
         .then(res => res.text())
         .then(html => document.getElementById('content').innerHTML = html)
         .catch(err => {
