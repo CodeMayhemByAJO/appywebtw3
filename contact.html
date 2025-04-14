@@ -37,36 +37,35 @@
     </p>
   </form>
 
+  <!-- OBS: Detta script ligger INNE i sektionen så det körs efter att formuläret finns i DOM -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("contactForm");
-      const successMessage = document.getElementById("successMessage");
+    const form = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log("Skickar data:", data);
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      console.log("📨 Skickar data:", data);
 
-        try {
-          const res = await fetch("https://appybackend-production.up.railway.app/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-          });
+      try {
+        const res = await fetch("https://appybackend-production.up.railway.app/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
 
-          console.log("Svar från backend:", res);
-          if (res.ok) {
-            form.reset();
-            successMessage.classList.remove("hidden");
-          } else {
-            alert("Något gick snett (backend).");
-          }
-        } catch (err) {
-          console.error("Fetch error:", err);
-          alert("Nätverksfel – kontrollera anslutning.");
+        console.log("✅ Svar från backend:", res);
+        if (res.ok) {
+          form.reset();
+          successMessage.classList.remove("hidden");
+        } else {
+          alert("❌ Något gick snett (backend).");
         }
-      });
+      } catch (err) {
+        console.error("❌ Fetch error:", err);
+        alert("Nätverksfel – kunde inte skicka.");
+      }
     });
   </script>
 </section>
