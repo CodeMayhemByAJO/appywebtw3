@@ -4,62 +4,79 @@
     <!-- Bild -->
     <div class="w-full md:w-1/2 flex justify-center">
       <img
-        src="../images/contactillustration.png"
-        alt="Om oss illustration"
+        src="images/contactillustration.png"
+        alt="Illustration"
         class="max-w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
       />
     </div>
 
     <!-- Formulärsektion -->
-<div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
-  <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
-    Ska vi göra nåt kul tillsammans?<br />Hojta till!
-  </h1>
+    <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+      <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
+        Ska vi göra nåt kul tillsammans?<br />Hojta till!
+      </h1>
 
-  <div class="text-white/80 text-lg leading-relaxed space-y-6 mb-8">
-    <p class="text-white/60 italic">
-      <strong>appyChap</strong> gör tekniken till en tillgång – inte en börda.
-    </p>
-  </div>
+      <div class="text-white/80 text-lg leading-relaxed space-y-6 mb-8">
+        <p class="text-white/60 italic">
+          <strong>appyChap</strong> gör tekniken till en tillgång – inte en börda.
+        </p>
+      </div>
 
-  <!-- Själva formuläret -->
-  <form id="contactForm" method="POST" class="space-y-4">
-    <input type="hidden" name="_redirect" value=""/>
-    <input type="hidden" name="_captcha" value="false" />
-  
-    <input type="text" name="name" placeholder="Ditt namn" required />
-    <input type="email" name="email" placeholder="Din e-post" required />
-    <textarea name="message" placeholder="Skriv ditt meddelande här..." required></textarea>
-    <button type="submit">Skicka</button>
-  </form>
-  
-  <div id="thankYouMessage" class="hidden">Tack för ditt meddelande!</div>
-  
-  <script>
-    const form = document.getElementById("contactForm");
-    const thankYouMessage = document.getElementById("thankYouMessage");
-  
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-  
-      const formData = new FormData(form);
-  
-      fetch("https://formsubmit.co/info@appychap.se", {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(res => {
-        if (res.ok) {
-          form.reset();
-          form.classList.add("hidden");
-          thankYouMessage.classList.remove("hidden");
-        } else {
-          alert("Kunde inte skicka meddelandet.");
-        }
-      });
-    });
-  </script>
+      <!-- Formulär -->
+      <form id="contactForm" method="POST" class="space-y-4">
+        <input type="hidden" name="_captcha" value="false">
 
+        <input type="text" name="name" placeholder="Ditt namn" required
+          class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white" />
+
+        <input type="email" name="email" placeholder="Din e-post" required
+          class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white" />
+
+        <textarea name="message" placeholder="Skriv ditt meddelande här..." required
+          class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white"></textarea>
+
+        <button type="submit"
+          class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition">
+          Skicka meddelande
+        </button>
+      </form>
+
+      <!-- Tackmeddelande -->
+      <div id="thankYouMessage" class="hidden text-green-400 text-lg mt-6">
+        Tack för ditt meddelande! Vi hör av oss så snart vi kan.
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- JS -->
+<script>
+  const form = document.getElementById("contactForm");
+  const thankYouMessage = document.getElementById("thankYouMessage");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch("https://formspree.io/f/mvgkyzpp", {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.reset();
+        form.classList.add("hidden");
+        thankYouMessage.classList.remove("hidden");
+      } else {
+        alert("Något gick fel. Försök igen senare.");
+      }
+    })
+    .catch(() => {
+      alert("Kunde inte ansluta till servern. Försök igen.");
+    });
+  });
+</script>
