@@ -75,26 +75,33 @@
 
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
-
+    
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
-
+    
+      console.log("Skickar data till backend:", data);
+    
       try {
         const response = await fetch("https://appybackend-production.up.railway.app/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-
+    
+        console.log("Svar från servern:", response);
+    
         if (response.ok) {
+          console.log("Formulär skickades OK!");
           form.reset();
           successMessage.classList.remove("hidden");
         } else {
+          const errorText = await response.text();
+          console.warn("Fel från backend:", errorText);
           alert("Kunde inte skicka meddelande. Försök igen senare.");
         }
       } catch (error) {
         console.error("Fel vid fetch:", error);
-        alert("Något gick riktigt snett. Kontrollera internetanslutningen eller backend.");
+        alert("Något gick riktigt snett.");
       }
     });
   });
