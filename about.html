@@ -1,26 +1,30 @@
-<!DOCTYPE html>
-<html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>appyChap test</title>
-    <link href="./dist/output.css" rel="stylesheet" />
-  </head>
-  <body class="bg-black text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
-    <header class="mb-10 text-center">
-      <h1 class="text-4xl font-bold text-red-500">Funkar det här?</h1>
-      <p class="text-lg mt-2 text-gray-300">Testar Tailwind i full effekt 💨</p>
-    </header>
+<section class="py-16 px-6 max-w-6xl mx-auto">
+  <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
 
-    <main class="bg-white text-black p-6 rounded-2xl shadow-xl w-full max-w-md text-center space-y-4">
-      <p class="text-xl">Detta är en testlayout för att se att Tailwind fungerar.</p>
-      <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full transition">
-        Klicka på mig
-      </button>
-    </main>
+    <!-- Textinnehåll -->
+    <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+      <h1 class="text-4xl font-semibold mb-6 text-yellow-400">Det här är <strong>appyChap</strong></h1>
+      <div class="text-white/80 text-lg leading-relaxed space-y-6">
+        <p>
+          <strong>appyChap</strong> är ett enmansföretag från Medelpad som bygger digitala lösningar med hjärta och hjärna. Appar, hemsidor, system – vi gör teknik som känns begriplig, snygg och funktionell.
+        </p>
+        <p>
+          Vi gillar att göra livet enklare för företag, särskilt små lokala hjältar – men vi jobbar gärna med hela landet.
+        </p>
+        <p class="text-white/60 italic">
+          Och om du inte får svar direkt? Då är vi troligen i skogen med vovven och njuter av noll mobiltäckning – där de bästa idéerna föds.
+        </p>
+      </div>
+    </div>
 
-    <footer class="mt-10 text-sm text-gray-400">
-      © 2025 appyChap – All rights reserved.
-    </footer>
-  </body>
-</html>
+    <!-- Bilden -->
+    <div class="w-full md:w-1/2 flex justify-center">
+      <img
+        src="../images/aboutillustration.png"
+        alt="Om oss illustration"
+        class="max-w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
+      />
+    </div>
+
+  </div>
+</section>
