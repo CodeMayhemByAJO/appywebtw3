@@ -23,9 +23,10 @@
         <img src="../images/appychapplogga.png" alt="appyChap logotyp" class="h-24 w-auto mb-10 mx-auto" />
       </a>
       <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg">
-        <a href="#" onclick="loadContent('about.html'); return false;">Om oss</a>
-<a href="#" onclick="loadContent('whatwedo.html'); return false;">Vad vi gör</a>
-<a href="#" onclick="loadContent('kontakt.html'); return false;">Kontakta oss</a>
+        <<a href="#" onclick="loadContent('about.html'); return false;">Om oss</a>
+        <a href="#" onclick="loadContent('whatwedo.html'); return false;">Vad vi gör</a>
+        <a href="#" onclick="loadContent('kontakt.html'); return false;">Kontakta oss</a>
+        
       </nav>
     </div>
   </header>
@@ -85,21 +86,12 @@
   <!-- Loader -->
   <script>
     function loadContent(file) {
-      let url = file;
-      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
-        url = file.replace('./pages/', './pages/').replace('.html', '');
-      }
-      console.log('Fetching:', url);
-    
-      fetch(url)
-        .then(res => {
-          console.log('Fetch Response:', res);
-          return res.text();
-        })
+      fetch('/' + file)
+        .then(res => res.text())
         .then(html => document.getElementById('content').innerHTML = html)
         .catch(err => {
-          console.error('Fetch Error:', err);
           document.getElementById('content').innerHTML = '<p class="text-red-400 text-center">Kunde inte ladda innehållet.</p>';
+          console.error(err);
         });
     }
   </script>
