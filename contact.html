@@ -1,65 +1,71 @@
 <section class="py-16 px-6 max-w-6xl mx-auto">
-  <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+  <div class="flex flex-col md:flex-row items-center gap-12">
 
     <!-- Illustration -->
-    <div class="w-full md:w-1/2 flex justify-center">
+    <div class="w-full md:w-1/2 flex justify-center self-center">
       <img
         src="images/contactillustration.png"
         alt="Kontakt illustration"
-        class="max-w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
+        class="w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
       />
     </div>
 
-    <<!-- Formulär -->
-<div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+    <!-- Formulär -->
+    <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
+      <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
+        Ska vi bygga nåt kul tillsammans? <br />Hojta till!
+      </h1>
 
-  <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
-    Ska vi göra nåt kul tillsammans? <br />Hojta till!
-  </h1>
+      
 
-  <div class="text-white/80 text-lg leading-relaxed space-y-6 mb-8">
-    <p class="text-white/60 italic">
-      <strong>appyChap</strong> gör tekniken till en tillgång – inte en börda.
-    </p>
-  </div>
+      <!-- Formulär-wrapper -->
+      <div id="contactFormWrapper">
+        <form id="contactForm" class="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Ditt namn"
+            required
+            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
 
-  <!-- Behåll wrappern, men bara göm FORMEN -->
-  <div id="contactFormWrapper">
-    <form id="contactForm" class="space-y-4">
-      <input
-        type="text"
-        name="name"
-        placeholder="Ditt namn"
-        required
-        class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-      />
+          <input
+            type="email"
+            name="email"
+            placeholder="Din e-post"
+            required
+            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Din e-post"
-        required
-        class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-      />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Ditt telefonnummer"
+            required
+            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
 
-      <textarea
-        name="message"
-        placeholder="Skriv ditt meddelande här..."
-        required
-        class="w-full px-4 py-3 h-40 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
-      ></textarea>
+          <textarea
+            name="message"
+            placeholder="Skriv ditt meddelande här..."
+            required
+            class="w-full px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          ></textarea>
 
-      <button
-        type="submit"
-        class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition"
-      >
-        Skicka meddelande
-      </button>
-    </form>
-  </div>
+          <button
+            type="submit"
+            class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition"
+          >
+            Skicka meddelande
+          </button>
+        </form>
+      </div>
 
-  <!-- Tackmeddelande -->
-  <div id="successMessage" class="hidden text-green-400 text-xl mt-6">
-    ✅ Tack för ditt meddelande! Vi hörs snart. 🐶
-  </div>
+      <!-- Tackmeddelande -->
+<div id="successMessage" class="hidden text-green-400 text-xl mt-6 space-y-2">
+  <p>Tack för ditt meddelande! Vi hör av oss så snart vi kan.</p>
+  <p class="text-white/60 italic">appyChap gör tekniken till en tillgång – inte en börda.</p>
 </div>
+
+  </div>
+</section>

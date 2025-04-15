@@ -1,32 +1,36 @@
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const sendMail = require('./sendMail');
+
+dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-// Serve static files from the root directory
-app.use(express.static(path.join(__dirname, '.')));
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-// Serve static files from the 'pages' directory for /pages routes
-app.use('/pages', express.static(path.join(__dirname, 'pages')));
+app.post('/contact', async (req, res) => {
+  const { name, email, phone, message } = req.body;
 
-// Handle requests for /about, /whatwedo, /kontakt by serving the corresponding HTML files
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pages', 'about.html'));
+  if (!name || !email || !phone || !message) {
+    return res.status(400).json({ error: 'Alla fält måste vara ifyllda.' });
+  }
+
+  try {
+    await sendMail(name, email, phone, message);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.error('❌ Fel vid e-post:', err);
+    res
+      .status(500)
+      .json({ error: 'Något gick snett när meddelandet skulle skickas.' });
+  }
 });
 
-app.get('/whatwedo', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pages', 'whatwedo.html'));
-});
-
-app.get('/kontakt', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pages', 'kontakt.html'));
-});
-
-// Fallback for any other routes - serve index.html (for client-side routing if needed later)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Starta servern
+app.listen(port, () => {
+  console.log(`🚀 Servern körs på http://localhost:${port}`);
 });
