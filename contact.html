@@ -1,6 +1,5 @@
 <section class="py-16 px-6 max-w-6xl mx-auto">
   <div class="flex flex-col md:flex-row items-center gap-12">
-
     <!-- Illustration -->
     <div class="w-full md:w-1/2 flex justify-center self-center">
       <img
@@ -16,17 +15,18 @@
         Ska vi bygga nåt kul tillsammans? <br />Hojta till!
       </h1>
 
-      
-
       <!-- Formulär-wrapper -->
       <div id="contactFormWrapper">
         <form id="contactForm" class="space-y-4">
+          <!-- Honeypot-fält -->
+          <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
           <input
             type="text"
             name="name"
             placeholder="Ditt namn"
             required
-            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
           />
 
           <input
@@ -34,27 +34,28 @@
             name="email"
             placeholder="Din e-post"
             required
-            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
           />
 
           <input
             type="tel"
             name="phone"
             placeholder="Ditt telefonnummer"
-            required
-            class="w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            pattern="[0-9]*"
+            inputmode="numeric"
+            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
           />
 
           <textarea
             name="message"
             placeholder="Skriv ditt meddelande här..."
             required
-            class="w-full px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            class="max-w-md w-full px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
           ></textarea>
 
           <button
             type="submit"
-            class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition"
+            class="bg-yellow-400 text-black font-semibold px-4 py-1.5 rounded-md hover:bg-yellow-500 transition mx-auto block"
           >
             Skicka meddelande
           </button>
@@ -62,10 +63,10 @@
       </div>
 
       <!-- Tackmeddelande -->
-<div id="successMessage" class="hidden text-green-400 text-xl mt-6 space-y-2">
-  <p>Tack för ditt meddelande! Vi hör av oss så snart vi kan.</p>
-  <p class="text-white/60 italic">appyChap gör tekniken till en tillgång – inte en börda.</p>
-</div>
-
+      <div id="successMessage" class="hidden text-green-400 text-xl mt-6 space-y-2">
+        <p>Tack för ditt meddelande! Vi hör av oss så snart vi kan.</p>
+        <p class="text-white/60 italic">appyChap gör tekniken till en tillgång – inte en börda.</p>
+      </div>
+    </div>
   </div>
 </section>
