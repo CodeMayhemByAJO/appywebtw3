@@ -1,3 +1,4 @@
+<!-- contact.html -->
 <section class="py-16 px-6 max-w-6xl mx-auto">
   <div class="flex flex-col md:flex-row items-center gap-12">
     <!-- Illustration -->
@@ -15,18 +16,14 @@
         Ska vi bygga nåt kul tillsammans? <br />Hojta till!
       </h1>
 
-      <!-- Formulär-wrapper -->
       <div id="contactFormWrapper">
         <form id="contactForm" class="space-y-4">
-          <!-- Honeypot-fält -->
-          <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
           <input
             type="text"
             name="name"
             placeholder="Ditt namn"
             required
-            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
+            class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
 
           <input
@@ -34,7 +31,7 @@
             name="email"
             placeholder="Din e-post"
             required
-            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
+            class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
 
           <input
@@ -43,26 +40,25 @@
             placeholder="Ditt telefonnummer"
             pattern="[0-9]*"
             inputmode="numeric"
-            class="max-w-md w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
+            class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
 
           <textarea
             name="message"
             placeholder="Skriv ditt meddelande här..."
             required
-            class="max-w-md w-full px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-auto block"
+            class="w-[90%] max-w-md px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
           ></textarea>
 
           <button
             type="submit"
-            class="bg-yellow-400 text-black font-semibold px-4 py-1.5 rounded-md hover:bg-yellow-500 transition mx-auto block"
+            class="bg-yellow-400 text-black font-semibold px-4 py-1.5 rounded-md hover:bg-yellow-500 transition"
           >
             Skicka meddelande
           </button>
         </form>
       </div>
 
-      <!-- Tackmeddelande -->
       <div id="successMessage" class="hidden text-green-400 text-xl mt-6 space-y-2">
         <p>Tack för ditt meddelande! Vi hör av oss så snart vi kan.</p>
         <p class="text-white/60 italic">appyChap gör tekniken till en tillgång – inte en börda.</p>
@@ -70,3 +66,47 @@
     </div>
   </div>
 </section>
+
+<!-- script i index.html -->
+<script>
+  function initContactForm() {
+    const form = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Validering: endast siffror i telefon om det finns
+      if (data.phone && !/^\d+$/.test(data.phone)) {
+        alert("Telefonnummer får endast innehålla siffror.");
+        return;
+      }
+
+      try {
+        const res = await fetch("https://appybackend-production.up.railway.app/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          form.classList.add("hidden");
+          successMessage.classList.remove("hidden");
+          successMessage.classList.add("opacity-100");
+          setTimeout(() => showHome(), 4000);
+        } else {
+          const text = await res.text();
+          alert("Det gick inte att skicka meddelandet:\n" + text);
+          console.error("Serverfel:", text);
+        }
+      } catch (err) {
+        alert("Ett nätverksfel inträffade.");
+        console.error("Fetch error:", err);
+      }
+    });
+  }
+</script>
