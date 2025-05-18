@@ -12,7 +12,7 @@
 
     <!-- Formulär -->
     <div class="w-full md:w-1/2 text-center md:text-left opacity-0 animate-fade delay-300">
-      <h1 class="text-4xl font-semibold mb-6 text-yellow-400">
+      <h1 id="contactHeading" class="text-4xl font-semibold mb-6 text-yellow-400">
         Ska vi bygga nåt kul tillsammans? <br />Hojta till!
       </h1>
 
@@ -21,7 +21,7 @@
           <input
             type="text"
             name="name"
-            placeholder="Ditt namn"
+            placeholder="Namn"
             required
             class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
@@ -29,7 +29,7 @@
           <input
             type="email"
             name="email"
-            placeholder="Din e-post"
+            placeholder="E-post"
             required
             class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
@@ -37,7 +37,7 @@
           <input
             type="tel"
             name="phone"
-            placeholder="Ditt telefonnummer"
+            placeholder="Telefonnummer"
             pattern="[0-9]*"
             inputmode="numeric"
             class="w-[90%] max-w-md px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -47,7 +47,7 @@
             name="message"
             placeholder="Skriv ditt meddelande här..."
             required
-            class="w-[90%] max-w-md px-4 py-3 h-24 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            class="w-[90%] max-w-md px-4 py-3 h-20 bg-black border border-white/20 rounded-md placeholder-white/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
           ></textarea>
 
           <button
@@ -59,18 +59,24 @@
         </form>
       </div>
 
-      <div id="successMessage" class="hidden text-green-400 text-xl mt-6 space-y-2">
-        <p>Tack för ditt meddelande! Vi hör av oss så snart vi kan.</p>
-        <p class="text-white/60 italic">appyChap gör tekniken till en tillgång – inte en börda.</p>
+      <div id="successMessage" class="hidden mt-6 space-y-4 opacity-0 animate-fade delay-300">
+        <h1 class="text-4xl font-semibold text-yellow-400">
+          Tack för ditt meddelande!
+        </h1>
+        <p class="text-white/80 text-lg leading-relaxed">
+          Får du inte svar direkt så är vi ute i skogen eller på flugfiskeäventyr.
+          Håll ut – vi hörs snart!
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- script i index.html -->
+<!-- script index.html -->
 <script>
   function initContactForm() {
     const form = document.getElementById("contactForm");
+    const heading = document.getElementById("contactHeading");
     const successMessage = document.getElementById("successMessage");
 
     if (!form) return;
@@ -80,7 +86,6 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      // Validering: endast siffror i telefon om det finns
       if (data.phone && !/^\d+$/.test(data.phone)) {
         alert("Telefonnummer får endast innehålla siffror.");
         return;
@@ -95,9 +100,10 @@
 
         if (res.ok) {
           form.classList.add("hidden");
+          heading.classList.add("hidden");
           successMessage.classList.remove("hidden");
           successMessage.classList.add("opacity-100");
-          setTimeout(() => showHome(), 4000);
+          setTimeout(() => showHome(), 10000);
         } else {
           const text = await res.text();
           alert("Det gick inte att skicka meddelandet:\n" + text);

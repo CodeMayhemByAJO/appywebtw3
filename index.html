@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="sv" class="bg-black text-white">
+<html lang="sv" class="bg-black text-white overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>appyChap</title>
+    <title>appyChap Norrländsk tech - utan krångel!</title>
   
     <link rel="icon" href="images/appychapicon.png" type="image/png" />
     <link href="./dist/output.css" rel="stylesheet" />
@@ -22,7 +22,7 @@
     </script>
   </head>
 
-<body class="flex flex-col min-h-screen font-poppins bg-black text-white overflow-x-hidden">
+  <html lang="sv" class="bg-black text-white overflow-x-hidden overflow-y-auto">
 
   <!-- Header -->
   <header class="py-8 sticky top-0 z-50 bg-black">
@@ -32,15 +32,15 @@
       </a>
       <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg">
         <a href="#" onclick="loadContent('about.html'); return false;" class="text-white hover:text-yellow-400 transition">Om oss</a>
-        <a href="#" onclick="loadContent('whatwedo.html'); return false;" class="text-white hover:text-orange-400 transition">Vad vi gör</a>
-        <a href="#" onclick="loadContent('contact.html'); return false;" class="text-white hover:text-blue-400 transition">Kontakta oss</a>
+        <a href="#" onclick="loadContent('whatwedo.html'); return false;" class="text-white hover:text-blue-400 transition">Vad vi gör</a>
+        <a href="#" onclick="loadContent('contact.html'); return false;" class="text-white hover:text-orange-400 transition">Kontakta oss</a>
       </nav>
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- Main  -->
   <main id="content" class="flex-grow bg-black text-center overflow-hidden">
-    <!-- Innehåll laddas dynamiskt här -->
+    <!-- Innehåll här -->
   </main>
 
   <!-- Footer -->
@@ -70,7 +70,7 @@
         </a>
       
         <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/company/nopenotyet" target="_blank" aria-label="LinkedIn" class="text-white/80 hover:text-blue-400 transition">
+        <a href="https://www.linkedin.com/company/appychap" target="_blank" aria-label="LinkedIn" class="text-white/80 hover:text-blue-400 transition">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-8 w-8" viewBox="0 0 24 24">
             <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 
               1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 
@@ -91,6 +91,7 @@
         .then(res => res.text())
         .then(html => {
           document.getElementById('content').innerHTML = html;
+          window.scrollTo(0, 0);
           if (file === 'contact.html') initContactForm();
         })
         .catch(err => {
@@ -100,50 +101,55 @@
     }
 
     function showHome() {
+      document.documentElement.style.overflowY = 'hidden';
+    
       document.getElementById('content').innerHTML = `
         <section class="py-16 px-4 sm:px-6 mx-auto max-w-screen-lg animate-fade overflow-hidden">
           <img src="images/nyfirstillustration.PNG"
                alt="Illustration"
                class="w-full max-w-3xl h-auto rounded-lg shadow-lg mx-auto mb-6" />
-          <p class="text-white/60 italic text-lg mt-4">
+          <p class="text-yellow-400 italic text-lg mt-4">
             appyChap gör tekniken till en tillgång – inte en börda
           </p>
         </section>
       `;
+    
+      // Tillåt scroll igen efter fade-animationen
+      setTimeout(() => {
+        document.documentElement.style.overflowY = 'auto';
+      }, 300); // 300ms matchar animate-fade
     }
 
     function initContactForm() {
       const form = document.getElementById("contactForm");
+      const heading = document.getElementById("contactHeading");
       const successMessage = document.getElementById("successMessage");
-
-      if (!form) {
-        console.warn("Formuläret hittades inte");
-        return;
-      }
-
+    
+      if (!form || !heading || !successMessage) return;
+    
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
-
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-
+    
         if (data.phone && !/^\d+$/.test(data.phone)) {
           alert("Telefonnummer får endast innehålla siffror.");
           return;
         }
-
+    
         try {
           const res = await fetch("https://appybackend-production.up.railway.app/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-
+    
           if (res.ok) {
             form.classList.add("hidden");
+            heading.classList.add("hidden");
             successMessage.classList.remove("hidden");
             successMessage.classList.add("opacity-100");
-            setTimeout(() => showHome(), 4000);
+            setTimeout(() => showHome(), 5000);
           } else {
             const text = await res.text();
             alert("Det gick inte att skicka meddelandet:\n" + text);
