@@ -1065,6 +1065,14 @@ video {
   transition-delay: 300ms;
 }
 
+.delay-500 {
+  transition-delay: 500ms;
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
 .hover\:bg-yellow-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));

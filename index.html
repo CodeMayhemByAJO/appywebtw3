@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Norrländsk tech - utan krångel!</title>
 
-    <link rel="icon" href="images/appychapicon.png" type="image/png" />
+    <link rel="icon" href="images/appychapicon.webp" type="image/png" />
     <link href="./dist/output.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
@@ -17,15 +17,25 @@
         overflow-x: hidden;
         scroll-behavior: smooth;
       }
+
+      @keyframes fade {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animate-fade {
+        animation: fade 1s ease-out forwards;
+      }
     </style>
   </head>
 
   <body class="flex flex-col min-h-screen font-poppins bg-black text-white">
     <!-- Header -->
-    <header class="py-8 sticky top-0 z-50 bg-black">
+    <header class="py-8 sticky top-0 z-50 bg-black opacity-0 animate-fade">
       <div class="max-w-screen-xl mx-auto flex flex-col items-center text-center px-4">
         <a role="button" onclick="showHome()" class="block cursor-pointer">
-          <img src="images/appychapplogga.png" alt="appyChap logotyp" class="h-20 sm:h-24 w-auto mb-6" />
+          <img src="images/appychapplogga.webp" alt="appyChap logotyp" class="h-20 sm:h-24 w-auto mb-6" />
         </a>
         <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg">
           <a role="button" onclick="loadContent('about.html'); return false;" class="hover:text-yellow-400 transition">Om oss</a>
@@ -37,10 +47,10 @@
     </header>
 
     <!-- Main -->
-    <main id="content" class="flex-grow bg-black text-center"></main>
+    <main id="content" class="flex-grow bg-black text-center px-4 py-8 opacity-0 animate-fade"></main>
 
     <!-- Footer -->
-    <footer class="bg-black py-4 text-sm text-white relative w-full">
+    <footer class="bg-black py-4 text-sm text-white relative w-full opacity-0 animate-fade delay-500">
       <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
         <div class="col-span-2 flex justify-center gap-6">
           <!-- Facebook -->
@@ -79,21 +89,17 @@
 
     <script>
       function scrollToTop() {
-        const content = document.getElementById('content');
-        if (content) content.scrollTop = 0;
-      
-        // fallback för browsers där body/html scroll används
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       }
 
       function showHome() {
         const content = document.getElementById('content');
-        content.className = 'flex-grow bg-black text-center px-4 py-8 overflow-hidden';
+        content.className = 'flex-grow bg-black text-center px-4 py-8 opacity-0 animate-fade';
       
         content.innerHTML = `
           <section class="w-full max-w-screen-lg mx-auto flex flex-col items-center justify-center opacity-0 animate-fade">
-            <img src="images/appystart.png"
+            <img src="images/appystart.webp"
                  alt="Illustration"
                  class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
             <p class="text-yellow-400 italic text-base mt-1 leading-tight">
@@ -113,8 +119,8 @@
           })
           .then(html => {
             const content = document.getElementById('content');
-            content.innerHTML = html;
-            content.className = 'flex-grow bg-black text-center px-4 py-8 overflow-auto';
+            content.innerHTML = `<div class="opacity-0 animate-fade">${html}</div>`;
+            content.className = 'flex-grow bg-black text-center px-4 py-8';
             requestAnimationFrame(scrollToTop);
 
             if (document.getElementById('contactForm')) {
