@@ -7,7 +7,7 @@
     "build:css:prod": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "start": "node server.js",
     "start:prod": "npx serve -s ./dist -l $PORT",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "tailwindcss -i ./input.css -o ./dist/output.css --watch"
   },
   "keywords": [],
   "author": "",
