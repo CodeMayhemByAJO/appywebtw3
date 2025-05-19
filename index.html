@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="sv" class="bg-black text-white overflow-x-hidden scroll-smooth">
   <head>
-
-<!-- Open Graph -->
-<meta property="og:title" content="Norrländsk tech – utan krångel!" />
-<meta property="og:description" content="appyChap hjälper småföretag med hemsidor, appar och digitala lösningar – utan krångel!" />
-<meta property="og:image" content="https://appychap.se/images/preview.png" />
-<meta property="og:url" content="https://appychap.se/" />
-<meta property="og:type" content="website" />
-
+    <!-- Open Graph -->
+    <meta property="og:title" content="Din kompis på digitaliseringsresan!" />
+    <meta property="og:description" content="appyChap hjälper småföretag med hemsidor, appar och digitala lösningar – utan krångel!" />
+    <meta property="og:image" content="https://appychap.se/images/preview.png" />
+    <meta property="og:url" content="https://appychap.se/" />
+    <meta property="og:type" content="website" />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Norrländsk tech - utan krångel!</title>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-
     <link href="./dist/output.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
-
     <style>
       html, body {
         height: 100%;
@@ -26,17 +22,14 @@
         overflow-x: hidden;
         scroll-behavior: smooth;
       }
-
       @keyframes fade {
         to {
           opacity: 1;
         }
       }
-
       .animate-fade {
         animation: fade 1s ease-out forwards;
       }
-
       header::after {
         content: "";
         position: absolute;
@@ -50,7 +43,7 @@
     </style>
   </head>
   <body class="flex flex-col min-h-screen font-poppins bg-black text-white">
-    <header class="py-6 sticky top-0 z-50 bg-black opacity-0 animate-fade relative">
+    <header class="py-6 sticky top-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 animate-fade relative">
       <div class="max-w-screen-xl mx-auto flex flex-col items-center text-center px-4">
         <a role="button" onclick="showHome()" class="block cursor-pointer">
           <img src="images/appychapplogga.webp" alt="appyChap logotyp" class="h-20 sm:h-24 w-auto mb-4" />
@@ -64,14 +57,10 @@
       </div>
     </header>
 
-    <main id="content" class="flex-grow bg-black text-center px-4 py-4 opacity-0 animate-fade">
+    <main id="content" class="flex-grow bg-black text-center px-4 pt-2 pb-8 opacity-0 animate-fade">
       <section class="w-full max-w-screen-lg mx-auto flex flex-col items-center justify-center opacity-0 animate-fade">
-        <img src="images/appystart.webp"
-             alt="Illustration"
-             class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
-        <p class="text-yellow-400 italic text-base mt-1 leading-tight">
-          appyChap gör tekniken till en tillgång – inte en börda
-        </p>
+        <img src="images/appystart.webp" alt="Illustration" class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
+        <p class="text-yellow-400 italic text-base mt-1 leading-tight">appyChap gör tekniken till en tillgång – inte en börda</p>
       </section>
     </main>
 
@@ -106,7 +95,7 @@
 
       function showHome() {
         const content = document.getElementById('content');
-        content.className = 'flex-grow bg-black text-center px-4 py-4 opacity-0 animate-fade';
+        content.className = 'flex-grow bg-black text-center px-4 pt-2 pb-8 opacity-0 animate-fade';
         content.innerHTML = `
           <section class="w-full max-w-screen-lg mx-auto flex flex-col items-center justify-center opacity-0 animate-fade">
             <img src="images/appystart.webp" alt="Illustration" class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
@@ -124,7 +113,7 @@
           .then(html => {
             const content = document.getElementById('content');
             content.innerHTML = `<div class="opacity-0 animate-fade">${html}</div>`;
-            content.className = 'flex-grow bg-black text-center px-4 py-4';
+            content.className = 'flex-grow bg-black text-center px-4 pt-2 pb-8';
             requestAnimationFrame(scrollToTop);
             if (document.getElementById('contactForm')) {
               setTimeout(initContactForm, 0);
@@ -141,7 +130,6 @@
         const form = document.getElementById("contactForm");
         const heading = document.getElementById("contactHeading");
         const successMessage = document.getElementById("successMessage");
-
         if (!form || !heading || !successMessage) return;
 
         form.addEventListener("submit", async function (e) {
