@@ -57,12 +57,7 @@
       </div>
     </header>
 
-    <main id="content" class="flex-grow bg-black text-center px-4 pt-4 pb-8 opacity-0 animate-fade">
-      <section class="w-full max-w-screen-lg mx-auto flex flex-col items-center justify-center opacity-0 animate-fade">
-        <img src="images/appystart.webp" alt="Illustration" class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
-        <p class="text-yellow-400 italic text-base mt-1 leading-tight">appyChap gör tekniken till en tillgång – inte en börda</p>
-      </section>
-    </main>
+    <main id="content" class="w-full text-center px-4 pt-4 pb-8"></main>
 
     <footer class="bg-black py-4 text-sm text-white relative w-full opacity-0 animate-fade delay-500">
       <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
@@ -95,12 +90,12 @@
 
       function showHome() {
         const content = document.getElementById('content');
-        content.className = 'w-full text-center px-4 pt-4 pb-8 opacity-0 animate-fade';
         content.innerHTML = `
           <section class="w-full max-w-screen-lg mx-auto flex flex-col items-center justify-center opacity-0 animate-fade">
             <img src="images/appystart.webp" alt="Illustration" class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
             <p class="text-yellow-400 italic text-base mt-1 leading-tight">appyChap gör tekniken till en tillgång – inte en börda</p>
           </section>`;
+        content.className = 'w-full text-center px-4 pt-4 pb-8 opacity-0 animate-fade';
         scrollToTop();
       }
 
