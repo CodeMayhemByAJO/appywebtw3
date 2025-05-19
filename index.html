@@ -38,7 +38,7 @@
   </head>
   <body class="bg-black text-white font-poppins min-h-screen flex flex-col">
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-md py-6 opacity-0 animate-fade relative">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md py-6 opacity-0 animate-fade">
       <div class="max-w-screen-xl mx-auto flex flex-col items-center text-center px-4">
         <a role="button" onclick="showHome()" class="block cursor-pointer">
           <img src="images/appychapplogga.webp" alt="appyChap logotyp" class="h-20 sm:h-24 w-auto mb-4" />
@@ -53,7 +53,7 @@
     </header>
 
     <!-- Main content -->
-    <main id="content" class="flex-grow w-full text-center px-4 pt-4 pb-8"></main>
+    <main id="content" class="flex-grow w-full text-center flex items-center justify-center px-4 pt-28 pb-8"></main>
 
     <!-- Footer -->
     <footer class="bg-black py-4 text-sm text-white w-full opacity-0 animate-fade delay-500">
@@ -92,7 +92,7 @@
             <img src="images/appystart.webp" alt="Illustration" class="w-full max-w-3xl h-auto rounded-lg shadow mb-1 lg:max-h-[60vh]" />
             <p class="text-yellow-400 italic text-base mt-1 leading-tight">appyChap gör tekniken till en tillgång – inte en börda</p>
           </section>`;
-        content.className = 'flex-grow w-full text-center px-4 pt-4 pb-8 opacity-0 animate-fade';
+        content.className = 'flex-grow w-full text-center flex items-center justify-center px-4 pt-28 pb-8 opacity-0 animate-fade';
         scrollToTop();
       }
 
@@ -105,7 +105,7 @@
           .then(html => {
             const content = document.getElementById('content');
             content.innerHTML = `<div class="opacity-0 animate-fade">${html}</div>`;
-            content.className = 'flex-grow w-full text-center px-4 pt-4 pb-8';
+            content.className = 'flex-grow w-full text-center px-4 pt-28 pb-8 flex items-start justify-center';
             requestAnimationFrame(scrollToTop);
             if (document.getElementById('contactForm')) {
               setTimeout(initContactForm, 0);
@@ -162,4 +162,4 @@
       window.addEventListener('DOMContentLoaded', showHome);
     </script>
   </body>
-</html><
+</html>
