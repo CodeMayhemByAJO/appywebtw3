@@ -16,70 +16,27 @@
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link href="./dist/output.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  <style>
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .animate-fade {
-      opacity: 0;
-      animation: fade 1.2s ease-out forwards;
-    }
-    .hamburger {
-      transition: transform 0.3s;
-    }
-    .hamburger.open {
-      transform: rotate(90deg);
-    }
-    #main-nav.mobile-open {
-      display: flex !important;
-      flex-direction: column !important;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100px;
-      background: #000;
-      z-index: 99;
-      padding-bottom: 2rem;
-      box-shadow: 0 6px 12px #000a;
-    }
-    @media (max-width: 640px) {
-      .appy-logo {
-        height: 5.5rem !important;
-        margin-bottom: 0.5rem !important;
-      }
-      .footer-socials {
-        gap: 2.5rem !important;
-      }
-    }
-  </style>
+  
 </head>
 <body class="bg-black text-white font-poppins min-h-screen flex flex-col">
 
-  <!-- HEADER -->
   <header class="sticky top-0 z-50 opacity-0 animate-fade w-full flex flex-col items-center justify-center pt-4 pb-2 bg-black transition-opacity duration-700 relative">
     <a role="button" onclick="showHome(); setActiveNav(); closeMenu(); return false;" class="block cursor-pointer">
       <img src="images/appychapplogga.webp" alt="appyChap logotyp" class="appy-logo h-20 sm:h-24 w-auto mb-2 mx-auto" />
     </a>
-    <!-- Hamburger icon mobil -->
     <button id="menu-btn" class="md:hidden mt-2 mb-2 text-4xl focus:outline-none hamburger" aria-label="Öppna meny" onclick="toggleMenu()">
       &#9776;
     </button>
-    <!-- navigering -->
     <nav id="main-nav" class="relative hidden md:flex flex-row md:items-center md:space-x-8 md:mt-10 md:text-lg transition-all w-full md:w-auto text-xl md:text-lg mt-2">
       <a id="nav-about" onclick="setActiveNav('about'); loadContent('about.html'); closeMenu(); return false;" class="hover:text-yellow-400 transition block text-center py-2 md:py-0">Vem är appyChap?</a>
       <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center py-2 md:py-0">Vad kan jag hjälpa till med?</a>
       <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center py-2 md:py-0">Tidigare projekt</a>
       <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center py-2 md:py-0">Hör av dig!</a>
-      <!-- Ggradient för mobilburgare -->
-      <div id="nav-gradient" class="pointer-events-none absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black hidden md:hidden"></div>
-    </nav>
+      </nav>
   </header>
 
-  <!-- MAIN -->
   <main id="content" class="flex-grow flex flex-col items-center justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
 
-  <!-- FOOTER -->
   <footer class="opacity-0 animate-fade bg-black py-4 text-sm text-white w-full mt-8 transition-opacity duration-700">
     <div class="flex flex-col items-center">
       <div class="footer-socials flex justify-center gap-6 mt-2">
@@ -111,7 +68,7 @@
       showHome();
       setActiveNav();
       fixMenu();
-      updateNavGradient();
+      // updateNavGradient(); // Borttagen
     });
 
     function showHome() {
@@ -119,10 +76,10 @@
       content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4 animate-fade';
       content.innerHTML = `
         <section class="flex flex-col items-center justify-center w-full h-full">
-          <img 
-            src="images/appystart.webp" 
-            alt="Illustration" 
-            class="w-full max-w-3xl h-auto rounded-lg shadow mb-2 sm:max-h-[60vh]" 
+          <img
+            src="images/appystart.webp"
+            alt="Illustration"
+            class="w-full max-w-3xl h-auto rounded-lg shadow mb-2 sm:max-h-[60vh]"
           />
           <p class="text-yellow-400 italic text-base leading-tight mt-2">
             appyChap gör tekniken till en tillgång – inte en börda
@@ -131,7 +88,7 @@
       `;
       setTimeout(() => {
         content.classList.remove('animate-fade');
-        void content.offsetWidth;
+        void content.offsetWidth; // Trigger reflow
         content.classList.add('animate-fade');
         window.scrollTo({top: 0, left: 0, behavior: 'instant'});
       }, 0);
@@ -147,7 +104,7 @@
           content.innerHTML = `<div class="animate-fade">${html}</div>`;
           setTimeout(() => {
             content.classList.remove('animate-fade');
-            void content.offsetWidth;
+            void content.offsetWidth; // Trigger reflow
             content.classList.add('animate-fade');
             window.scrollTo({top: 0, left: 0, behavior: 'instant'});
           }, 0);
@@ -173,24 +130,39 @@
       switch(key) {
         case 'about':
           var link = document.getElementById('nav-about');
-          link.classList.add('active', 'text-yellow-400');
-          link.style.opacity = "1";
+          if (link) {
+            link.classList.add('active', 'text-yellow-400');
+            link.style.opacity = "1";
+          }
           break;
         case 'whatwedo':
           var link = document.getElementById('nav-whatwedo');
-          link.classList.add('active', 'text-blue-400');
-          link.style.opacity = "1";
+          if (link) {
+            link.classList.add('active', 'text-blue-400');
+            link.style.opacity = "1";
+          }
           break;
         case 'whatwevedone':
           var link = document.getElementById('nav-whatwevedone');
-          link.classList.add('active', 'text-[#38776e]');
-          link.style.opacity = "1";
+          if (link) {
+            link.classList.add('active', 'text-[#38776e]');
+            link.style.opacity = "1";
+          }
           break;
         case 'contact':
           var link = document.getElementById('nav-contact');
-          link.classList.add('active', 'text-orange-400');
-          link.style.opacity = "1";
+          if (link) {
+            link.classList.add('active', 'text-orange-400');
+            link.style.opacity = "1";
+          }
           break;
+        default:
+            const homeLink = document.querySelector('a[onclick*="showHome"]');
+            if (homeLink) {
+                homeLink.classList.add('active');
+                homeLink.style.opacity = "1";
+            }
+            break;
       }
     }
 
@@ -200,7 +172,7 @@
       nav.classList.toggle('mobile-open');
       nav.classList.toggle('hidden');
       btn.classList.toggle('open');
-      updateNavGradient();
+      // updateNavGradient(); // Borttagen
     }
     function closeMenu() {
       const nav = document.getElementById('main-nav');
@@ -208,7 +180,7 @@
       nav.classList.remove('mobile-open');
       nav.classList.add('hidden');
       btn.classList.remove('open');
-      updateNavGradient();
+      // updateNavGradient(); // Borttagen
     }
     function fixMenu() {
       window.addEventListener('resize', () => {
@@ -219,11 +191,13 @@
           nav.classList.remove('mobile-open');
           btn.classList.remove('open');
         } else {
-          nav.classList.add('hidden');
+          if (!nav.classList.contains('mobile-open')) {
+            nav.classList.add('hidden');
+          }
           nav.classList.remove('mobile-open');
           btn.classList.remove('open');
         }
-        updateNavGradient();
+        // updateNavGradient(); // Borttagen
       });
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
@@ -232,21 +206,16 @@
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
       } else {
-        nav.classList.add('hidden');
+        if (!nav.classList.contains('mobile-open')) {
+            nav.classList.add('hidden');
+        }
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
       }
-      updateNavGradient();
+      // updateNavGradient(); // Borttagen
     }
-    function updateNavGradient() {
-      const nav = document.getElementById('main-nav');
-      const gradient = document.getElementById('nav-gradient');
-      if (window.innerWidth < 768 && nav.classList.contains('mobile-open')) {
-        gradient.classList.remove('hidden');
-      } else {
-        gradient.classList.add('hidden');
-      }
-    }
+    // updateNavGradient-funktionen är borttagen helt.
+
 
     function initContactForm() {
       const form = document.getElementById("contactForm");
@@ -280,7 +249,7 @@
               successMessage.classList.remove("hidden");
               successMessage.classList.add("opacity-100");
             }
-            setTimeout(() => showHome(), 5000); 
+            setTimeout(() => showHome(), 5000);
           } else {
             const text = await res.text();
             alert("Det gick inte att skicka meddelandet:\n" + text);
