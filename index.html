@@ -71,15 +71,15 @@
       <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center py-2 md:py-0">Vad kan jag hjälpa till med?</a>
       <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center py-2 md:py-0">Tidigare projekt</a>
       <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center py-2 md:py-0">Hör av dig!</a>
-      <!-- Gradienten, visas ENBART på mobil när meny är öppen -->
-      <div id="nav-gradient" class="pointer-events-none absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black hidden"></div>
+      <!-- Ggradient för mobilburgare -->
+      <div id="nav-gradient" class="pointer-events-none absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black hidden md:hidden"></div>
     </nav>
   </header>
 
-  <!-- main -->
+  <!-- MAIN -->
   <main id="content" class="flex-grow flex flex-col items-center justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
 
-  <!-- footer -->
+  <!-- FOOTER -->
   <footer class="opacity-0 animate-fade bg-black py-4 text-sm text-white w-full mt-8 transition-opacity duration-700">
     <div class="flex flex-col items-center">
       <div class="footer-socials flex justify-center gap-6 mt-2">
@@ -111,6 +111,7 @@
       showHome();
       setActiveNav();
       fixMenu();
+      updateNavGradient();
     });
 
     function showHome() {
@@ -196,43 +197,53 @@
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
-      const gradient = document.getElementById('nav-gradient');
       nav.classList.toggle('mobile-open');
       nav.classList.toggle('hidden');
       btn.classList.toggle('open');
-
-      // Visa endast gradient på mobil när menyn är öppen
-      if (window.innerWidth < 768 && nav.classList.contains('mobile-open')) {
-        gradient.classList.remove('hidden');
-      } else {
-        gradient.classList.add('hidden');
-      }
+      updateNavGradient();
     }
-
     function closeMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
-      const gradient = document.getElementById('nav-gradient');
-      if (window.innerWidth < 768) {
-        nav.classList.remove('mobile-open');
-        nav.classList.add('hidden');
-        btn.classList.remove('open');
-        gradient.classList.add('hidden');
-      }
+      nav.classList.remove('mobile-open');
+      nav.classList.add('hidden');
+      btn.classList.remove('open');
+      updateNavGradient();
     }
-
     function fixMenu() {
+      window.addEventListener('resize', () => {
+        const nav = document.getElementById('main-nav');
+        const btn = document.getElementById('menu-btn');
+        if (window.innerWidth >= 768) {
+          nav.classList.remove('hidden');
+          nav.classList.remove('mobile-open');
+          btn.classList.remove('open');
+        } else {
+          nav.classList.add('hidden');
+          nav.classList.remove('mobile-open');
+          btn.classList.remove('open');
+        }
+        updateNavGradient();
+      });
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
-      const gradient = document.getElementById('nav-gradient');
       if (window.innerWidth >= 768) {
-        nav.classList.remove('hidden', 'mobile-open');
+        nav.classList.remove('hidden');
+        nav.classList.remove('mobile-open');
         btn.classList.remove('open');
-        gradient.classList.add('hidden');
       } else {
         nav.classList.add('hidden');
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
+      }
+      updateNavGradient();
+    }
+    function updateNavGradient() {
+      const nav = document.getElementById('main-nav');
+      const gradient = document.getElementById('nav-gradient');
+      if (window.innerWidth < 768 && nav.classList.contains('mobile-open')) {
+        gradient.classList.remove('hidden');
+      } else {
         gradient.classList.add('hidden');
       }
     }
