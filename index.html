@@ -71,7 +71,8 @@
       <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center py-2 md:py-0">Vad kan jag hjälpa till med?</a>
       <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center py-2 md:py-0">Tidigare projekt</a>
       <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center py-2 md:py-0">Hör av dig!</a>
-      <div class="pointer-events-none absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black"></div>
+      <!-- Gradienten, visas ENBART på mobil när meny är öppen -->
+      <div id="nav-gradient" class="pointer-events-none absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black hidden"></div>
     </nav>
   </header>
 
@@ -195,43 +196,44 @@
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      const gradient = document.getElementById('nav-gradient');
       nav.classList.toggle('mobile-open');
       nav.classList.toggle('hidden');
       btn.classList.toggle('open');
+
+      // Visa endast gradient på mobil när menyn är öppen
+      if (window.innerWidth < 768 && nav.classList.contains('mobile-open')) {
+        gradient.classList.remove('hidden');
+      } else {
+        gradient.classList.add('hidden');
+      }
     }
+
     function closeMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      const gradient = document.getElementById('nav-gradient');
       if (window.innerWidth < 768) {
         nav.classList.remove('mobile-open');
         nav.classList.add('hidden');
         btn.classList.remove('open');
+        gradient.classList.add('hidden');
       }
     }
+
     function fixMenu() {
-      window.addEventListener('resize', () => {
-        const nav = document.getElementById('main-nav');
-        const btn = document.getElementById('menu-btn');
-        if (window.innerWidth >= 768) {
-          nav.classList.remove('hidden');
-          nav.classList.remove('mobile-open');
-          btn.classList.remove('open');
-        } else {
-          nav.classList.add('hidden');
-          nav.classList.remove('mobile-open');
-          btn.classList.remove('open');
-        }
-      });
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      const gradient = document.getElementById('nav-gradient');
       if (window.innerWidth >= 768) {
-        nav.classList.remove('hidden');
-        nav.classList.remove('mobile-open');
+        nav.classList.remove('hidden', 'mobile-open');
         btn.classList.remove('open');
+        gradient.classList.add('hidden');
       } else {
         nav.classList.add('hidden');
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
+        gradient.classList.add('hidden');
       }
     }
 
