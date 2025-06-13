@@ -141,11 +141,39 @@ async function sendMessage() {
   }
 
   // ── 2) Stegvis behovsanalys ──
+  // ── 2) Stegvis behovsanalys ──
   if (inNeedsFlow) {
+    // 1) Validering innan vi push:ar svaret
+    //   questions.length-2 = index på e-post-frågan
+    //   questions.length-1 = index på telefon-frågan
+    if (currentQuestion === questions.length - 2) {
+      // Just nu svar på e-post-frågan
+      if (!text.includes('@') || text.startsWith('@') || text.endsWith('@')) {
+        appendMessage(
+          'Hoppsan – det ser inte ut som en giltig e-post. Kan du fylla i en adress med ett @-tecken?',
+          true
+        );
+        inputEl.value = '';
+        return;
+      }
+    } else if (currentQuestion === questions.length - 1) {
+      // Just nu svar på telefon-frågan
+      if (!/^\+?\d+$/.test(text)) {
+        appendMessage(
+          'Telefonnumret får bara innehålla siffror (och eventuellt ett inledande +). Försök igen!',
+          true
+        );
+        inputEl.value = '';
+        return;
+      }
+    }
+
+    // 2) Om valideringen passerade, spara svaret
     appendMessage(text, false);
     answers.push({ question: questions[currentQuestion], answer: text });
     currentQuestion++;
 
+    // 3) Fortsätt som tidigare
     if (currentQuestion < questions.length) {
       appendMessage(questions[currentQuestion], true);
     } else {
@@ -170,7 +198,7 @@ async function sendMessage() {
             name,
             email,
             phone,
-            message: `Behovsanalys från appyBot:\n\n${summary}`,
+            message: `Förfrågan från appyBot:\n\n${summary}`,
           }),
         });
         if (!res.ok) throw new Error(`Status ${res.status}`);
@@ -186,7 +214,7 @@ async function sendMessage() {
         );
       }
 
-      // Nollställ ﬂödet
+      // Återställ ﬂödet
       askedForConsent = false;
       inNeedsFlow = false;
       currentQuestion = 0;
