@@ -15,6 +15,15 @@
   <title>Norrländsk tech - utan krångel!</title>
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link href="./dist/output.css" rel="stylesheet" />
+  <!-- Chatbot-ikon helper -->
+<style>
+  .bg-appybot-icon {
+    background-image: url('/images/appybot-icon.webp');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+</style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
 <!-- Google Analytics (GA4) -->
@@ -86,17 +95,80 @@
       </p>
     </div>
   </footer>
+  <!---apyyBot-knappen -->
+ <div
+  id="chat-toggle"
+  class="
+    fixed
+    bottom-4 right-4        /* mobil: 1rem från botten och kanten */
+    sm:bottom-16 sm:right-20 /* desktop: originalplacering */
+    w-16 h-16                /* mobilstorlek */
+    sm:w-24 sm:h-24          /* desktopstorlek */
+    border-4 border-yellow-400
+    rounded-full bg-appybot-icon cursor-pointer z-50
+    opacity-0 animate-fade
+  "
+  title="Snacka med appyBot!"
+></div>
+
+<!-- Chattruta -->
+<<div
+  id="chat-window"
+  class="
+    fixed
+    bottom-16 right-2 left-2   /* mobil: 2 * 0.5rem marginal, centrerad */
+    sm:bottom-44 sm:right-12 sm:left-auto /* desktop: originalplacering */
+    w-[calc(100%-1rem)] sm:w-80  /* mobil: 100% minus 1rem horisontellt, desktop: 20rem */
+    max-w-xs                    /* sätt maxbredd på mobil */
+    h-[60vh] sm:h-[400px]        /* mobil: 60% av höjden, desktop: 400px */
+    bg-gray-900 text-white shadow-lg rounded-lg flex flex-col z-40
+    scale-y-0 origin-bottom-right transition-transform duration-200
+    opacity-0 animate-fade
+  "
+>
+
+  <!-- Header + stäng-knapp -->
+  <div class="flex items-center justify-between bg-gray-800 px-4 py-2">
+    <span class="text-yellow-400 font-bold">appyBot</span>
+    <button id="chat-close" class="text-gray-400 hover:text-gray-200">&times;</button>
+  </div>
+
+  <!-- Body (scrollbart) -->
+  <div
+    id="chat-body"
+    class="flex-1 p-3 overflow-y-auto space-y-2"
+  >
+    <!-- … -->
+  </div>
+
+  <!-- Inputfält + sänd-knapp -->
+  <div class="flex items-center border-t border-gray-700 bg-gray-800 p-2 min-w-0">
+    <input
+      id="user-input"
+      type="text"
+      placeholder="Skriv ditt meddelande…"
+      class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none rounded"
+    />
+    <button
+      id="send-btn"
+      class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-4 py-2 hover:bg-yellow-300 rounded transition"
+    >
+      Skicka
+    </button>
+  </div>
+</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('header').classList.remove('opacity-0');
-      document.querySelector('main').classList.remove('opacity-0');
-      document.querySelector('footer').classList.remove('opacity-0');
-      showHome();
-      setActiveNav();
-      fixMenu();
-      
-    });
+  document.querySelector('header').classList.remove('opacity-0');
+  document.querySelector('main').classList.remove('opacity-0');
+  document.querySelector('footer').classList.remove('opacity-0');
+  document.getElementById('chat-toggle').classList.remove('opacity-0');
+  document.getElementById('chat-window').classList.remove('opacity-0');
+  showHome();
+  setActiveNav();
+  fixMenu();
+});
 
     function showHome() {
       const content = document.getElementById('content');
@@ -199,7 +271,7 @@
       nav.classList.toggle('mobile-open');
       nav.classList.toggle('hidden');
       btn.classList.toggle('open');
-      // updateNavGradient(); // Borttagen
+      
     }
     function closeMenu() {
       const nav = document.getElementById('main-nav');
@@ -207,7 +279,7 @@
       nav.classList.remove('mobile-open');
       nav.classList.add('hidden');
       btn.classList.remove('open');
-      // updateNavGradient(); // Borttagen
+      
     }
     function fixMenu() {
       window.addEventListener('resize', () => {
@@ -224,7 +296,7 @@
           nav.classList.remove('mobile-open');
           btn.classList.remove('open');
         }
-        // updateNavGradient(); // Borttagen
+        
       });
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
@@ -239,9 +311,9 @@
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
       }
-      // updateNavGradient(); // Borttagen
+      
     }
-    // updateNavGradient-funktionen är borttagen helt.
+  
 
 
     function initContactForm() {
@@ -289,5 +361,7 @@
       });
     }
   </script>
+  
+<script src="/chat.js"></script>
 </body>
 </html>
