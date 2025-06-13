@@ -187,7 +187,7 @@
       `;
       setTimeout(() => {
         content.classList.remove('animate-fade');
-        void content.offsetWidth; // Trigger reflow
+        void content.offsetWidth; 
         content.classList.add('animate-fade');
         window.scrollTo({top: 0, left: 0, behavior: 'instant'});
       }, 0);

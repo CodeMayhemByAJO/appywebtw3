@@ -66,7 +66,7 @@ function appendMessage(text, isBot = false) {
   bodyEl.scrollTop = bodyEl.scrollHeight;
 }
 
-// Huvudlogik för varje användarmeddelande
+// logik för varje användarmeddelande
 async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text) return;
@@ -102,7 +102,7 @@ async function sendMessage() {
       appendMessage('Låter som ett spännande projekt!', true);
     }
 
-    // Fråga om samtycke
+    // Okej medd samtycke?
     appendMessage(
       'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas efteråt som får kolla närmare på det och återkomma till dig. Okej? (Ja/Nej)',
       true
