@@ -50,7 +50,7 @@
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1367416167818098&ev=PageView&noscript=1"
   /></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- Slut Meta Pixel Code -->
 </head>
 <body class="bg-black text-white font-poppins min-h-screen flex flex-col">
 
@@ -133,7 +133,7 @@
     <button id="chat-close" class="text-gray-400 hover:text-gray-200">&times;</button>
   </div>
 
-  <!-- Body (scrollbart) -->
+  <!-- Body (scrollbar) -->
   <div
     id="chat-body"
     class="flex-1 p-3 overflow-y-auto space-y-2"
@@ -203,7 +203,7 @@
           content.innerHTML = `<div class="animate-fade">${html}</div>`;
           setTimeout(() => {
             content.classList.remove('animate-fade');
-            void content.offsetWidth; // Trigger reflow
+            void content.offsetWidth; 
             content.classList.add('animate-fade');
             window.scrollTo({top: 0, left: 0, behavior: 'instant'});
           }, 0);

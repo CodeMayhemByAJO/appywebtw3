@@ -12,7 +12,7 @@ let askedForConsent = false;
 let inNeedsFlow = false;
 let currentQuestion = 0;
 
-// Behovsflöde med frågor
+// behovs-frågor:
 const questions = [
   'Vad vill ni ha hjälp med? (hemsida, app, foto, AI-bot eller virtuell assistent…)',
   'Berätta gärna lite mer ingående om ert projekt!',
@@ -20,7 +20,7 @@ const questions = [
   'Vad heter ert företag?',
   'Inom vilken bransch är ni?',
   'Hur ser er tidplan ut? När vill ni ha det klart?',
-  'Vilken ort finns ni på?',
+  'Vart finns ni geografiskt?',
   'Slutligen, vad är ditt namn?',
   'Vad har du för e-postadress?',
   'Vad har du för telefonnummer?',
@@ -37,6 +37,7 @@ toggle.addEventListener('click', () => {
       true
     );
     hasWelcomed = true;
+    inputEl.focus();
   }
 });
 
@@ -66,18 +67,35 @@ function appendMessage(text, isBot = false) {
   bodyEl.scrollTop = bodyEl.scrollHeight;
 }
 
-// logik för varje användarmeddelande
+// Huvudlogik för varje användarmeddelande
 async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text) return;
 
   // ── 0) Behovsanalys-trigger ──
   const needsRegex =
-    /offert|behovsanalys|ny hemsida|skapa en hemsida|(?:behov av )?app(?:e?r)?|website|webbsida|fotografering|foto|photography|mjukvara|software|ai|bot|virtuell assistent|fixa hemsida|fixa hemsidor|behöver en|ska ha|kan ni/i;
+    /offert|behovsanalys|ny hemsida|skapa en hemsida|(?:behov av )?app(?:e?r)?|website|webbsida|fotografering|foto|photography|mjukvara|software|ai|bot|virtuell assistent|fixa hemsida|fixa hemsidor|behöver en|ska ha|kan ni|problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i;
+
   if (!askedForConsent && !inNeedsFlow && needsRegex.test(text)) {
     appendMessage(text, false);
 
-    // Anpassad intro beroende på kategori
+    // --- 'problem' eller liknande
+    if (
+      /problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i.test(
+        text
+      )
+    ) {
+      appendMessage('Ajdå, det låter inte bra! 😕', true);
+      appendMessage(
+        'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas som får kolla närmare på det och återkomma till dig. Okej? (Ja/Nej)',
+        true
+      );
+      askedForConsent = true;
+      inputEl.value = '';
+      return;
+    }
+
+    // --- regler positiva intressen
     if (/ai|bot|virtuell assistent/i.test(text)) {
       appendMessage(
         'Spännande – ni funderar på en AI-bot eller virtuell assistent!',
@@ -102,11 +120,12 @@ async function sendMessage() {
       appendMessage('Låter som ett spännande projekt!', true);
     }
 
-    // Okej medd samtycke?
+    // fråga om samtycke
     appendMessage(
-      'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas efteråt som får kolla närmare på det och återkomma till dig. Okej? (Ja/Nej)',
+      'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas som får kolla närmare på det och återkomma till dig. Okej? (Ja/Nej)',
       true
     );
+
     askedForConsent = true;
     inputEl.value = '';
     return;
@@ -123,6 +142,7 @@ async function sendMessage() {
     if (yesRegex.test(text)) {
       inNeedsFlow = true;
       appendMessage(questions[currentQuestion], true);
+      inputEl.focus();
     } else if (noRegex.test(text)) {
       appendMessage(
         'Inga problem! Du kan alltid kontakta appyChap via kontaktformuläret 😉',
@@ -141,26 +161,23 @@ async function sendMessage() {
   }
 
   // ── 2) Stegvis behovsanalys ──
-  // ── 2) Stegvis behovsanalys ──
   if (inNeedsFlow) {
-    // 1) Validering innan vi push:ar svaret
-    //   questions.length-2 = index på e-post-frågan
-    //   questions.length-1 = index på telefon-frågan
+    // vvalidering mejl och telefon
     if (currentQuestion === questions.length - 2) {
-      // Just nu svar på e-post-frågan
-      if (!text.includes('@') || text.startsWith('@') || text.endsWith('@')) {
+      if (!text.includes('@')) {
         appendMessage(
-          'Hoppsan – det ser inte ut som en giltig e-post. Kan du fylla i en adress med ett @-tecken?',
+          'Ajdå, det verkar inte vara en giltig e-postadress. Försök igen:',
           true
         );
         inputEl.value = '';
         return;
       }
-    } else if (currentQuestion === questions.length - 1) {
-      // Just nu svar på telefon-frågan
-      if (!/^\+?\d+$/.test(text)) {
+    }
+    // om vi är på telefon-frågan:
+    if (currentQuestion === questions.length - 1) {
+      if (!/^\d+$/.test(text)) {
         appendMessage(
-          'Telefonnumret får bara innehålla siffror (och eventuellt ett inledande +). Försök igen!',
+          'Ajdå, telefonnummer får bara innehålla siffror. Försök igen:',
           true
         );
         inputEl.value = '';
@@ -168,14 +185,13 @@ async function sendMessage() {
       }
     }
 
-    // 2) Om valideringen passerade, spara svaret
     appendMessage(text, false);
     answers.push({ question: questions[currentQuestion], answer: text });
     currentQuestion++;
 
-    // 3) Fortsätt som tidigare
     if (currentQuestion < questions.length) {
       appendMessage(questions[currentQuestion], true);
+      inputEl.focus();
     } else {
       // Alla frågor klara
       appendMessage('Tack! Jag skickar dina svar vidare!', true);
@@ -198,7 +214,7 @@ async function sendMessage() {
             name,
             email,
             phone,
-            message: `Förfrågan från appyBot:\n\n${summary}`,
+            message: `Behovsanalys från appyBot:\n\n${summary}`,
           }),
         });
         if (!res.ok) throw new Error(`Status ${res.status}`);
@@ -214,7 +230,7 @@ async function sendMessage() {
         );
       }
 
-      // Återställ ﬂödet
+      // Återställ flödet
       askedForConsent = false;
       inNeedsFlow = false;
       currentQuestion = 0;
