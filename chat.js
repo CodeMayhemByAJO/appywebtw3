@@ -12,7 +12,7 @@ let askedForConsent = false;
 let inNeedsFlow = false;
 let currentQuestion = 0;
 
-// Uppdaterat behovsflöde med 10 frågor
+// Behovsflöde med frågor
 const questions = [
   'Vad vill ni ha hjälp med? (hemsida, app, foto, AI-bot eller virtuell assistent…)',
   'Berätta gärna lite mer ingående om ert projekt!',
