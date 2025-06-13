@@ -20,7 +20,7 @@ const questions = [
   'Vad heter ert företag?',
   'Inom vilken bransch är ni?',
   'Hur ser er tidplan ut? När vill ni ha det klart?',
-  'Vart finns ni geografiskt?',
+  'Vilken ort finns ni på?',
   'Slutligen, vad är ditt namn?',
   'Vad har du för e-postadress?',
   'Vad har du för telefonnummer?',
@@ -33,7 +33,7 @@ toggle.addEventListener('click', () => {
   windowEl.classList.toggle('scale-y-0', !isOpen);
   if (isOpen && !hasWelcomed) {
     appendMessage(
-      'Tjena! Jag är appyBot – vad kan jag hjälpa dig med idag?',
+      'Tjena! Jag är appyBot! Vad kan jag hjälpa dig med idag?',
       true
     );
     hasWelcomed = true;
