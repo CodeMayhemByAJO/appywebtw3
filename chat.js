@@ -74,7 +74,7 @@ async function sendMessage() {
 
   // ── 0) Behovsanalys-trigger ──
   const needsRegex =
-    /offert|behovsanalys|ny hemsida|skapa en hemsida|(?:behov av )?app(?:e?r)?|website|webbsida|fotografering|foto|photography|mjukvara|software|ai|bot|virtuell assistent|fixa hemsida|fixa hemsidor|behöver en|ska ha|kan ni|problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i;
+    /offert|behovsanalys|ny hemsida|skapa en hemsida|(?:behov av )?\bapp(?:e?r)?\b|website|webbsida|fotografering|foto|photography|mjukvara|software|ai|bot|virtuell assistent|fixa hemsida|fixa hemsidor|behöver en|ska ha|kan ni|problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i;
 
   if (!askedForConsent && !inNeedsFlow && needsRegex.test(text)) {
     appendMessage(text, false);
