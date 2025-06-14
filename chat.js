@@ -260,7 +260,6 @@ async function sendMessage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
-        sessionId: sessionId,
       }),
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
