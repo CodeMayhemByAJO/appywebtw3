@@ -12,6 +12,12 @@ let askedForConsent = false;
 let inNeedsFlow = false;
 let currentQuestion = 0;
 
+let sessionId = window.sessionStorage.getItem('appySessionId');
+if (!sessionId) {
+  sessionId = crypto.randomUUID();
+  window.sessionStorage.setItem('appySessionId', sessionId);
+}
+
 // behovs-frågor:
 const questions = [
   'Vad vill ni ha hjälp med? (hemsida, app, foto, AI-bot eller virtuell assistent…)',
@@ -79,7 +85,6 @@ async function sendMessage() {
   if (!askedForConsent && !inNeedsFlow && needsRegex.test(text)) {
     appendMessage(text, false);
 
-    // --- 'problem' eller liknande
     if (
       /problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i.test(
         text
@@ -95,7 +100,6 @@ async function sendMessage() {
       return;
     }
 
-    // --- regler positiva intressen
     if (/ai|bot|virtuell assistent/i.test(text)) {
       appendMessage(
         'Spännande – ni funderar på en AI-bot eller virtuell assistent!',
@@ -120,7 +124,6 @@ async function sendMessage() {
       appendMessage('Låter som ett spännande projekt!', true);
     }
 
-    // fråga om samtycke
     appendMessage(
       'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas som får kolla närmare på det och återkomma till dig. Okej? (Ja/Nej)',
       true
@@ -162,7 +165,6 @@ async function sendMessage() {
 
   // ── 2) Stegvis behovsanalys ──
   if (inNeedsFlow) {
-    // vvalidering mejl och telefon
     if (currentQuestion === questions.length - 2) {
       if (!text.includes('@')) {
         appendMessage(
@@ -173,7 +175,6 @@ async function sendMessage() {
         return;
       }
     }
-    // om vi är på telefon-frågan:
     if (currentQuestion === questions.length - 1) {
       if (!/^\d+$/.test(text)) {
         appendMessage(
@@ -193,15 +194,12 @@ async function sendMessage() {
       appendMessage(questions[currentQuestion], true);
       inputEl.focus();
     } else {
-      // Alla frågor klara
       appendMessage('Tack! Jag skickar dina svar vidare!', true);
 
-      // Bygg sammanfattning
       const summary = answers
         .map((a) => `• ${a.question}\n→ ${a.answer}`)
         .join('\n\n');
 
-      // Hämta de tre sista svaren för namn, mejl, telefon
       const name = answers[questions.length - 3].answer;
       const email = answers[questions.length - 2].answer;
       const phone = answers[questions.length - 1].answer;
@@ -230,7 +228,6 @@ async function sendMessage() {
         );
       }
 
-      // Återställ flödet
       askedForConsent = false;
       inNeedsFlow = false;
       currentQuestion = 0;
@@ -261,7 +258,10 @@ async function sendMessage() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text }),
+      body: JSON.stringify({
+        message: text,
+        sessionId: sessionId,
+      }),
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { reply } = await res.json();
