@@ -310,9 +310,10 @@ async function handleAIResponse(text) {
 
     appendMessage(reply, true);
 
+    // Här hanteras flaggan från backend: starta behovsanalys-flödet först efter consent
     if (triggerNeedsFlow) {
-      askedForConsent = true;
-      appendMessage(questions[currentQuestion], true);
+      askedForConsent = true; // Vänta på ja/nej från användaren
+      appendMessage(questions[currentQuestion], true); // Ställ första frågan
       inputEl.focus();
     }
   } catch (err) {
