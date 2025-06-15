@@ -33,7 +33,6 @@ let hasWelcomed = false;
 let askedForConsent = false;
 let inNeedsFlow = false;
 let currentQuestion = 0;
-let waitingForConsent = false; // **Ny flagga**
 
 // sparar unik session
 let sessionId = window.sessionStorage.getItem('appySessionId');
@@ -77,7 +76,6 @@ function closeChatWindow() {
   hasWelcomed = false;
   askedForConsent = false;
   inNeedsFlow = false;
-  waitingForConsent = false; // nollställ även denna
   currentQuestion = 0;
 
   // rensa chatthistorik från UI
@@ -101,43 +99,6 @@ async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text) return;
 
-  if (waitingForConsent) {
-    // Hantera consent ja/nej separat
-    if (
-      /^(ja|japp|jajjemen|absolut|visst|självklart|okej|kör på|yes?)\b/i.test(
-        text
-      )
-    ) {
-      waitingForConsent = false;
-      askedForConsent = true;
-      inNeedsFlow = true;
-      appendMessage(text, false);
-      appendMessage(questions[currentQuestion], true);
-      inputEl.value = '';
-      inputEl.focus();
-      return;
-    } else if (/^(nej|nä|nej tack|nope|nädu|icke|absolut inte)\b/i.test(text)) {
-      waitingForConsent = false;
-      askedForConsent = false;
-      appendMessage(text, false);
-      appendMessage(
-        'Inga problem! Du kan alltid kontakta appyChap via kontaktformuläret 😉',
-        true
-      );
-      inputEl.value = '';
-      inputEl.focus();
-      return;
-    } else {
-      appendMessage(
-        'Jag förstod inte ditt svar. Säg gärna Ja eller Nej så vi kan gå vidare!',
-        true
-      );
-      inputEl.value = '';
-      inputEl.focus();
-      return;
-    }
-  }
-
   // kontroll texten triggning behovsanalys
   const needsRegex =
     /offert|behovsanalys|ny hemsida|skapa en hemsida|(?:behov av )?\bapp(?:e?r)?\b|website|webbsida|fotografering|foto|photography|mjukvara|software|ai|bot|virtuell assistent|fixa hemsida|fixa hemsidor|behöver en|ska ha|kan ni|problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i;
@@ -147,11 +108,13 @@ async function sendMessage() {
     return;
   }
 
+  // ok, ja eller nej att ställa frågor som skickas vidare?
   if (askedForConsent && !inNeedsFlow) {
     await handleConsent(text);
     return;
   }
 
+  // hantera frågor o svar i behovsanalys-flödet
   if (inNeedsFlow) {
     await handleNeedsFlow(text);
     return;
@@ -180,17 +143,7 @@ async function handleNeedsTrigger(text) {
     /problem|fel|bugg|strula|hänga sig|crash|strul|kass|krånglar|funkar inte|är död/i;
   if (problemRegex.test(text)) {
     appendMessage('Ajdå, det låter inte bra!', true);
-    appendMessage(
-      'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas som får kolla närmare på det och återkomma till dig. Okej?',
-      true
-    );
-    askedForConsent = true;
-    inputEl.value = '';
-    return;
-  }
-
-  // svar beroende på vad användaren nämner
-  if (/ai|bot|virtuell assistent/i.test(text)) {
+  } else if (/ai|bot|virtuell assistent/i.test(text)) {
     appendMessage(
       'Spännande – ni funderar på en AI-bot eller virtuell assistent!',
       true
@@ -202,7 +155,7 @@ async function handleNeedsTrigger(text) {
     );
   } else if (/hemsida|website|webbsida/i.test(text)) {
     appendMessage(
-      'Vad kul att ni vill ha hjälp med en hemsida/webbsida!',
+      'Det låter toppen! Skicka in en förfrågan via kontaktformuläret så hör appyChap av sig och hjälper er att komma igång! 😊',
       true
     );
   } else if (/fotografering|foto|photography/i.test(text)) {
@@ -214,7 +167,7 @@ async function handleNeedsTrigger(text) {
     appendMessage('Låter som ett spännande projekt!', true);
   }
 
-  // ok med fler frågor?
+  // Lägg alltid till consentfrågan efter bekräftelsen
   appendMessage(
     'Är det okej att jag ställer några frågor om detta? Jag skickar dina svar vidare till Andreas som får kolla närmare på det och återkomma till dig. Okej?',
     true
@@ -349,7 +302,8 @@ async function handleAIResponse(text) {
 
     // Här hanteras flaggan från backend: starta behovsanalys-flödet först efter consent
     if (triggerNeedsFlow) {
-      waitingForConsent = true; // Vänta på ja/nej från användaren
+      askedForConsent = true; // Vänta på ja/nej från användaren
+      appendMessage(questions[currentQuestion], true); // Ställ första frågan
       inputEl.focus();
     }
   } catch (err) {
