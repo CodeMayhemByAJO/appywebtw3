@@ -154,10 +154,7 @@ async function handleNeedsTrigger(text) {
       true
     );
   } else if (/hemsida|website|webbsida/i.test(text)) {
-    appendMessage(
-      'Det låter toppen! Skicka in en förfrågan via kontaktformuläret så hör appyChap av sig och hjälper er att komma igång! 😊',
-      true
-    );
+    appendMessage('Det låter toppen!', true);
   } else if (/fotografering|foto|photography/i.test(text)) {
     appendMessage(
       'Fotografering låter toppen – bra bilder lyfter ju varumärket!',
