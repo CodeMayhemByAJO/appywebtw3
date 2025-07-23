@@ -41,8 +41,8 @@
     }
     
     .home-logo {
-      max-height: min(80vh, 700px); /* Öka från 70vh till 80vh och från 600px till 700px */
-      max-width: min(98vw, 800px);  /* Öka från 95vw till 98vw och från 700px till 800px */
+      max-height: min(70vh, 600px); /* Öka från 60vh till 70vh och från 500px till 600px */
+      max-width: min(95vw, 700px);  /* Öka från 90vw till 95vw och från 600px till 700px */
       width: auto;
       height: auto;
       object-fit: contain;          /* Behåll hela bilden synlig */
@@ -176,15 +176,15 @@
   <!-- Chat widget -->
   <div id="chat-toggle" class="fixed bottom-4 right-4 sm:bottom-16 sm:right-20 w-16 h-16 sm:w-24 sm:h-24 border-4 border-yellow-400 rounded-full bg-appybot-icon cursor-pointer z-50 opacity-0 animate-fade" title="Snacka med appyBot!"></div>
 
-  <div id="chat-window" class="fixed bottom-24 right-4 sm:bottom-[11rem] sm:right-20 bg-black w-[380px] h-[500px] max-w-full scale-y-0 origin-bottom transition-transform duration-300 rounded-xl overflow-hidden z-50 shadow-2xl">
-    <div class="flex items-center justify-between bg-gray-800 px-4 py-2 border-b border-gray-700">
+  <div id="chat-window" class="fixed bottom-24 right-4 sm:bottom-[11rem] sm:right-20 bg-black/70 backdrop-blur-sm w-[380px] h-[500px] max-w-full scale-y-0 origin-bottom transition-transform duration-300 rounded-xl overflow-hidden z-50 shadow-2xl border border-gray-700/50">
+    <div class="flex items-center justify-between bg-gray-800/70 backdrop-blur-sm px-4 py-2 border-b border-gray-700/50">
       <span class="text-yellow-400 font-bold">appyBot</span>
       <button id="chat-close" class="text-2xl text-gray-400 hover:text-gray-200">&times;</button>
     </div>
 
     <div id="chat-body" class="h-[380px] p-3 overflow-y-auto space-y-2"></div>
 
-    <div class="flex items-center border-t border-gray-700 bg-gray-800 p-2 min-w-0">
+    <div class="flex items-center border-t border-gray-700/50 bg-gray-800/70 backdrop-blur-sm p-2 min-w-0">
       <input id="user-input" type="text" placeholder="Skriv ditt meddelande…" class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none rounded" />
       <button id="send-btn" class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-4 py-2 hover:bg-yellow-300 rounded transition">Skicka</button>
     </div>
@@ -221,23 +221,14 @@
         content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4';
         content.innerHTML = `
           <section class="flex flex-col items-center justify-center w-full h-full">
-            <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" style="opacity:0; transition: opacity 0.5s ease-in-out;" />
+            <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" />
             <p class="text-yellow-400 italic text-base leading-tight mt-2"></p>
           </section>
         `;
         
-        // Fade in container först
+        // Fade in efter innehållsbyte
         setTimeout(() => {
           content.style.opacity = '1';
-          
-          // Sedan fade in bilden lite senare
-          setTimeout(() => {
-            const img = content.querySelector('.home-logo');
-            if (img) {
-              img.style.opacity = '1';
-            }
-          }, 200);
-          
           window.scrollTo({top: 0, left: 0, behavior: 'instant'});
         }, 50);
       }, 150);
