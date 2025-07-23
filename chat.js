@@ -1,34 +1,12 @@
-// chat.js - Frontend code
-const API_URL = 'https://appybackend-production.up.railway.app/chat';
-const CONTACT_URL = 'https://appybackend-production.up.railway.app/contact';
+const API_URL =
+  'https://primary-production-f961a.up.railway.app/webhook/appybot';
 
 const toggle = document.getElementById('chat-toggle');
 const windowEl = document.getElementById('chat-window');
-windowEl.classList.add('rounded-xl', 'overflow-hidden');
-
 const closeBtn = document.getElementById('chat-close');
 const bodyEl = document.getElementById('chat-body');
 const inputEl = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
-
-const questions = [
-  'Vad behöver ni hjälp med? (t.ex hemsida, app, fotografering/fotoredigering, automatiserade processer, AI-bottar eller något annat roligt)',
-  'Berätta gärna mer detaljerat om ert projekt. Mer information ger träffsäkrare uppskattning av tid och kostnad.',
-  'Vad är det primära målet med projektet)?',
-  'Vad heter ert företag eller organisation?',
-  'Vilken bransch verkar ni inom?',
-  'När önskar ni att projektet ska vara klart?',
-  'Var är ni baserade geografiskt?',
-  'Ditt namn?',
-  'Vilken e-postadress nås du på?',
-  'Vilket telefonnummer nås du på?',
-];
-
-let answers = [];
-let askedForConsent = false;
-let consentDenied = false;
-let inNeedsFlow = false;
-let currentQuestion = 0;
 
 let sessionId = window.sessionStorage.getItem('appySessionId');
 if (!sessionId) {
@@ -37,25 +15,28 @@ if (!sessionId) {
 }
 
 function getRandomGreeting() {
-  const greetings = [
-    'Tjena! Jag är appyBot! Vad kan jag hjälpa dig med idag?',
+  const g = [
+    'Tjena! appyBot here! Vad kan jag hjälpa dig med idag?',
     'Hej på dig! Hur kan jag hjälpa till?',
-    'Hallå där! Vad vill du veta om appyChap?',
+    'Hallå där! Det är jag som är appyBot. Hur kan jag hjälpa dig idag?',
     'Tjenare! Vad kan jag göra för dig idag?',
   ];
-  return greetings[Math.floor(Math.random() * greetings.length)];
+  return g[Math.floor(Math.random() * g.length)];
 }
 
 toggle.addEventListener('click', () => {
-  const isOpen = windowEl.classList.toggle('scale-y-100');
-  windowEl.classList.toggle('scale-y-0', !isOpen);
-  if (isOpen) {
+  const open = windowEl.classList.toggle('scale-y-100');
+  windowEl.classList.toggle('scale-y-0', !open);
+  if (open) {
+    // Generera nytt sessionId varje gång chatten öppnas
+    sessionId = crypto.randomUUID();
+    window.sessionStorage.setItem('appySessionId', sessionId);
+
     resetChat();
     appendMessage(getRandomGreeting(), true);
     inputEl.focus();
   }
 });
-
 closeBtn.addEventListener('click', closeChatWindow);
 inputEl.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
@@ -66,11 +47,6 @@ inputEl.addEventListener('keydown', (e) => {
 sendBtn.addEventListener('click', sendMessage);
 
 function resetChat() {
-  answers = [];
-  askedForConsent = false;
-  consentDenied = false;
-  inNeedsFlow = false;
-  currentQuestion = 0;
   bodyEl.innerHTML = '';
   inputEl.value = '';
 }
@@ -83,16 +59,166 @@ function closeChatWindow() {
 
 function appendMessage(text, isBot = false) {
   if (!text) return;
-  const last = bodyEl.lastChild;
-  if (last && last.textContent === text) return;
+
+  // Kolla om det är slutmeddelandet från Andreas ELLER close chat
+  const isEndMessage =
+    text.includes('Andreas hör av sig inom 24') ||
+    text.includes('Andreas kollar på det och återkommer') ||
+    text.includes('CLOSE_CHAT') ||
+    text.includes('Ha en fortsatt bra dag');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'w-full flex ' + (isBot ? 'justify-start' : 'justify-end');
+  wrap.style.marginBottom = '1rem';
+
   const msg = document.createElement('div');
-  msg.textContent = text;
-  msg.className = isBot
-    ? 'bot-message italic text-yellow-400 bg-yellow-900 rounded-tl-xl rounded-tr-xl rounded-br-xl p-1 max-w-4/5 mr-auto mb-2 text-left font-semibold'
-    : 'user-message text-gray-100 bg-transparent rounded-tr-xl rounded-tl-xl rounded-bl-xl p-1 max-w-4/5 ml-auto mb-2 text-right font-medium';
-  msg.style.lineHeight = '1.3';
-  bodyEl.appendChild(msg);
+  if (isBot) {
+    msg.className =
+      'flex items-start max-w-[80%] font-medium italic text-gray-300';
+    msg.style.gap = '0.5rem';
+
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('width', 24);
+    icon.setAttribute('height', 24);
+    icon.setAttribute('viewBox', '0 0 24 24');
+    icon.classList.add('flex-shrink-0', 'mt-px');
+
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', 12);
+    c.setAttribute('cy', 12);
+    c.setAttribute('r', 10);
+    c.setAttribute('stroke', '#FACC15');
+    c.setAttribute('stroke-width', 3);
+    c.setAttribute('fill', 'none');
+
+    const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t.setAttribute('x', 12);
+    t.setAttribute('y', 12);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.setAttribute('font-size', 12);
+    t.setAttribute('fill', 'white');
+    t.setAttribute('font-weight', 'bold');
+    t.textContent = 'a';
+    icon.append(c, t);
+
+    const span = document.createElement('span');
+    msg.append(icon, span);
+    wrap.appendChild(msg);
+    bodyEl.appendChild(wrap);
+
+    let i = 0;
+    (function type() {
+      span.innerHTML = `<em>${text.slice(
+        0,
+        i
+      )}</em><span class="blinking">|</span>`;
+      if (++i <= text.length) {
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+        setTimeout(type, 25);
+      } else {
+        span.innerHTML = `<em>${text}</em>`;
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+
+        // Kollaps chatten efter slutmeddelandet
+        if (isEndMessage) {
+          setTimeout(() => {
+            closeChatWindow();
+          }, 3000); // Vänta 3 sekunder så användaren hinner läsa
+        }
+      }
+    })();
+  } else {
+    msg.className =
+      'bg-yellow-400 text-gray-900 rounded-t-2xl rounded-l-2xl rounded-br-none px-3 py-2 max-w-[80%] font-medium text-right shadow';
+    msg.style.whiteSpace = 'pre-wrap';
+    msg.textContent = text;
+    wrap.appendChild(msg);
+    bodyEl.appendChild(wrap);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+}
+
+function showThinkingIndicator() {
+  const wrap = document.createElement('div');
+  wrap.className = 'w-full flex justify-start thinking-indicator';
+  wrap.style.marginBottom = '1rem';
+
+  const msg = document.createElement('div');
+  msg.className =
+    'flex items-start max-w-[80%] font-medium italic text-gray-300';
+  msg.style.gap = '0.5rem';
+
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  icon.setAttribute('width', 24);
+  icon.setAttribute('height', 24);
+  icon.setAttribute('viewBox', '0 0 24 24');
+  icon.classList.add('flex-shrink-0', 'mt-px');
+
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c.setAttribute('cx', 12);
+  c.setAttribute('cy', 12);
+  c.setAttribute('r', 10);
+  c.setAttribute('stroke', '#FACC15'); // Gul färg (samma som vanliga meddelanden)
+  c.setAttribute('stroke-width', 3);
+  c.setAttribute('fill', 'none');
+
+  const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  t.setAttribute('x', 12);
+  t.setAttribute('y', 12);
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'middle');
+  t.setAttribute('font-size', 12);
+  t.setAttribute('fill', 'white');
+  t.setAttribute('font-weight', 'bold');
+  t.textContent = 'a';
+  icon.append(c, t);
+
+  const span = document.createElement('span');
+  span.innerHTML =
+    '<span class="dot dot1">●</span><span class="dot dot2">●</span><span class="dot dot3">●</span>';
+
+  // Lägg till CSS för animationen
+  if (!document.querySelector('#thinking-style')) {
+    const style = document.createElement('style');
+    style.id = 'thinking-style';
+    style.textContent = `
+      .dot {
+        opacity: 0.3;
+        font-size: 16px;
+        animation: pulse 1.4s infinite;
+        margin: 0 2px;
+      }
+      .dot1 { animation-delay: 0s; }
+      .dot2 { animation-delay: 0.2s; }  
+      .dot3 { animation-delay: 0.4s; }
+      @keyframes pulse {
+        0%, 60%, 100% { 
+          opacity: 0.3; 
+          transform: scale(1);
+        }
+        30% { 
+          opacity: 1; 
+          transform: scale(1.3);
+          font-weight: bold;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  msg.append(icon, span);
+  wrap.appendChild(msg);
+  bodyEl.appendChild(wrap);
   bodyEl.scrollTop = bodyEl.scrollHeight;
+
+  return wrap; // Returnera element för senare borttagning
+}
+
+function removeThinkingIndicator(thinkingElement) {
+  if (thinkingElement && thinkingElement.parentNode) {
+    thinkingElement.parentNode.removeChild(thinkingElement);
+  }
 }
 
 async function sendMessage() {
@@ -102,281 +228,77 @@ async function sendMessage() {
   appendMessage(text, false);
   inputEl.value = '';
 
-  // Consent handling
-  if (askedForConsent && !consentDenied) {
-    if (/^(ja|japp|absolut|okej|visst)\b/i.test(text)) {
-      askedForConsent = false;
-      inNeedsFlow = true;
-      appendMessage(questions[currentQuestion], true);
-      inputEl.focus();
-      return;
-    }
-    if (/^(nej|nä|nope|nej tack)\b/i.test(text)) {
-      askedForConsent = false;
-      consentDenied = true;
-      appendMessage(
-        'Inga problem! Du kan alltid kontakta appyChap via kontaktformuläret 😉',
-        true
-      );
-      return;
-    }
-    appendMessage(
-      'Jag förstod inte ditt svar. Säg gärna Ja eller Nej så vi kan gå vidare!',
-      true
-    );
-    return;
-  }
+  // Visa thinking indicator
+  const thinkingId = showThinkingIndicator();
 
-  // Needs flow
-  if (inNeedsFlow) {
-    await handleNeedsFlow(text);
-    return;
-  }
-
-  // Contact info trigger
-  if (
-    /mejladress|mailadress|e-post|kontaktuppgifter|telefonnummer/i.test(text)
-  ) {
-    appendMessage(
-      'Du tar enklast kontakt via kontaktformuläret, jag laddar det åt dig.',
-      true
-    );
-    loadContent('contact.html');
-    return;
-  }
-
-  // Company questions
-  const companyQ = [/hur många är ni/i, /är ni enmansföretag/i, /vem är chef/i];
-  for (const rx of companyQ)
-    if (rx.test(text)) {
-      appendMessage(
-        'appyChap är ett enmansföretag med Andreas som driver allt själv, men med Bruno (vovven) som chef! 😉',
-        true
-      );
-      return;
-    }
-
-  // Direct contact
-  if (/kontakta oss|hör av dig|kontakt/i.test(text)) {
-    appendMessage('Jag har öppnat kontaktformuläret åt dig! 😉', true);
-    loadContent('contact.html');
-    return;
-  }
-
-  // Default: call backend
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text, sessionId }),
+      body: JSON.stringify({
+        sessionId,
+        chatInput: text,
+        chatHistory: [], // n8n Simple Memory hanterar detta
+      }),
     });
+
     const data = await res.json();
-    appendMessage(data.reply, true);
-    if (data.openContactForm) loadContent('contact.html');
-    if (data.triggerNeedsFlow) askedForConsent = true;
-    if (data.startNeedsFlow) {
-      askedForConsent = false;
-      inNeedsFlow = true;
-      appendMessage(questions[0], true);
+
+    // Ta bort thinking indicator
+    removeThinkingIndicator(thinkingId);
+
+    // Kolla speciella actions
+    if (data.action === 'OPEN_CONTACT') {
+      console.log('Laddar kontaktformulär med AJAX');
+
+      // Ladda contact.html innehåll och ersätt main content
+      fetch('contact.html')
+        .then((response) => response.text())
+        .then((html) => {
+          // Hitta main content area och ersätt med kontaktformulär
+          const mainContent =
+            document.querySelector('main') ||
+            document.querySelector('.main-content') ||
+            document.querySelector('#main-content');
+
+          if (mainContent) {
+            mainContent.innerHTML = html;
+
+            // Kör kontaktformulär-scriptet efter att innehållet laddats
+            if (window.initContactForm) {
+              window.initContactForm();
+            } else {
+              // Alternativt, kör script-innehållet direkt
+              const scriptRegex = /<script>([\s\S]*?)<\/script>/;
+              const scriptMatch = html.match(scriptRegex);
+              if (scriptMatch) {
+                eval(scriptMatch[1]);
+              }
+            }
+          } else {
+            console.error('Kunde inte hitta main content area');
+            // Fallback - navigera till sidan
+            window.location.href = 'contact.html';
+          }
+        })
+        .catch((err) => {
+          console.error('Kunde inte ladda kontaktformulär:', err);
+          window.location.href = 'contact.html';
+        });
+    } else if (data.action === 'SEND_EMAIL') {
+      console.log('Email skickad - kommer stänga chatten om 3 sekunder');
+      // Ingen extra handling behövs, meddelandet kommer visa tack-meddelandet
+      // och chatten stängs automatiskt pga "Andreas hör av sig inom 24h"
     }
-  } catch (e) {
+
+    // n8n skickar tillbaka responseText
+    let botReply = data.responseText || 'Något gick fel 😕';
+
+    appendMessage(botReply, true);
+  } catch (err) {
+    console.error('Chat error:', err);
+    // Ta bort thinking indicator vid fel också
+    removeThinkingIndicator(thinkingId);
     appendMessage('Oj då, något gick fel 😕', true);
-    console.error(e);
   }
 }
-
-async function handleNeedsFlow(text) {
-  if (currentQuestion === questions.length - 2 && !text.includes('@')) {
-    appendMessage('Ogiltig e-post, försök igen:', true);
-    return;
-  }
-  if (currentQuestion === questions.length - 1 && !/^\d+$/.test(text)) {
-    appendMessage(
-      'Telefonnummer får bara innehålla siffror, försök igen:',
-      true
-    );
-    return;
-  }
-  appendMessage(text, false);
-  answers.push({ question: questions[currentQuestion], answer: text });
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
-    appendMessage(questions[currentQuestion], true);
-  } else {
-    // submit summary
-    const summary = answers
-      .map((a) => `• ${a.question}\n→ ${a.answer}`)
-      .join('\n\n');
-    const name = answers[questions.length - 3].answer;
-    const email = answers[questions.length - 2].answer;
-    const phone = answers[questions.length - 1].answer;
-    try {
-      await fetch(CONTACT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message: `Behovsanalys:\n${summary}`,
-        }),
-      });
-      appendMessage('Färdigt – Andreas återkommer så snart han kan! 😉', true);
-      setTimeout(closeChatWindow, 1500);
-    } catch (e) {
-      appendMessage('Kunde inte skicka analys, försök senare.', true);
-    }
-    askedForConsent = false;
-    inNeedsFlow = false;
-    currentQuestion = 0;
-    answers = [];
-  }
-}
-
-// chatHandler.js - Backend code
-const saveMessage = require('./saveMessage');
-const { OpenAI } = require('openai');
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-// session management
-const sessionStates = {};
-function getSessionState(id) {
-  if (!sessionStates[id]) {
-    sessionStates[id] = { consentRequested: false, consentDenied: false };
-  }
-  return sessionStates[id];
-}
-
-const priceKeywords = ['pris', 'kostar', 'offert', 'beställa', 'köpa'];
-const serviceKeywords = [
-  'app',
-  'hemsida',
-  'webbsida',
-  'fotografering',
-  'ai',
-  'bot',
-];
-const helpKeywords = ['hjälp mig', 'kan du hjälpa', 'behöver hjälp'];
-
-function containsAny(msg, list) {
-  return list.some((k) => msg.includes(k));
-}
-
-module.exports = async function chatHandler(req, res) {
-  const { message, sessionId } = req.body;
-  if (!message || !sessionId)
-    return res.status(400).json({ error: 'Missing message or sessionId' });
-  const msg = message.toLowerCase();
-  const session = getSessionState(sessionId);
-
-  // help-signal → consent
-  if (
-    containsAny(msg, helpKeywords) &&
-    !session.consentRequested &&
-    !session.consentDenied
-  ) {
-    session.consentRequested = true;
-    return res.json({
-      reply:
-        'Spännande! Är det okej att jag ställer några frågor så att Andreas kan hjälpa dig närmare och återkomma?',
-      triggerNeedsFlow: true,
-    });
-  }
-  // handle consent response
-  if (session.consentRequested) {
-    if (/^(ja|absolut|visst)\b/.test(msg)) {
-      session.consentRequested = false;
-      return res.json({
-        reply: 'Bra! Då börjar vi med några frågor.',
-        startNeedsFlow: true,
-      });
-    }
-    if (/^(nej|nä)\b/.test(msg)) {
-      session.consentRequested = false;
-      session.consentDenied = true;
-      return res.json({
-        reply:
-          'Inga problem! Du kan alltid kontakta oss via kontaktformuläret 😉',
-      });
-    }
-    return res.json({ reply: 'Jag förstod inte ditt svar. Säg Ja eller Nej.' });
-  }
-
-  // fixed answers
-  const fixed = [
-    { rx: /vem är chef/i, ans: 'Bruno är chef och Andreas gör allt annat! 😉' },
-    {
-      rx: /hur många är ni/i,
-      ans: 'appyChap är ett enmansföretag med Andreas och Bruno som chef! 😉',
-    },
-  ];
-  for (const f of fixed)
-    if (f.rx.test(message)) return res.json({ reply: f.ans });
-
-  // contact info
-  if (/mejladresser?|telefonnummer|kontaktuppgifter|adress/.test(msg)) {
-    return res.json({
-      reply:
-        'Du tar enklast kontakt via vårt kontaktformulär. Jag kan öppna det åt dig om du vill!',
-      openContactForm: true,
-    });
-  }
-
-  // price → consent
-  if (
-    containsAny(msg, priceKeywords) &&
-    !session.consentRequested &&
-    !session.consentDenied
-  ) {
-    session.consentRequested = true;
-    return res.json({
-      reply:
-        'Det låter som du vill ha offert. Vill du att jag ställer några frågor?',
-      triggerNeedsFlow: true,
-    });
-  }
-
-  // service interest
-  if (
-    containsAny(msg, serviceKeywords) &&
-    !session.consentRequested &&
-    !session.consentDenied
-  ) {
-    // direct info if contains 'vad gör' etc
-    if (/vad gör|vad är/.test(msg)) {
-      const ai = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'Du är appyBot... kort svar utan consent.',
-          },
-          { role: 'user', content: message },
-        ],
-      });
-      return res.json({ reply: ai.choices[0].message.content });
-    }
-    // else trigger consent
-    session.consentRequested = true;
-    return res.json({
-      reply:
-        'Är det okej att jag ställer några frågor så att Andreas kan hjälpa dig?',
-      triggerNeedsFlow: true,
-    });
-  }
-
-  // fallback AI
-  const ai = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
-    messages: [
-      { role: 'system', content: 'Du är appyBot... svara inom ramarna.' },
-      { role: 'user', content: message },
-    ],
-  });
-  await saveMessage({
-    content: message,
-    user_message: message,
-    bot_response: ai.choices[0].message.content,
-  });
-  res.json({ reply: ai.choices[0].message.content });
-};
