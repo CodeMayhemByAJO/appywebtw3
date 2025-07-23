@@ -1,42 +1,90 @@
+<!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Integritetspolicy | appyChap</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link href="/dist/output.css" rel="stylesheet" />
-  </head>
-  <body class="bg-black text-white font-poppins min-h-screen">
-    <main class="max-w-3xl mx-auto py-12 px-6">
-      <h1 class="text-3xl font-semibold text-yellow-400 mb-4">Integritetspolicy</h1>
-
-      <p class="mb-4">Din integritet är viktig! Den här policyn förklarar hur appyChap samlar in, använder och skyddar dina personuppgifter.</p>
-
-      <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">1. Vilka uppgifter samlas in?</h2>
-      <ul class="list-disc pl-6 mb-4">
-        <li>Namn, e-postadress och telefonnummer (om du själv lämnar det via chatt eller formulär)</li>
-        <li>Meddelanden du skickar via chattfunktionen</li>
-        <li>Webbläsarinformation och anonym statistik via Google Analytics</li>
-      </ul>
-
-      <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">2. Hur vi använder uppgifterna</h2>
-      <p class="mb-4">Uppgifterna används för att svara på meddelanden, förbättra webbplatsen och förstå hur den används.</p>
-
-      <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">3. Tredje parter</h2>
-      <p class="mb-4">Vi använder Google Analytics för anonym besöksstatistik. Google hanterar uppgifterna enligt sin egen integritetspolicy.</p>
-
-      <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">4. Cookies</h2>
-      <p class="mb-4">Webbplatsen använder cookies för funktion och statistik.</p>
-
-      <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">5. Kontakt</h2>
-      <p class="mb-4">Har du frågor om hur vi hanterar dina uppgifter? Kontakta oss via kontaktformuläret.</p>
-
-      <p class="text-sm text-white/60 italic mt-10">Senast uppdaterad: Juni 2025</p>
-      <div class="mt-8 text-center">
-        <button onclick="history.back()" class="text-sm text-yellow-400 underline hover:text-yellow-300 transition">
-          ← Tillbaka till www.appyChap.se
-        </button>
-      </div>
-    </main>
-  </body>
+<head>
+  <!-- Meta tags för sociala medier -->
+  <meta property="og:title" content="Integritetspolicy | appyChap" />
+  <meta property="og:description" content="Läs om hur appyChap hanterar dina personuppgifter och integritet." />
+  <meta property="og:image" content="https://appychap.se/images/preview.png" />
+  <meta property="og:url" content="https://appychap.se/integrity.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Integritetspolicy | appyChap" />
+  <meta name="twitter:description" content="Läs om hur appyChap hanterar dina personuppgifter och integritet." />
+  <meta name="twitter:image" content="https://appychap.se/images/preview.png" />
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integritetspolicy | appyChap</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="/dist/output.css" rel="stylesheet" />
+  
+  <!-- Google Analytics (samma som huvudsidan) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0WY3PPVLL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W0WY3PPVLL');
+  </script>
+</head>
+<body class="bg-black text-white font-poppins min-h-screen">
+  <main class="max-w-3xl mx-auto py-12 px-6">
+    <h1 class="text-3xl font-semibold text-yellow-400 mb-4">Integritetspolicy</h1>
+    <p class="mb-4">Din integritet är viktig! Den här policyn förklarar hur appyChap samlar in, använder och skyddar dina personuppgifter.</p>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">1. Vilka uppgifter samlas in?</h2>
+    <ul class="list-disc pl-6 mb-4">
+      <li>Namn, e-postadress och telefonnummer (om du själv lämnar det via chatt eller formulär)</li>
+      <li>Meddelanden du skickar via chattfunktionen (appyBot)</li>
+      <li>Webbläsarinformation och anonym statistik via Google Analytics</li>
+      <li>Anonymiserad användardata via Facebook Pixel för marknadsföringsändamål</li>
+    </ul>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">2. Hur vi använder uppgifterna</h2>
+    <p class="mb-4">Uppgifterna används för att:</p>
+    <ul class="list-disc pl-6 mb-4">
+      <li>Svara på meddelanden och projektförfrågningar</li>
+      <li>Förbättra webbplatsen och appyBot-funktionaliteten</li>
+      <li>Förstå hur webbplatsen används (anonymt)</li>
+      <li>Skicka relevant marknadsföring (endast om du godkänt det)</li>
+    </ul>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">3. Tredje parter</h2>
+    <p class="mb-4">Vi använder följande tredjepartstjänster:</p>
+    <ul class="list-disc pl-6 mb-4">
+      <li><strong>Google Analytics:</strong> För anonym besöksstatistik</li>
+      <li><strong>Facebook Pixel:</strong> För marknadsföringsmätning</li>
+      <li><strong>AI-tjänster:</strong> För chatbot-funktionalitet</li>
+      <li><strong>Molntjänster:</strong> För säker hantering av meddelanden och e-post</li>
+    </ul>
+    <p class="mb-4">Alla leverantörer hanterar uppgifterna enligt sina egna integritetspolicyer och branschstandarder för säkerhet.</p>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">4. Cookies och spårning</h2>
+    <p class="mb-4">Webbplatsen använder cookies för:</p>
+    <ul class="list-disc pl-6 mb-4">
+      <li>Grundläggande webbplatsfunktionalitet</li>
+      <li>Google Analytics (anonymt)</li>
+      <li>Facebook Pixel (marknadsföring)</li>
+      <li>Sessionhantering för appyBot-chatt</li>
+    </ul>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">5. Datalagring</h2>
+    <p class="mb-4">Personuppgifter lagras säkert och raderas när de inte längre behövs. Chattkonversationer med appyBot kan sparas för att förbättra tjänsten.</p>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">6. Dina rättigheter</h2>
+    <p class="mb-4">Du har rätt att begära access till, rättelse av, eller radering av dina personuppgifter. Kontakta oss via kontaktformuläret för sådana förfrågningar.</p>
+    
+    <h2 class="text-2xl font-semibold text-blue-400 mt-6 mb-2">7. Kontakt</h2>
+    <p class="mb-4">Har du frågor om hur vi hanterar dina uppgifter? Kontakta oss via kontaktformuläret på webbplatsen eller via e-post.</p>
+    
+    <p class="text-sm text-white/60 italic mt-10">Senast uppdaterad: Juli 2025</p>
+    
+    <div class="mt-8 text-center">
+      <button onclick="window.location.href='/'" class="text-sm text-yellow-400 underline hover:text-yellow-300 transition cursor-pointer">
+        ← Tillbaka till appyChap.se
+      </button>
+    </div>
+  </main>
+</body>
 </html>

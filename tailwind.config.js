@@ -1,7 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', './**/*.html'],
-  safelist: ['hover:text-[#38776e]'],
+  safelist: [
+    'hover:text-[#38776e]',
+    'justify-start',
+    'justify-end',
+    'self-end',
+    'rounded-t-2xl',
+    'rounded-l-2xl',
+    'rounded-br-none',
+    'rounded-full',
+    'rounded-2xl',
+    'rounded-3xl',
+  ],
   theme: {
     extend: {
       colors: {

@@ -2,7 +2,7 @@
 <html lang="sv" class="scroll-smooth">
 <head>
   <meta property="og:title" content="Din kompis på digitaliseringsresan!" />
-  <meta property="og:description" content="appyChap hjälper er med hemsidor, appar, mjukvara, fotografering, grafik, förstå tekniken, ja i princip allt ”det digitala”! " />
+  <meta property="og:description" content="appyChap hjälper er med hemsidor, appar, mjukvara, fotografering, grafik, förstå tekniken, ja i princip allt "det digitala"!" />
   <meta property="og:image" content="https://appychap.se/images/preview.png" />
   <meta property="og:url" content="https://appychap.se/" />
   <meta property="og:type" content="website" />
@@ -15,65 +15,135 @@
   <title>Norrländsk tech - utan krångel!</title>
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link href="./dist/output.css" rel="stylesheet" />
-  <!-- Chatbot-ikon helper -->
-<style>
-  .bg-appybot-icon {
-    background-image: url('/images/appybot-icon.webp');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-<style>
-  /* DÖLJ CHATTEN!!!!! */
-  #chat-toggle,
-  #chat-window {
-    display: none !important;
-  }
-</style>
+  
+  <style>
+    .bg-appybot-icon {
+      background-image: url('/images/appybot-icon.webp');
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    
+    .force-flex-right {
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    /* Säkerställ att header/footer alltid syns */
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    main {
+      height: calc(100vh - 180px); /* Fast höjd för main */
+      overflow-y: auto;
+    }
+    
+    .home-logo {
+      max-height: min(70vh, 600px); /* Öka från 60vh till 70vh och från 500px till 600px */
+      max-width: min(95vw, 700px);  /* Öka från 90vw till 95vw och från 600px till 700px */
+      width: auto;
+      height: auto;
+      object-fit: contain;          /* Behåll hela bilden synlig */
+      object-position: center;      /* Centrera bilden */
+    }
 
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W0WY3PPVLL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-W0WY3PPVLL');
-</script>
-<!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1367416167818098');
-  fbq('track', 'PageView');
+    @media (max-height: 700px) {
+      .home-logo {
+        max-height: min(60vh, 500px);
+        max-width: min(90vw, 600px);
+      }
+    }
+    
+    @media (max-height: 600px) {
+      main {
+        height: calc(100vh - 150px);
+      }
+      .home-logo {
+        max-height: min(40vh, 300px);
+        max-width: min(80vw, 450px);
+      }
+    }
+    
+    @media (max-height: 500px) {
+      main {
+        height: calc(100vh - 120px);
+      }
+      .home-logo {
+        max-height: min(35vh, 250px);
+        max-width: min(75vw, 400px);
+      }
+    }
+
+    /* Extra för mycket små skärmar */
+    @media (max-height: 400px) {
+      .home-logo {
+        max-height: min(30vh, 200px);
+        max-width: min(70vw, 350px);
+      }
+    }
+    
+    /* Fixa cursor för alla klickbara element */
+    #main-nav a,
+    header a[onclick*="showHome"],
+    footer a,
+    [onclick],
+    button,
+    [role="button"] {
+      cursor: pointer !important;
+    }
+    
+    /* Smooth transitions för content */
+    #content {
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0WY3PPVLL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W0WY3PPVLL');
+  </script>
+
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1367416167818098');
+    fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1367416167818098&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- Slut Meta Pixel Code -->
+  src="https://www.facebook.com/tr?id=1367416167818098&ev=PageView&noscript=1" /></noscript>
 </head>
-<body class="bg-black text-white font-poppins min-h-screen flex flex-col">
 
+<body class="bg-black text-white font-poppins min-h-screen flex flex-col">
   <header class="sticky top-0 z-50 opacity-0 animate-fade w-full flex flex-col items-center justify-center pt-4 pb-2 bg-black transition-opacity duration-700 relative">
     <a role="button" onclick="showHome(); setActiveNav(); closeMenu(); return false;" class="block cursor-pointer">
-      <img src="images/appychapplogga.webp" alt="appyChap logotyp" class="appy-logo h-20 sm:h-24 w-auto mb-2 mx-auto" />
+      <img src="images/nyloggaweb.webp" alt="appyChap logotyp" class="appy-logo h-20 sm:h-24 w-auto mb-2 mx-auto" />
     </a>
+    
     <button id="menu-btn" class="md:hidden mt-2 mb-2 text-4xl focus:outline-none hamburger" aria-label="Öppna meny" onclick="toggleMenu()">
       &#9776;
     </button>
+    
     <nav id="main-nav" class="relative hidden md:flex flex-row md:items-center md:space-x-8 md:mt-10 md:text-lg transition-all w-full md:w-auto text-xl md:text-lg mt-2">
       <a id="nav-about" onclick="setActiveNav('about'); loadContent('about.html'); closeMenu(); return false;" class="hover:text-yellow-400 transition block text-center py-2 md:py-0">Vem är appyChap?</a>
       <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center py-2 md:py-0">Vad kan jag hjälpa till med?</a>
       <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center py-2 md:py-0">Tidigare projekt</a>
       <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center py-2 md:py-0">Hör av dig!</a>
-      </nav>
+    </nav>
   </header>
 
   <main id="content" class="flex-grow flex flex-col items-center justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
@@ -102,112 +172,81 @@
       </p>
     </div>
   </footer>
-  <!---apyyBot-knappen -->
- <div
-  id="chat-toggle"
-  class="
-    fixed
-    bottom-4 right-4        /* mobil: 1rem från botten och kanten */
-    sm:bottom-16 sm:right-20 /* desktop: originalplacering */
-    w-16 h-16                /* mobilstorlek */
-    sm:w-24 sm:h-24          /* desktopstorlek */
-    border-4 border-yellow-400
-    rounded-full bg-appybot-icon cursor-pointer z-50
-    opacity-0 animate-fade
-  "
-  title="Snacka med appyBot!"
-></div>
 
-<!-- Chattruta -->
-<div
-  id="chat-window"
-  class="
-    fixed
-    bottom-16 right-2 left-2   /* mobil: 2 * 0.5rem marginal, centrerad */
-    sm:bottom-44 sm:right-12 sm:left-auto /* desktop: originalplacering */
-    w-[calc(100%-1rem)] sm:w-80  /* mobil: 100% minus 1rem horisontellt, desktop: 20rem */
-    max-w-xs                    /* sätt maxbredd på mobil */
-    h-[60vh] sm:h-[400px]        /* mobil: 60% av höjden, desktop: 400px */
-    bg-gray-900 text-white shadow-lg rounded-lg flex flex-col z-40
-    scale-y-0 origin-bottom-right transition-transform duration-200
-    opacity-0 animate-fade
-  "
->
+  <!-- Chat widget -->
+  <div id="chat-toggle" class="fixed bottom-4 right-4 sm:bottom-16 sm:right-20 w-16 h-16 sm:w-24 sm:h-24 border-4 border-yellow-400 rounded-full bg-appybot-icon cursor-pointer z-50 opacity-0 animate-fade" title="Snacka med appyBot!"></div>
 
-  <!-- Header + stäng-knapp -->
-  <div class="flex items-center justify-between bg-gray-800 px-4 py-2">
-    <span class="text-yellow-400 font-bold">appyBot</span>
-    <button id="chat-close" class="text-gray-400 hover:text-gray-200">&times;</button>
+  <div id="chat-window" class="fixed bottom-24 right-4 sm:bottom-[11rem] sm:right-20 bg-black w-[380px] h-[500px] max-w-full scale-y-0 origin-bottom transition-transform duration-300 rounded-xl overflow-hidden z-50 shadow-2xl">
+    <div class="flex items-center justify-between bg-gray-800 px-4 py-2 border-b border-gray-700">
+      <span class="text-yellow-400 font-bold">appyBot</span>
+      <button id="chat-close" class="text-2xl text-gray-400 hover:text-gray-200">&times;</button>
+    </div>
+
+    <div id="chat-body" class="h-[380px] p-3 overflow-y-auto space-y-2"></div>
+
+    <div class="flex items-center border-t border-gray-700 bg-gray-800 p-2 min-w-0">
+      <input id="user-input" type="text" placeholder="Skriv ditt meddelande…" class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none rounded" />
+      <button id="send-btn" class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-4 py-2 hover:bg-yellow-300 rounded transition">Skicka</button>
+    </div>
   </div>
-
-  <!-- Body (scrollbar) -->
-  <div
-    id="chat-body"
-    class="flex-1 p-3 overflow-y-auto space-y-2"
-  >
-    <!-- … -->
-  </div>
-
-  <!-- Inputfält + sänd-knapp -->
-  <div class="flex items-center border-t border-gray-700 bg-gray-800 p-2 min-w-0">
-    <input
-      id="user-input"
-      type="text"
-      placeholder="Skriv ditt meddelande…"
-      class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none rounded"
-    />
-    <button
-      id="send-btn"
-      class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-4 py-2 hover:bg-yellow-300 rounded transition"
-    >
-      Skicka
-    </button>
-  </div>
-</div>
 
   <script>
+    // Fade in elements när sidan laddas
     window.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('header').classList.remove('opacity-0');
-  document.querySelector('main').classList.remove('opacity-0');
-  document.querySelector('footer').classList.remove('opacity-0');
-  document.getElementById('chat-toggle').classList.remove('opacity-0');
-  document.getElementById('chat-window').classList.remove('opacity-0');
-  showHome();
-  setActiveNav();
-  fixMenu();
-});
+      const header = document.querySelector('header');
+      const main = document.querySelector('main');
+      const footer = document.querySelector('footer');
+      const chatToggle = document.getElementById('chat-toggle');
+      const chatWindow = document.getElementById('chat-window');
+      
+      header.classList.remove('opacity-0');
+      main.classList.remove('opacity-0');
+      footer.classList.remove('opacity-0');
+      chatToggle.classList.remove('opacity-0');
+      chatWindow.classList.remove('opacity-0');
+      
+      showHome();
+      setActiveNav();
+      fixMenu();
+    });
 
     function showHome() {
       const content = document.getElementById('content');
-      content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4 animate-fade';
-      content.innerHTML = `
-        <section class="flex flex-col items-center justify-center w-full h-full">
-          <img
-            src="images/appystart.webp"
-            alt="Illustration"
-            class="w-full max-w-3xl h-auto rounded-lg shadow mb-2 sm:max-h-[60vh]"
-          />
-          <p class="text-yellow-400 italic text-base leading-tight mt-2">
-            appyChap gör tekniken till en tillgång – inte en börda
-          </p>
-        </section>
-      `;
+      
+      // Fade ut först
+      content.style.opacity = '0';
+      
       setTimeout(() => {
-        content.classList.remove('animate-fade');
-        void content.offsetWidth; 
-        content.classList.add('animate-fade');
-        window.scrollTo({top: 0, left: 0, behavior: 'instant'});
-      }, 0);
+        // Byt innehåll när det är helt genomskinligt
+        content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4';
+        content.innerHTML = `
+          <section class="flex flex-col items-center justify-center w-full h-full">
+            <img src="images/appyChap_logga.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" />
+            <p class="text-yellow-400 italic text-base leading-tight mt-2"></p>
+          </section>
+        `;
+        
+        // Fade in efter innehållsbyte
+        setTimeout(() => {
+          content.style.opacity = '1';
+          window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+        }, 50);
+      }, 150);
+      
       setActiveNav();
     }
 
     function loadContent(file) {
       fetch(file)
-        .then(res => { if (!res.ok) throw new Error(`HTTP ${res.status}`); return res.text(); })
+        .then(res => { 
+          if(!res.ok) throw new Error(`HTTP ${res.status}`); 
+          return res.text(); 
+        })
         .then(html => {
           const content = document.getElementById('content');
           content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4 animate-fade';
           content.innerHTML = `<div class="animate-fade">${html}</div>`;
+          
           setTimeout(() => {
             content.classList.remove('animate-fade');
             void content.offsetWidth; 
@@ -215,8 +254,9 @@
             window.scrollTo({top: 0, left: 0, behavior: 'instant'});
           }, 0);
 
+          // Initiera kontaktformulär om det finns
           setTimeout(() => {
-            if (document.getElementById('contactForm')) {
+            if(document.getElementById('contactForm')) {
               initContactForm();
             }
           }, 50);
@@ -229,114 +269,124 @@
     }
 
     function setActiveNav(key) {
-      document.querySelectorAll('#main-nav a').forEach(link => {
+      // Återställ alla nav-länkar
+      const links = document.querySelectorAll('#main-nav a');
+      links.forEach(link => {
         link.classList.remove('active', 'text-yellow-400', 'text-blue-400', 'text-[#38776e]', 'text-orange-400');
         link.style.opacity = "0.7";
       });
+
+      // Sätt aktiv länk baserat på key
+      let activeLink;
       switch(key) {
         case 'about':
-          var link = document.getElementById('nav-about');
-          if (link) {
-            link.classList.add('active', 'text-yellow-400');
-            link.style.opacity = "1";
+          activeLink = document.getElementById('nav-about');
+          if(activeLink) {
+            activeLink.classList.add('active', 'text-yellow-400');
+            activeLink.style.opacity = "1";
           }
           break;
         case 'whatwedo':
-          var link = document.getElementById('nav-whatwedo');
-          if (link) {
-            link.classList.add('active', 'text-blue-400');
-            link.style.opacity = "1";
+          activeLink = document.getElementById('nav-whatwedo');
+          if(activeLink) {
+            activeLink.classList.add('active', 'text-blue-400');
+            activeLink.style.opacity = "1";
           }
           break;
         case 'whatwevedone':
-          var link = document.getElementById('nav-whatwevedone');
-          if (link) {
-            link.classList.add('active', 'text-[#38776e]');
-            link.style.opacity = "1";
+          activeLink = document.getElementById('nav-whatwevedone');
+          if(activeLink) {
+            activeLink.classList.add('active', 'text-[#38776e]');
+            activeLink.style.opacity = "1";
           }
           break;
         case 'contact':
-          var link = document.getElementById('nav-contact');
-          if (link) {
-            link.classList.add('active', 'text-orange-400');
-            link.style.opacity = "1";
+          activeLink = document.getElementById('nav-contact');
+          if(activeLink) {
+            activeLink.classList.add('active', 'text-orange-400');
+            activeLink.style.opacity = "1";
           }
           break;
         default:
-            const homeLink = document.querySelector('a[onclick*="showHome"]');
-            if (homeLink) {
-                homeLink.classList.add('active');
-                homeLink.style.opacity = "1";
-            }
-            break;
+          // Hem-sida är aktiv
+          const homeLink = document.querySelector('a[onclick*="showHome"]');
+          if(homeLink) {
+            homeLink.classList.add('active');
+            homeLink.style.opacity = "1";
+          }
+          break;
       }
     }
 
+    // Mobilmeny hantering - alltid krångligt med responsiv design
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      
       nav.classList.toggle('mobile-open');
       nav.classList.toggle('hidden');
       btn.classList.toggle('open');
-      
     }
+    
     function closeMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      
       nav.classList.remove('mobile-open');
       nav.classList.add('hidden');
       btn.classList.remove('open');
-      
     }
+    
     function fixMenu() {
+      const nav = document.getElementById('main-nav');
+      const btn = document.getElementById('menu-btn');
+      
       window.addEventListener('resize', () => {
-        const nav = document.getElementById('main-nav');
-        const btn = document.getElementById('menu-btn');
-        if (window.innerWidth >= 768) {
+        if(window.innerWidth >= 768) {
+          // Desktop
           nav.classList.remove('hidden');
           nav.classList.remove('mobile-open');
           btn.classList.remove('open');
         } else {
-          if (!nav.classList.contains('mobile-open')) {
+          // Mobil - dölj om den inte är öppen
+          if(!nav.classList.contains('mobile-open')) {
             nav.classList.add('hidden');
           }
           nav.classList.remove('mobile-open');
           btn.classList.remove('open');
         }
-        
       });
-      const nav = document.getElementById('main-nav');
-      const btn = document.getElementById('menu-btn');
-      if (window.innerWidth >= 768) {
+      
+      // Initial check
+      if(window.innerWidth >= 768) {
         nav.classList.remove('hidden');
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
       } else {
-        if (!nav.classList.contains('mobile-open')) {
-            nav.classList.add('hidden');
+        if(!nav.classList.contains('mobile-open')) {
+          nav.classList.add('hidden');
         }
         nav.classList.remove('mobile-open');
         btn.classList.remove('open');
       }
-      
     }
   
-
-
+    // Kontaktformulär hantering
     function initContactForm() {
       const form = document.getElementById("contactForm");
       const heading = document.getElementById("contactHeading");
-      const successMessage = document.getElementById("successMessage");
+      const successMsg = document.getElementById("successMessage");
 
-      if (!form) return;
+      if(!form) return;
 
-      form.addEventListener("submit", async function (e) {
+      form.addEventListener("submit", async function(e) {
         e.preventDefault();
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        if (data.phone && !/^\d+$/.test(data.phone)) {
+        // Validera telefonnummer - bara siffror
+        if(data.phone && !/^\d+$/.test(data.phone)) {
           alert("Telefonnummer får endast innehålla siffror.");
           return;
         }
@@ -348,20 +398,23 @@
             body: JSON.stringify(data),
           });
 
-          if (res.ok) {
+          if(res.ok) {
+            // Visa success meddelande
             form.classList.add("hidden");
-            if (heading) heading.classList.add("hidden");
-            if (successMessage) {
-              successMessage.classList.remove("hidden");
-              successMessage.classList.add("opacity-100");
+            if(heading) heading.classList.add("hidden");
+            if(successMsg) {
+              successMsg.classList.remove("hidden");
+              successMsg.classList.add("opacity-100");
             }
+            
+            // Tillbaka till hem efter 5 sek
             setTimeout(() => showHome(), 5000);
           } else {
             const text = await res.text();
             alert("Det gick inte att skicka meddelandet:\n" + text);
             console.error("Serverfel:", text);
           }
-        } catch (err) {
+        } catch(err) {
           alert("Ett nätverksfel inträffade.");
           console.error("Fetch error:", err);
         }
@@ -369,6 +422,6 @@
     }
   </script>
   
-<script src="/chat.js"></script>
+  <script src="/chat.js"></script>
 </body>
 </html>
