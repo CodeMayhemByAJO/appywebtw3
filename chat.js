@@ -67,6 +67,9 @@ function appendMessage(text, isBot = false) {
     text.includes('CLOSE_CHAT') ||
     text.includes('Ha en fortsatt bra dag');
 
+  // Ta bort CLOSE_CHAT från meddelandet innan det visas
+  text = text.replace(/\s*CLOSE_CHAT\s*$/g, '').trim();
+
   const wrap = document.createElement('div');
   wrap.className = 'w-full flex ' + (isBot ? 'justify-start' : 'justify-end');
   wrap.style.marginBottom = '1rem';
