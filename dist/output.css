@@ -1720,6 +1720,10 @@ video {
     align-items: center;
   }
 
+  .lg\:justify-center {
+    justify-content: center;
+  }
+
   .lg\:gap-8 {
     gap: 2rem;
   }

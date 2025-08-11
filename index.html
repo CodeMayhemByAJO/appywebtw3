@@ -28,7 +28,7 @@
     body { height: 100dvh; overflow: hidden; background: #000; color: #fff; }
     header, footer { box-sizing: border-box; }
 
-    /* main börjar under headern och får lite topp-luft styrd i JS */
+    /* main börjar under headern och har topp-luft som vi styr i JS */
     main {
       overflow-y: auto;
       transition: opacity .3s ease-in-out;
@@ -44,7 +44,7 @@
     .hamburger { transition: transform .3s ease; }
     .hamburger.open { transform: rotate(90deg); }
 
-    /* mobil-overlaymeny; exakt position sätts i JS */
+    /* mobil overlay-meny; exakt position sätts i JS */
     @media (max-width: 767px) {
       #main-nav.force-show {
         display: block !important;
@@ -82,6 +82,14 @@
       background-size: contain;
       background-repeat: no-repeat;
     }
+    @media (max-width: 767px) {
+  #main-nav.force-show { 
+    border: none !important;      /* ta bort ev. linje under hela menyn */
+  }
+  #main-nav.force-show a { 
+    border: none !important;       /* ta bort linjer mellan länkarna */
+  }
+}
   </style>
 
   <!-- Analytics -->
@@ -130,7 +138,7 @@
   </header>
 
   <!-- MAIN -->
-  <main id="content" class="flex-grow flex flex-col items-center justify-start w-full text-center px-4 opacity-0 animate-fade"></main>
+  <main id="content" class="flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
 
   <!-- FOOTER -->
   <footer class="opacity-0 animate-fade bg-black transition-opacity duration-700 flex flex-col justify-center items-center">
@@ -205,7 +213,7 @@
       main.style.overflowY = 'auto';
     }
 
-    // rätt topp-luft: 12px mobil, 24px tablet, 44px desktop
+    // topp-luft: 12px mobil, 24px tablet, 44px desktop
     function applyContentOffset() {
       const headerH = document.querySelector('header').getBoundingClientRect().height;
       document.documentElement.style.setProperty('--header-offset', headerH + 'px');
@@ -220,9 +228,9 @@
       const content = document.getElementById('content');
       content.style.opacity = '0';
       setTimeout(() => {
-        content.className = 'flex-grow flex flex-col items-center justify-start w-full text-center px-4';
+        content.className = 'flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4';
         content.innerHTML = `
-          <section class="flex flex-col items-center justify-start w-full h-full">
+          <section class="flex flex-col items-center justify-start w-full">
             <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" style="opacity:0; transition: opacity .5s ease-in-out;" />
             <p class="text-yellow-400 italic text-sm sm:text-base leading-tight mt-2"></p>
           </section>
@@ -245,8 +253,8 @@
         .then(res => { if(!res.ok) throw new Error(`HTTP ${res.status}`); return res.text(); })
         .then(html => {
           const content = document.getElementById('content');
-          content.className = 'flex-grow flex flex-col items-center justify-start w-full px-4 animate-fade overflow-y-auto';
-          content.innerHTML = `<div class="animate-fade w-full max-w-6xl flex flex-col justify-start min-h-full">${html}</div>`;
+          content.className = 'flex-grow flex flex-col items-center justify-start lg:justify-center w-full px-4 animate-fade overflow-y-auto';
+          content.innerHTML = `<div class="animate-fade w-full max-w-6xl flex flex-col justify-start">${html}</div>`;
           setTimeout(() => {
             content.classList.remove('animate-fade'); void content.offsetWidth; content.classList.add('animate-fade');
             content.scrollTop = 0;
