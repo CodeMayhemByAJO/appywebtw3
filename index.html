@@ -224,28 +224,38 @@
     }
 
     // Start
-    function showHome() {
-      const content = document.getElementById('content');
-      content.style.opacity = '0';
+   function showHome() {
+  const content = document.getElementById('content');
+
+  content.style.opacity = '0';
+
+  setTimeout(() => {
+    // Viktigt: justify-center istället för justify-start
+    content.className =
+      'flex-grow flex flex-col items-center justify-center w-full text-center px-4';
+
+    content.innerHTML = `
+      <section class="flex flex-col items-center justify-center w-full">
+        <img src="images/indexnew.webp"
+             alt="appyChap logotyp"
+             class="home-logo mx-auto mb-4 rounded-lg shadow"
+             style="opacity:0; transition: opacity .5s ease-in-out;" />
+        <p class="text-yellow-400 italic text-sm sm:text-base leading-tight mt-2"></p>
+      </section>
+    `;
+
+    setTimeout(() => {
+      content.style.opacity = '1';
       setTimeout(() => {
-        content.className = 'flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4';
-        content.innerHTML = `
-          <section class="flex flex-col items-center justify-start w-full">
-            <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" style="opacity:0; transition: opacity .5s ease-in-out;" />
-            <p class="text-yellow-400 italic text-sm sm:text-base leading-tight mt-2"></p>
-          </section>
-        `;
-        setTimeout(() => {
-          content.style.opacity = '1';
-          setTimeout(() => {
-            const img = content.querySelector('.home-logo');
-            if (img) img.style.opacity = '1';
-          }, 200);
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        }, 50);
-      }, 150);
-      setActiveNav();
-    }
+        const img = content.querySelector('.home-logo');
+        if (img) img.style.opacity = '1';
+      }, 200);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, 50);
+  }, 150);
+
+  setActiveNav();
+}
 
     // Ladda undersidor
     function loadContent(file) {
