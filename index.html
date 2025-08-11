@@ -82,14 +82,34 @@
       background-size: contain;
       background-repeat: no-repeat;
     }
+
+    /* ta bort gråa linjer mellan länkar i mobilmenyn */
     @media (max-width: 767px) {
-  #main-nav.force-show { 
-    border: none !important;      /* ta bort ev. linje under hela menyn */
-  }
-  #main-nav.force-show a { 
-    border: none !important;       /* ta bort linjer mellan länkarna */
-  }
-}
+      #main-nav.force-show { border: none !important; }
+      #main-nav.force-show a { border: none !important; }
+    }
+
+    /* ---------------- Chatfönster (fast storlek men aldrig kapat) ---------------- */
+    :root { --chat-win-h: 400px; }         /* mobilhöjd */
+    @media (min-width: 640px) {            /* från sm: 500px som innan */
+      :root { --chat-win-h: 500px; }
+    }
+
+    #chat-window {
+      display: flex;
+      flex-direction: column;
+      height: var(--chat-win-h);                   /* fast storlek */
+      max-height: calc(
+        100dvh - var(--header-offset, 64px)        /* aldrig högre än synlig viewport */
+        - 24px - env(safe-area-inset-bottom)
+      ) !important;
+      overflow: hidden;                             /* själva rutan klipper inte innehåll synligt */
+    }
+    #chat-body {
+      flex: 1 1 auto;                               /* fyll rutan mellan header och input */
+      min-height: 0;
+      overflow-y: auto;                              /* scrolla meddelanden (som tidigare) */
+    }
   </style>
 
   <!-- Analytics -->
@@ -171,7 +191,10 @@
       <span class="text-yellow-400 font-bold text-sm sm:text-base">appyBot</span>
       <button id="chat-close" class="text-xl sm:text-2xl text-gray-400 hover:text-gray-200" aria-label="Stäng">&times;</button>
     </div>
-    <div id="chat-body" class="h-[320px] sm:h-[380px] p-3 overflow-y-auto space-y-2"></div>
+
+    <!-- Viktigt: ta bort fasta h-klass här så höjden alltid anpassas till rutan och scrollar -->
+    <div id="chat-body" class="p-3 overflow-y-auto space-y-2"></div>
+
     <div class="flex items-center border-t border-gray-700/50 bg-gray-800/70 backdrop-blur-sm p-2 min-w-0">
       <input id="user-input" type="text" placeholder="Skriv ditt meddelande…" class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none rounded" />
       <button id="send-btn" class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-yellow-300 rounded transition">Skicka</button>
@@ -192,6 +215,14 @@
       showHome();
       setActiveNav();
       fixMenu();
+
+      // Auto-scrolla chatten när nytt innehåll kommer (samma upplevelse som tidigare)
+      const chatBody = document.getElementById('chat-body');
+      if (chatBody) {
+        const toBottom = () => { chatBody.scrollTop = chatBody.scrollHeight; };
+        new MutationObserver(toBottom).observe(chatBody, { childList: true, subtree: true });
+        toBottom();
+      }
     });
 
     window.addEventListener('resize', () => {
