@@ -21,30 +21,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* klick-pekarna */
+    /* Pekare */
     #main-nav a, header a[onclick*="showHome"], footer a, [onclick], button, [role="button"] { cursor: pointer !important; }
 
-    /* header/footer är pinade; bara main scrollar */
-    body { height: 100dvh; overflow: hidden; background: #000; color: #fff; }
+    /* Header/footer pinas; bara main scrollar */
+    body { height: 100dvh; overflow: hidden; background:#000; color:#fff; }
     header, footer { box-sizing: border-box; }
 
-    /* main börjar under headern och har topp-luft som vi styr i JS */
+    /* Main ligger under headern; topp-luft styrs via CSS-var */
     main {
       overflow-y: auto;
       transition: opacity .3s ease-in-out;
       scroll-padding-top: var(--header-offset, 0px);
       padding-top: var(--content-top-pad, 12px);
     }
+    /* När mobilmenyn är öppen – ge extra topp-padding så inget skyms */
+    body.menu-open main {
+      padding-top: calc(var(--content-top-pad, 12px) + var(--mobile-menu-offset, 0px));
+    }
 
-    /* fade */
     .animate-fade { animation: fade .5s ease forwards; }
-    @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes fade { from {opacity:0} to {opacity:1} }
 
-    /* hamburger */
     .hamburger { transition: transform .3s ease; }
     .hamburger.open { transform: rotate(90deg); }
 
-    /* mobil overlay-meny; exakt position sätts i JS */
+    /* Mobil overlay-meny; positioneras i JS */
     @media (max-width: 767px) {
       #main-nav.force-show {
         display: block !important;
@@ -55,61 +57,42 @@
         z-index: 40 !important; /* header är z-50 */
         padding: 1rem !important;
         overflow-y: auto !important;
-        border-bottom: 1px solid rgba(255,255,255,.1) !important;
       }
       #main-nav.force-show a {
         display: block !important;
         font-size: 1.2rem !important;
         padding: .8rem 0 !important;
         text-align: center !important;
-        border-bottom: 1px solid rgba(255,255,255,.1) !important;
       }
-      #main-nav.force-show a:last-child { border-bottom: none !important; }
+      #main-nav.force-show,
+      #main-nav.force-show a { border: none !important; } /* inga grå streck */
     }
 
-    /* extra luft under footer + iOS safe area */
+    /* Extra luft under footer + iOS safe area */
     @supports (padding: max(0px)) {
       footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
     }
 
-    /* hero-logga */
-    .home-logo { max-width: 70vw; max-height: 50vh; height: auto; object-fit: contain; }
+    .home-logo { max-width: 70vw; max-height: 50vh; height:auto; object-fit:contain; }
 
-    /* chat-knapp-bild */
     .bg-appybot-icon {
-      background-image: url('/images/appybot-icon.webp');
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
+      background-image:url('/images/appybot-icon.webp');
+      background-position:center;
+      background-size:contain;
+      background-repeat:no-repeat;
     }
 
-    /* ta bort gråa linjer mellan länkar i mobilmenyn */
-    @media (max-width: 767px) {
-      #main-nav.force-show { border: none !important; }
-      #main-nav.force-show a { border: none !important; }
-    }
-
-    /* ---------------- Chatfönster (fast storlek men aldrig kapat) ---------------- */
-    :root { --chat-win-h: 400px; }         /* mobilhöjd */
-    @media (min-width: 640px) {            /* från sm: 500px som innan */
-      :root { --chat-win-h: 500px; }
-    }
+    /* Chat: fast storlek, scrollar inuti och klipps ej på mobil */
+    :root { --chat-win-h: 400px; }
+    @media (min-width: 640px) { :root { --chat-win-h: 500px; } }
 
     #chat-window {
-      display: flex;
-      flex-direction: column;
-      height: var(--chat-win-h);                   /* fast storlek */
-      max-height: calc(
-        100dvh - var(--header-offset, 64px)        /* aldrig högre än synlig viewport */
-        - 24px - env(safe-area-inset-bottom)
-      ) !important;
-      overflow: hidden;                             /* själva rutan klipper inte innehåll synligt */
+      display:flex; flex-direction:column;
+      height: var(--chat-win-h);
+      max-height: calc(100dvh - var(--header-offset,64px) - 24px - env(safe-area-inset-bottom)) !important;
+      overflow:hidden;
     }
-    #chat-body {
-      flex: 1 1 auto;                               /* fyll rutan mellan header och input */
-      min-height: 0;
-      overflow-y: auto;                              /* scrolla meddelanden (som tidigare) */
-    }
+    #chat-body { flex:1 1 auto; min-height:0; overflow-y:auto; }
   </style>
 
   <!-- Analytics -->
@@ -140,20 +123,13 @@
       <img src="images/nyloggaweb.webp" alt="appyChap logotyp" class="appy-logo h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto mb-1 mx-auto" />
     </a>
 
-    <!-- hamburger (mobil) -->
     <button id="menu-btn" class="md:hidden mt-2 mb-2 text-3xl sm:text-4xl focus:outline-none hamburger" aria-label="Öppna meny" onclick="toggleMenu()">&#9776;</button>
 
-    <!-- NAV -->
-    <nav id="main-nav"
-         class="relative hidden md:flex flex-row md:items-center md:justify-center md:space-x-8 transition-all w-full md:w-auto">
-      <a id="nav-about" onclick="setActiveNav('about'); loadContent('about.html'); closeMenu(); return false;"
-         class="hover:text-yellow-400 transition block text-center">Vem är appyChap?</a>
-      <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;"
-         class="hover:text-blue-400 transition block text-center">Vad kan jag hjälpa till med?</a>
-      <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;"
-         class="hover:text-[#38776e] transition block text-center">Tidigare projekt</a>
-      <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;"
-         class="hover:text-orange-400 transition block text-center">Hör av dig!</a>
+    <nav id="main-nav" class="relative hidden md:flex flex-row md:items-center md:justify-center md:space-x-8 transition-all w-full md:w-auto">
+      <a id="nav-about" onclick="setActiveNav('about'); loadContent('about.html'); closeMenu(); return false;" class="hover:text-yellow-400 transition block text-center">Vem är appyChap?</a>
+      <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center">Vad kan jag hjälpa till med?</a>
+      <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center">Tidigare projekt</a>
+      <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center">Hör av dig!</a>
     </nav>
   </header>
 
@@ -191,10 +167,7 @@
       <span class="text-yellow-400 font-bold text-sm sm:text-base">appyBot</span>
       <button id="chat-close" class="text-xl sm:text-2xl text-gray-400 hover:text-gray-200" aria-label="Stäng">&times;</button>
     </div>
-
-    <!-- Viktigt: ta bort fasta h-klass här så höjden alltid anpassas till rutan och scrollar -->
     <div id="chat-body" class="p-3 overflow-y-auto space-y-2"></div>
-
     <div class="flex items-center border-t border-gray-700/50 bg-gray-800/70 backdrop-blur-sm p-2 min-w-0">
       <input id="user-input" type="text" placeholder="Skriv ditt meddelande…" class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none rounded" />
       <button id="send-btn" class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-yellow-300 rounded transition">Skicka</button>
@@ -202,7 +175,7 @@
   </div>
 
   <script>
-    // init
+    // Init
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelector('header').classList.remove('opacity-0');
       document.querySelector('main').classList.remove('opacity-0');
@@ -216,7 +189,7 @@
       setActiveNav();
       fixMenu();
 
-      // Auto-scrolla chatten när nytt innehåll kommer (samma upplevelse som tidigare)
+      // auto-scroll i chatten när det kommer nytt
       const chatBody = document.getElementById('chat-body');
       if (chatBody) {
         const toBottom = () => { chatBody.scrollTop = chatBody.scrollHeight; };
@@ -228,9 +201,10 @@
     window.addEventListener('resize', () => {
       layoutHeights();
       applyContentOffset();
+      if (document.body.classList.contains('menu-open')) positionMobileMenu();
     });
 
-    // main fyller mellan header & footer
+    // Main fyller mellan header & footer
     function layoutHeights() {
       const header = document.querySelector('header');
       const footer = document.querySelector('footer');
@@ -244,7 +218,7 @@
       main.style.overflowY = 'auto';
     }
 
-    // topp-luft: 12px mobil, 24px tablet, 44px desktop
+    // Topp-luft: 12px mobil, 24px tablet, 44px desktop
     function applyContentOffset() {
       const headerH = document.querySelector('header').getBoundingClientRect().height;
       document.documentElement.style.setProperty('--header-offset', headerH + 'px');
@@ -254,7 +228,7 @@
       document.documentElement.style.setProperty('--content-top-pad', pad + 'px');
     }
 
-    // startsida
+    // Start
     function showHome() {
       const content = document.getElementById('content');
       content.style.opacity = '0';
@@ -278,7 +252,7 @@
       setActiveNav();
     }
 
-    // ladda undersidor
+    // Ladda undersidor
     function loadContent(file) {
       fetch(file)
         .then(res => { if(!res.ok) throw new Error(`HTTP ${res.status}`); return res.text(); })
@@ -301,7 +275,7 @@
         });
     }
 
-    // aktiv länk behåller hover-färgen
+    // Aktiv länk behåller hover-färgen
     function setActiveNav(key) {
       const links = document.querySelectorAll('#main-nav a');
       links.forEach(link => {
@@ -311,39 +285,31 @@
 
       let activeLink;
       switch (key) {
-        case 'about':
-          activeLink = document.getElementById('nav-about');
-          if (activeLink) activeLink.classList.add('text-yellow-400');
-          break;
-        case 'whatwedo':
-          activeLink = document.getElementById('nav-whatwedo');
-          if (activeLink) activeLink.classList.add('text-blue-400');
-          break;
-        case 'whatwevedone':
-          activeLink = document.getElementById('nav-whatwevedone');
-          if (activeLink) activeLink.classList.add('text-[#38776e]');
-          break;
-        case 'contact':
-          activeLink = document.getElementById('nav-contact');
-          if (activeLink) activeLink.classList.add('text-orange-400');
-          break;
-        default:
-          activeLink = document.querySelector('a[onclick*="showHome"]');
+        case 'about': activeLink = document.getElementById('nav-about'); if (activeLink) activeLink.classList.add('text-yellow-400'); break;
+        case 'whatwedo': activeLink = document.getElementById('nav-whatwedo'); if (activeLink) activeLink.classList.add('text-blue-400'); break;
+        case 'whatwevedone': activeLink = document.getElementById('nav-whatwevedone'); if (activeLink) activeLink.classList.add('text-[#38776e]'); break;
+        case 'contact': activeLink = document.getElementById('nav-contact'); if (activeLink) activeLink.classList.add('text-orange-400'); break;
+        default: activeLink = document.querySelector('a[onclick*="showHome"]');
       }
       if (activeLink) { activeLink.classList.add('active'); activeLink.style.opacity = '1'; }
     }
 
-    // mobilmeny mellan header & footer
+    // Mobilmeny mellan header & footer + tryck ned innehållet medan menyn är öppen
     function positionMobileMenu() {
       const nav = document.getElementById('main-nav');
       const headerH = document.querySelector('header').getBoundingClientRect().height;
       const footerEl = document.querySelector('footer');
       const footerH = getComputedStyle(footerEl).display === 'none' ? 0 : footerEl.getBoundingClientRect().height;
+
       nav.style.top = headerH + 'px';
       nav.style.left = '0';
       nav.style.right = '0';
       nav.style.height = (window.innerHeight - headerH - footerH) + 'px';
       nav.style.zIndex = 40;
+
+      // räkna hur hög menyn faktiskt är och ge main extra padding
+      const navHeight = Math.min(nav.scrollHeight, window.innerHeight - headerH - footerH);
+      document.documentElement.style.setProperty('--mobile-menu-offset', navHeight + 'px');
     }
 
     function toggleMenu() {
@@ -354,6 +320,7 @@
       nav.classList.add('force-show');
       btn.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
       document.body.style.overflow = 'hidden';
       positionMobileMenu();
       window.addEventListener('resize', positionMobileMenu, { passive: true });
@@ -366,8 +333,10 @@
       nav.classList.remove('force-show');
       btn.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
       document.body.style.overflow = '';
       ['top','left','right','height','zIndex'].forEach(k => nav.style[k] = '');
+      document.documentElement.style.setProperty('--mobile-menu-offset', '0px');
       window.removeEventListener('resize', positionMobileMenu);
     }
 
@@ -378,8 +347,10 @@
         if (window.innerWidth >= 768) {
           nav.classList.remove('hidden','force-show');
           btn.classList.remove('open');
+          document.body.classList.remove('menu-open');
           document.body.style.overflow = '';
           ['top','left','right','height','zIndex'].forEach(k => nav.style[k] = '');
+          document.documentElement.style.setProperty('--mobile-menu-offset', '0px');
         } else {
           if (!nav.classList.contains('force-show')) nav.classList.add('hidden');
         }
@@ -388,7 +359,7 @@
       apply();
     }
 
-    // kontaktformulär
+    // Kontakt
     function initContactForm() {
       const form = document.getElementById("contactForm");
       const heading = document.getElementById("contactHeading");
