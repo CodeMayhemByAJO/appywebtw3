@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"npm run build:css:watch\" \"npm run start\"",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "build:css:watch": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "build:css:prod": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "start": "node server.js",
-    "start:prod": "npx serve -s ./dist -l $PORT",
+    "start:prod": "node server-prod.js",
     "watch": "tailwindcss -i ./input.css -o ./dist/output.css --watch"
   },
   "keywords": [],
@@ -15,11 +17,15 @@
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.18",
+    "concurrently": "^8.2.2",
     "postcss": "^8.4.35",
     "serve": "^14.2.4",
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
   }
 }
