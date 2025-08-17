@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>appyChap - Norrländsk tech-consulting utan krängel | AI, Hemsidor, Appar</title>
+  <meta name="description" content="appyChap hjälper företag med AI, hemsidor, appar, mjukvara och smarta automationer. Norrländsk tech-consulting som gör tekniken enkel och funktionell." />
+  <meta name="keywords" content="AI, hemsidor, appar, mjukvara, automation, tech-consulting, digitalisering, Norrland, Timrå" />
+  <meta name="author" content="appyChap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://appychap.se/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://appychap.se/" />
+  <meta property="og:title" content="appyChap - Norrländsk tech-consulting utan krängel" />
+  <meta property="og:description" content="appyChap hjälper er med AI, hemsidor, appar, mjukvara, smarta automationer, fotografering, grafik, förstå tekniken, ja i princip allt 'det digitala'!" />
+  <meta property="og:image" content="https://appychap.se/images/preview.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="appyChap" />
+  <meta property="og:locale" content="sv_SE" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://appychap.se/" />
+  <meta property="twitter:title" content="appyChap - Norrländsk tech-consulting utan krängel" />
+  <meta property="twitter:description" content="appyChap hjälper er med AI, hemsidor, appar, mjukvara, smarta automationer, fotografering, grafik, förstå tekniken, ja i princip allt 'det digitala'!" />
+  <meta property="twitter:image" content="https://appychap.se/images/preview.webp" />
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#F7A42B" />
+  <meta name="msapplication-TileColor" content="#F7A42B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="appyChap" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "appyChap",
+    "description": "Norrländsk tech-consulting som hjälper företag med AI, hemsidor, appar, mjukvara och smarta automationer",
+    "url": "https://appychap.se",
+    "logo": "https://appychap.se/images/nyloggaweb.webp",
+    "image": "https://appychap.se/images/preview.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Timrå",
+      "addressRegion": "Medelpad",
+      "addressCountry": "SE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "62.4862",
+      "longitude": "17.3265"
+    },
+    "telephone": "+46-70-XXX-XXXX",
+    "email": "info@appychap.se",
+    "openingHours": "Mo-Fr 09:00-17:00",
+    "priceRange": "$$",
+    "currenciesAccepted": "SEK",
+    "paymentAccepted": "Invoice, Bank Transfer",
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "62.4862",
+        "longitude": "17.3265"
+      },
+      "geoRadius": "50000"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digitala tjänster",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Webbdesign & Utveckling",
+            "description": "Hemsidor som speglar vem du är och gör nyfikna besökare till riktiga kunder"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "App-utveckling",
+            "description": "Appar som används som stöd i vardagen, byggda för verksamheten"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI & Automation",
+            "description": "Smarta automationer och AI som frigör tid, minskar kostnader och skapar nya möjligheter"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fotografering & Grafik",
+            "description": "Foto, drönarfotografering och grafik som lyfter ditt varumärke"
+          }
+        }
+      ]
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61574926967290",
+      "https://www.instagram.com/appychapsweden/",
+      "https://www.linkedin.com/company/appychap",
+      "https://x.com/chap_appy50509"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link href="./dist/output.css" rel="stylesheet" />
+  <link href="/src/obfuscation.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* klick-pekarna */
+    #main-nav a, header a[onclick*="showHome"], footer a, [onclick], button, [role="button"] { cursor: pointer !important; }
+
+    /* header/footer är fasta; bara main scrollar */
+    body { height: 100dvh; overflow: hidden; background:#000; color:#fff; }
+    header, footer { box-sizing: border-box; }
+
+    /* main ligger under headern */
+    main {
+      overflow-y: auto;
+      transition: opacity .3s ease-in-out;
+      scroll-padding-top: var(--header-offset, 0px);
+      padding-top: var(--content-top-pad, 12px);
+    }
+
+    .animate-fade { animation: fade .5s ease forwards; }
+    @keyframes fade { from {opacity:0} to {opacity:1} }
+
+    .hamburger { transition: transform .3s ease; }
+    .hamburger.open { transform: rotate(90deg); }
+
+    /* Mobilmeny visas inuti headern (inte overlay) så den trycker ned innehållet */
+    @media (max-width: 767px) {
+      #main-nav { width:100%; }
+      #main-nav.force-show {
+        display:block !important;
+        position: static !important;
+        width:100% !important;
+        background: rgba(0,0,0,.96);
+        padding: 1rem 1rem .5rem;
+        overflow-y:auto;
+        max-height: calc(100dvh - var(--header-offset, 64px) - env(safe-area-inset-bottom));
+      }
+      #main-nav.force-show a {
+        display:block !important;
+        font-size:1.2rem !important;
+        padding:.8rem 0 !important;
+        text-align:center !important;
+      }
+      /* inga grå streck */
+      #main-nav.force-show, #main-nav.force-show a { border:none !important; }
+    }
+
+    /* lite luft/safe area i botten */
+    @supports (padding: max(0px)) {
+      footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+    }
+
+    /* Startbilden: skala efter bredd, men respektera tillgänglig höjd mellan header/footer */
+    .home-logo{
+      width: clamp(260px, 90vw, 900px);
+      height: auto;
+      object-fit: contain;
+      max-height: calc(var(--main-available, 100vh) - 120px);
+      opacity: 0;
+      transition: opacity .5s ease-in-out;
+    }
+
+    .home-logo.loaded {
+      opacity: 1;
+    }
+
+    /* chat-knapp-bild */
+    .bg-appybot-icon {
+      background-image:url('/images/appybot-icon.webp');
+      background-position:center;
+      background-size:contain;
+      background-repeat:no-repeat;
+    }
+
+    /* Chat: fast storlek, scrollar inuti och klipps inte */
+    :root { --chat-win-h: 400px; }
+    @media (min-width: 640px) { :root { --chat-win-h: 500px; } }
+
+    #chat-window {
+      display:flex; flex-direction:column;
+      height: var(--chat-win-h);
+      max-height: calc(100dvh - var(--header-offset,64px) - 24px - env(safe-area-inset-bottom)) !important;
+      overflow:hidden;
+    }
+    #chat-body { flex:1 1 auto; min-height:0; overflow-y:auto; }
+  </style>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0WY3PPVLL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-W0WY3PPVLL');
+  </script>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(
+    window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1367416167818098'); fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1367416167818098&ev=PageView&noscript=1"/></noscript>
+</head>
+
+<body class="bg-black text-white font-poppins min-h-screen flex flex-col">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 opacity-0 animate-fade w-full flex flex-col items-center justify-center bg-black transition-opacity duration-700 relative">
+    <a role="button" onclick="showHome(); setActiveNav(); closeMenu(); return false;" class="block">
+      <img src="images/nyloggaweb.webp" alt="appyChap logotyp" class="appy-logo h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto mb-1 mx-auto" loading="eager" />
+    </a>
+
+    <button id="menu-btn" class="md:hidden mt-2 mb-2 text-3xl sm:text-4xl focus:outline-none hamburger" aria-label="Öppna meny" onclick="toggleMenu()">&#9776;</button>
+
+    <nav id="main-nav" class="relative hidden md:flex flex-row md:items-center md:justify-center md:space-x-8 transition-all w-full md:w-auto">
+      <a id="nav-about" onclick="setActiveNav('about'); loadContent('about.html'); closeMenu(); return false;" class="hover:text-yellow-400 transition block text-center">Vem är appyChap?</a>
+      <a id="nav-whatwedo" onclick="setActiveNav('whatwedo'); loadContent('whatwedo.html'); closeMenu(); return false;" class="hover:text-blue-400 transition block text-center">Vad kan jag hjälpa till med?</a>
+      <a id="nav-whatwevedone" onclick="setActiveNav('whatwevedone'); loadContent('whatwevedone.html'); closeMenu(); return false;" class="hover:text-[#38776e] transition block text-center">Tidigare projekt</a>
+      <a id="nav-contact" onclick="setActiveNav('contact'); loadContent('contact.html'); closeMenu(); return false;" class="hover:text-orange-400 transition block text-center">Hör av dig!</a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main id="content" class="flex-grow flex flex-col items-center justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
+
+  <!-- FOOTER -->
+  <footer class="opacity-0 animate-fade bg-black transition-opacity duration-700 flex flex-col justify-center items-center">
+    <div class="flex flex-col items-center w-full px-2">
+      <div class="footer-socials flex justify-center gap-2 sm:gap-4 md:gap-6 mt-1">
+        <a href="https://www.facebook.com/profile.php?id=61574926967290" target="_blank" aria-label="Facebook" class="hover:text-blue-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 sm:h-5 sm:w-5 md:h-7 md:w-7" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5 3.657 9.127 8.438 9.876v-6.988H7.898v-2.888h2.54V9.845c0-2.507 1.493-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.464h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.888h-2.33v6.988C18.343 21.127 22 17 22 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/appychapsweden/" target="_blank" aria-label="Instagram" class="hover:text-pink-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 sm:h-5 sm:w-5 md:h-7 md:w-7" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2A5.75 5.75 0 0 0 2 7.75v8.5A5.75 5.75 0 0 0 7.75 22h8.5A5.75 5.75 0 0 0 22 16.25v-8.5A5.75 5.75 0 0 0 16.25 2h-8.5zm0 1.5h8.5A4.25 4.25 0 0 1 20.5 7.75v8.5A4.25 4.25 0 0 1 16.25 20.5h-8.5A4.25 4.25 0 0 1 3.5 16.25v-8.5A4.25 4.25 0 0 1 7.75 3.5zm4.25 3.5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/appychap" target="_blank" aria-label="LinkedIn" class="hover:text-blue-400 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 sm:h-5 sm:w-5 md:h-7 md:w-7" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.9 2.65 4.9 6.1V23h-4v-6.5c0-1.55-.03-3.5-2.15-3.5-2.15 0-2.5 1.65-2.5 3.35V23h-4V8.5z"/></svg>
+        </a>
+        <a href="https://x.com/chap_appy50509" target="_blank" aria-label="X/Twitter" class="hover:text-blue-400 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 sm:h-5 sm:w-5 md:h-7 md:w-7" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.5l-7.44 8.49L22 22h-6.412l-5.036-6.604L4.5 22H1.243l7.93-9.037L2 2h6.507l4.346 5.828L18.244 2zM16.712 20h2.176L8.285 4H5.962l10.75 16z"/></svg>
+        </a>
+      </div>
+      <p class="mt-2 text-xs sm:text-sm md:text-base text-white/40 text-center font-poppins not-italic px-2">
+        © 2025 appyChap · <a href="/integrity.html" class="underline hover:text-yellow-400 whitespace-nowrap">Integritetspolicy</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Chat -->
+  <div id="chat-toggle" class="fixed bottom-4 right-4 sm:bottom-16 sm:right-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 border-2 sm:border-4 border-yellow-400 rounded-full bg-appybot-icon cursor-pointer z-50 opacity-0 animate-fade" title="Snacka med appyBot!"></div>
+
+  <div id="chat-window" class="fixed bottom-16 right-4 sm:bottom-[11rem] sm:right-20 bg-black/70 backdrop-blur-sm w-[320px] sm:w-[380px] h-[400px] sm:h-[500px] max-w-full scale-y-0 origin-bottom transition-transform duration-300 rounded-xl overflow-hidden z-50 shadow-2xl border border-gray-700/50">
+    <div class="flex items-center justify-between bg-gray-800/70 backdrop-blur-sm px-4 py-2 border-b border-gray-700/50">
+      <span class="text-yellow-400 font-bold text-sm sm:text-base">appyBot</span>
+      <button id="chat-close" class="text-xl sm:text-2xl text-gray-400 hover:text-gray-200" aria-label="Stäng">&times;</button>
+    </div>
+    <div id="chat-body" class="p-3 overflow-y-auto space-y-2"></div>
+    <div class="flex items-center border-t border-gray-700/50 bg-gray-800/70 backdrop-blur-sm p-2 min-w-0">
+      <input id="user-input" type="text" placeholder="Skriv ditt meddelande…" class="flex-1 min-w-0 bg-gray-700 px-3 py-2 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none rounded" />
+      <button id="send-btn" class="ml-2 flex-shrink-0 bg-yellow-400 text-gray-900 px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-yellow-300 rounded transition">Skicka</button>
+    </div>
+  </div>
+
+  <script>
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('header').classList.remove('opacity-0');
+      document.querySelector('main').classList.remove('opacity-0');
+      document.querySelector('footer').classList.remove('opacity-0');
+      document.getElementById('chat-toggle').classList.remove('opacity-0');
+      document.getElementById('chat-window').classList.remove('opacity-0');
+
+      layoutHeights();
+      applyContentOffset();
+      showHome();
+      setActiveNav();
+      fixMenu();
+
+      const chatBody = document.getElementById('chat-body');
+      if (chatBody) {
+        const toBottom = () => { chatBody.scrollTop = chatBody.scrollHeight; };
+        new MutationObserver(toBottom).observe(chatBody, { childList: true, subtree: true });
+        toBottom();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      layoutHeights();
+      applyContentOffset();
+    });
+
+    // Main höjd = fönster - header - footer, och exponera till CSS
+    function layoutHeights() {
+      const header = document.querySelector('header');
+      const footer = document.querySelector('footer');
+      const main = document.getElementById('content');
+      if (!header || !footer || !main) return;
+      const h = header.getBoundingClientRect().height;
+      const f = getComputedStyle(footer).display === 'none' ? 0 : footer.getBoundingClientRect().height;
+      const available = Math.max(0, window.innerHeight - h - f);
+      main.style.height = available + 'px';
+      main.style.maxHeight = available + 'px';
+      main.style.overflowY = 'auto';
+      document.documentElement.style.setProperty('--main-available', available + 'px');
+    }
+
+    // Topp-luft: 12px mobil, 24px tablet, 44px desktop
+    function applyContentOffset() {
+      const headerH = document.querySelector('header').getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-offset', headerH + 'px');
+      let pad = 12;
+      if (window.innerWidth >= 1024) pad = 44;
+      else if (window.innerWidth >= 768) pad = 24;
+      document.documentElement.style.setProperty('--content-top-pad', pad + 'px');
+    }
+
+    // Start
+    function showHome() {
+      const content = document.getElementById('content');
+      content.style.opacity = '0';
+      setTimeout(() => {
+        content.className = 'flex-grow flex flex-col items-center justify-center w-full text-center px-4';
+        content.innerHTML = `
+          <section class="flex flex-col items-center justify-center w-full h-full">
+            <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" loading="lazy" />
+            <p class="text-yellow-400 italic text-sm sm:text-base leading-tight mt-2"></p>
+          </section>
+        `;
+        setTimeout(() => {
+          content.style.opacity = '1';
+          setTimeout(() => {
+            const img = content.querySelector('.home-logo');
+            if (img) {
+              img.addEventListener('load', () => {
+                img.classList.add('loaded');
+              });
+              // Fallback if image is already cached
+              if (img.complete) {
+                img.classList.add('loaded');
+              }
+            }
+          }, 200);
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }, 50);
+      }, 150);
+      setActiveNav();
+    }
+
+    // Ladda undersidor
+    function loadContent(file) {
+      fetch(file)
+        .then(res => { if(!res.ok) throw new Error(`HTTP ${res.status}`); return res.text(); })
+        .then(html => {
+          const content = document.getElementById('content');
+          content.className = 'flex-grow flex flex-col items-center justify-start lg:justify-center w-full px-4 animate-fade overflow-y-auto';
+          content.innerHTML = `<div class="animate-fade w-full max-w-6xl flex flex-col justify-start">${html}</div>`;
+          setTimeout(() => {
+            content.classList.remove('animate-fade'); void content.offsetWidth; content.classList.add('animate-fade');
+            content.scrollTop = 0;
+            layoutHeights();
+            applyContentOffset();
+          }, 0);
+          setTimeout(() => { if (document.getElementById('contactForm')) initContactForm(); }, 50);
+        })
+        .catch(err => {
+          const content = document.getElementById('content');
+          content.innerHTML = '<p class="text-red-400 text-center">Kunde inte ladda innehållet.</p>';
+          console.error('[FETCH FAIL]', err);
+        });
+    }
+
+    // Aktiv länk behåller hover-färgen
+    function setActiveNav(key) {
+      const links = document.querySelectorAll('#main-nav a');
+      links.forEach(link => {
+        link.classList.remove('active','text-yellow-400','text-blue-400','text-[#38776e]','text-orange-400');
+        link.style.opacity = '0.7';
+      });
+
+      let activeLink;
+      switch (key) {
+        case 'about': activeLink = document.getElementById('nav-about'); if (activeLink) activeLink.classList.add('text-yellow-400'); break;
+        case 'whatwedo': activeLink = document.getElementById('nav-whatwedo'); if (activeLink) activeLink.classList.add('text-blue-400'); break;
+        case 'whatwevedone': activeLink = document.getElementById('nav-whatwevedone'); if (activeLink) activeLink.classList.add('text-[#38776e]'); break;
+        case 'contact': activeLink = document.getElementById('nav-contact'); if (activeLink) activeLink.classList.add('text-orange-400'); break;
+        default: activeLink = document.querySelector('a[onclick*="showHome"]');
+      }
+      if (activeLink) { activeLink.classList.add('active'); activeLink.style.opacity = '1'; }
+    }
+
+    // Mobilmeny inuti headern
+    function toggleMenu() {
+      const nav = document.getElementById('main-nav');
+      const btn = document.getElementById('menu-btn');
+      if (nav.classList.contains('force-show')) { closeMenu(); return; }
+      nav.classList.remove('hidden');
+      nav.classList.add('force-show');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      layoutHeights();
+    }
+
+    function closeMenu() {
+      const nav = document.getElementById('main-nav');
+      const btn = document.getElementById('menu-btn');
+      nav.classList.add('hidden');
+      nav.classList.remove('force-show');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      layoutHeights();
+    }
+
+    function fixMenu() {
+      const nav = document.getElementById('main-nav');
+      const btn = document.getElementById('menu-btn');
+      function apply() {
+        if (window.innerWidth >= 768) {
+          nav.classList.remove('hidden','force-show');
+          btn.classList.remove('open');
+          document.body.style.overflow = '';
+        } else {
+          if (!nav.classList.contains('force-show')) nav.classList.add('hidden');
+        }
+        layoutHeights();
+      }
+      window.addEventListener('resize', apply, { passive: true });
+      apply();
+    }
+
+    // Kontaktformulär
+    function initContactForm() {
+      const form = document.getElementById("contactForm");
+      const heading = document.getElementById("contactHeading");
+      const successMsg = document.getElementById("successMessage");
+      if(!form) return;
+
+      form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        if(data.phone && !/^\d+$/.test(data.phone)) {
+          alert("Telefonnummer får endast innehålla siffror.");
+          return;
+        }
+
+        try {
+          const res = await fetch("/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          if(res.ok) {
+            const result = await res.json();
+            form.classList.add("hidden");
+            if(heading) heading.classList.add("hidden");
+            if(successMsg) {
+              successMsg.classList.remove("hidden");
+              successMsg.classList.add("opacity-100");
+              // Update success message for development mode
+              const successText = successMsg.querySelector('p');
+              if (successText && result.message) {
+                successText.innerHTML = result.message;
+              }
+            }
+            setTimeout(() => showHome(), 5000);
+          } else {
+            let text = "";
+            try { text = await res.text(); } catch(e){}
+            const fallback = `${res.status} ${res.statusText}`;
+            alert(`Det gick inte att skicka meddelandet:\n${text || fallback}`);
+            console.error("Serverfel:", text || fallback);
+          }
+        } catch(err) {
+          alert("Ett nätverksfel inträffade.");
+          console.error("Fetch error:", err);
+        }
+      });
+    }
+  </script>
+
+  <script src="/chat.js"></script>
+  
+  <!-- Website Protection System -->
+  <script src="/src/protection.js"></script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+    
+    // PWA Install Prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show install button or notification
+      const installBtn = document.createElement('button');
+      installBtn.textContent = 'Installera app';
+      installBtn.className = 'fixed top-4 right-4 bg-yellow-400 text-black px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-yellow-300 transition';
+      installBtn.onclick = () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+          installBtn.remove();
+        });
+      };
+      
+      document.body.appendChild(installBtn);
+      
+      // Auto-hide after 10 seconds
+      setTimeout(() => {
+        if (installBtn.parentNode) {
+          installBtn.remove();
+        }
+      }, 10000);
+    });
+  </script>
+</body>
+</html>
