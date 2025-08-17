@@ -10,42 +10,38 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/",
+      "destination": "/index.html"
     },
     {
-      "src": "/about",
-      "dest": "/about.html"
+      "source": "/about",
+      "destination": "/about.html"
     },
     {
-      "src": "/whatwedo",
-      "dest": "/whatwedo.html"
+      "source": "/whatwedo",
+      "destination": "/whatwedo.html"
     },
     {
-      "src": "/whatwevedone",
-      "dest": "/whatwevedone.html"
+      "source": "/whatwevedone",
+      "destination": "/whatwevedone.html"
     },
     {
-      "src": "/contact",
-      "dest": "/contact.html"
+      "source": "/contact",
+      "destination": "/contact.html"
     },
     {
-      "src": "/integrity",
-      "dest": "/integrity.html"
+      "source": "/integrity",
+      "destination": "/integrity.html"
     },
     {
-      "src": "/test",
-      "dest": "/test.html"
+      "source": "/test",
+      "destination": "/test.html"
     },
     {
-      "src": "/security-test",
-      "dest": "/security-test.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/security-test",
+      "destination": "/security-test.html"
     }
   ],
   "headers": [
@@ -74,5 +70,7 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
