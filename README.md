@@ -205,3 +205,38 @@ ISC License - se LICENSE-fil för detaljer.
 ---
 
 **appyChap** - Din kompis på digitaliseringsresan! 🚀
+
+## 🔒 **Säkerhet & Skydd**
+
+### **Kodskydd**
+- **JavaScript-obfuskering** - Gör kodanalys svår
+- **CSS-skydd** - Förhindrar designkopiering
+- **HTML-skydd** - Skyddar sidstruktur
+- **Konsol-blockering** - Stänger utvecklarverktyg
+
+### **Server-skydd**
+- **Avancerade säkerhetsheaders** - XSS, CSRF-skydd
+- **Bot-blockering** - Stoppar automatiska skraper
+- **Rate limiting** - Förhindrar överbelastning
+- **Känsliga filer skyddade** - .env, server-filer
+
+### **Utvecklarverktyg-blockering**
+- **F12, Ctrl+Shift+I** - Blockeras
+- **Högerklick** - Inaktiverat
+- **Källkod-visning** - Blockerad
+- **Text-markering** - Inaktiverad
+
+### **Build-scripts för säkerhet**
+```bash
+# Skapa obfuskerad version
+npm run build:secure
+
+# Obfuskera kod manuellt
+npm run obfuscate
+```
+
+### **Produktionsdeployment**
+- Använd obfuskerade filer
+- Aktivera alla säkerhetsheaders
+- Konfigurera .htaccess (Apache)
+- Aktivera rate limiting

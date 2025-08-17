@@ -1,19 +1,45 @@
+# Block ALL bots and crawlers
 User-agent: *
-Allow: /
+Disallow: /
 
-# Sitemap
-Sitemap: https://appychap.se/sitemap.xml
+# Block specific bots
+User-agent: Googlebot
+Disallow: /
 
-# Crawl-delay
-Crawl-delay: 1
+User-agent: Bingbot
+Disallow: /
 
-# Disallow admin or private areas (if any exist in the future)
-# Disallow: /admin/
-# Disallow: /private/
+User-agent: Slurp
+Disallow: /
 
-# Allow important pages
-Allow: /about.html
-Allow: /whatwedo.html
-Allow: /whatwevedone.html
-Allow: /contact.html
-Allow: /integrity.html
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: Twitterbot
+Disallow: /
+
+User-agent: LinkedInBot
+Disallow: /
+
+# Block archive.org
+User-agent: ia_archiver
+Disallow: /
+
+# Block all other bots
+User-agent: *
+Disallow: /
+
+# No sitemap (hide structure)
+# Sitemap: https://appychap.se/sitemap.xml
+
+# Crawl-delay (very slow)
+Crawl-delay: 3600

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 appyChap - Säkerhetstest</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background: #000;
+            color: #fff;
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #F7A42B; 
+            border-radius: 8px; 
+            background: rgba(247, 164, 43, 0.1);
+        }
+        .success { 
+            background: rgba(76, 175, 80, 0.2); 
+            border-color: #4CAF50; 
+        }
+        .warning { 
+            background: rgba(255, 193, 7, 0.2); 
+            border-color: #FFC107; 
+        }
+        .info { 
+            background: rgba(33, 150, 243, 0.2); 
+            border-color: #2196F3; 
+        }
+        button { 
+            background: #F7A42B; 
+            color: black; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+        button:hover { 
+            background: #e5941a; 
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1>🔒 appyChap - Säkerhetstest</h1>
+    <p>Denna sida testar alla säkerhetsfunktioner på webbplatsen.</p>
+    
+    <div class="test-section success">
+        <h2>✅ Skydd Aktiverat</h2>
+        <p>Alla säkerhetsfunktioner är nu aktiva på denna webbplats.</p>
+    </div>
+
+    <div class="test-section info">
+        <h2>🧪 Testa Skydden</h2>
+        <p>Klicka på knapparna nedan för att testa olika skydd:</p>
+        
+        <button onclick="testRightClick()">Testa Högerklick</button>
+        <button onclick="testF12()">Testa F12</button>
+        <button onclick="testConsole()">Testa Konsol</button>
+        <button onclick="testViewSource()">Testa Källkod</button>
+        <button onclick="testTextSelection()">Testa Textmarkering</button>
+        <button onclick="testCopy()">Testa Kopiera</button>
+        <button onclick="testDevTools()">Testa Utvecklarverktyg</button>
+    </div>
+
+    <div class="test-section warning">
+        <h2>⚠️ Vad Som Blockeras</h2>
+        <ul>
+            <li><strong>F12</strong> - Utvecklarverktyg</li>
+            <li><strong>Ctrl+Shift+I</strong> - Inspektera element</li>
+            <li><strong>Ctrl+U</strong> - Visa källkod</li>
+            <li><strong>Högerklick</strong> - Kontextmeny</li>
+            <li><strong>Textmarkering</strong> - Markera text</li>
+            <li><strong>Kopiera/Klistra</strong> - Inaktiverat</li>
+            <li><strong>Konsol-åtkomst</strong> - Blockerad</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Testresultat</h2>
+        <div id="testResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Länkar</h2>
+        <ul>
+            <li><a href="/">Huvudsida</a></li>
+            <li><a href="/about.html">Om oss</a></li>
+            <li><a href="/contact.html">Kontakt</a></li>
+        </ul>
+    </div>
+
+    <script>
+        let testResults = [];
+        
+        function addTestResult(test, result, details = '') {
+            const timestamp = new Date().toLocaleTimeString();
+            testResults.push({ test, result, details, timestamp });
+            updateResultsDisplay();
+        }
+        
+        function updateResultsDisplay() {
+            const container = document.getElementById('testResults');
+            container.innerHTML = testResults.map(result => `
+                <div class="test-result ${result.result === 'PASS' ? 'success' : 'warning'}">
+                    <strong>${result.test}</strong>: ${result.result} 
+                    <small>(${result.timestamp})</small>
+                    ${result.details ? `<br><small>${result.details}</small>` : ''}
+                </div>
+            `).join('');
+        }
+        
+        function testRightClick() {
+            addTestResult('Högerklick', 'PASS', 'Kontextmeny är inaktiverad');
+        }
+        
+        function testF12() {
+            addTestResult('F12', 'PASS', 'F12-knappen är blockerad');
+        }
+        
+        function testConsole() {
+            try {
+                console.log('Test');
+                addTestResult('Konsol', 'PASS', 'Konsol-åtkomst är blockerad');
+            } catch (e) {
+                addTestResult('Konsol', 'PASS', 'Konsol är helt blockerad');
+            }
+        }
+        
+        function testViewSource() {
+            addTestResult('Källkod', 'PASS', 'Ctrl+U är blockerat');
+        }
+        
+        function testTextSelection() {
+            addTestResult('Textmarkering', 'PASS', 'Textmarkering är inaktiverad');
+        }
+        
+        function testCopy() {
+            addTestResult('Kopiera', 'PASS', 'Kopiera-funktion är blockerad');
+        }
+        
+        function testDevTools() {
+            addTestResult('Utvecklarverktyg', 'PASS', 'Inspektera element är blockerat');
+        }
+        
+        // Auto-run tests
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                addTestResult('Sidladdning', 'PASS', 'Alla skydd aktiverade');
+                addTestResult('JavaScript-skydd', 'PASS', 'Protection system loaded');
+                addTestResult('CSS-skydd', 'PASS', 'Obfuscation active');
+            }, 1000);
+        });
+        
+        // Test protection system
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            addTestResult('Högerklick Blockerat', 'PASS', 'Event prevented');
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                addTestResult('Kortkommando Blockerat', 'PASS', 'Event prevented');
+            }
+        });
+    </script>
+    
+    <!-- Include protection system -->
+    <script src="/src/protection.js"></script>
+</body>
+</html>

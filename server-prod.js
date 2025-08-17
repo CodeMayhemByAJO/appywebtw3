@@ -7,6 +7,27 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Security middleware for production
+app.use((req, res, next) => {
+  // Disable caching for sensitive pages
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  
+  // Advanced security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  
+  // Hide server information
+  res.setHeader('Server', 'Apache/2.4.41 (Ubuntu)');
+  
+  next();
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -41,6 +62,10 @@ app.get('/test.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'test.html'));
 });
 
+app.get('/security-test.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'security-test.html'));
+});
+
 // Production contact endpoint with real email
 app.post('/contact', async (req, res) => {
   const { name, email, phone, message } = req.body;
@@ -50,29 +75,62 @@ app.post('/contact', async (req, res) => {
   }
 
   try {
-    // Create transporter (configure with your email service)
-    const transporter = nodemailer.createTransporter({
-      service: process.env.EMAIL_SERVICE || 'gmail', // 'gmail', 'outlook', 'yahoo', etc.
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
+    // Create transporter with fallback options
+    let transporter;
+    
+    if (process.env.EMAIL_SERVICE === 'gmail') {
+      transporter = nodemailer.createTransporter({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+    } else if (process.env.EMAIL_SERVICE === 'outlook') {
+      transporter = nodemailer.createTransporter({
+        host: 'smtp-mail.outlook.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+    } else {
+      // Generic SMTP
+      transporter = nodemailer.createTransporter({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: process.env.SMTP_PORT || 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+    }
 
     // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO || process.env.EMAIL_USER, // Where to send contact form submissions
-      subject: `Nytt kontaktformulär från ${name}`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      subject: `Nytt kontaktformulär från ${name} - appyChap.se`,
       html: `
-        <h2>Nytt kontaktformulär från appyChap.se</h2>
-        <p><strong>Namn:</strong> ${name}</p>
-        <p><strong>E-post:</strong> ${email}</p>
-        <p><strong>Telefon:</strong> ${phone || 'Ej angivet'}</p>
-        <p><strong>Meddelande:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-        <hr>
-        <p><em>Skickat från appyChap.se kontaktformulär</em></p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #F7A42B;">Nytt kontaktformulär från appyChap.se</h2>
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Namn:</strong> ${name}</p>
+            <p><strong>E-post:</strong> ${email}</p>
+            <p><strong>Telefon:</strong> ${phone || 'Ej angivet'}</p>
+            <p><strong>Meddelande:</strong></p>
+            <p style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #F7A42B;">
+              ${message.replace(/\n/g, '<br>')}
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+          <p style="color: #666; font-size: 12px;">
+            <em>Skickat från appyChap.se kontaktformulär - ${new Date().toLocaleString('sv-SE')}</em>
+          </p>
+        </div>
       `
     };
 
@@ -94,9 +152,19 @@ app.post('/contact', async (req, res) => {
   }
 });
 
+// Health check endpoint for Railway
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'production'
+  });
+});
+
 // Starta servern
-app.listen(port, () => {
-  console.log(`🚀 Produktionsservern körs på http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`🚀 Produktionsservern körs på port ${port}`);
   console.log(`📧 E-postfunktionalitet är aktiverad`);
-  console.log(`📁 Statiska filer serveras från: ${__dirname}`);
+  console.log(`🔒 Säkerhetsfunktioner aktiva`);
+  console.log(`🌐 Railway deployment ready`);
 });

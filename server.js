@@ -5,6 +5,26 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Security middleware
+app.use((req, res, next) => {
+  // Disable caching for sensitive pages
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  
+  // Security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  
+  // Hide server information
+  res.setHeader('Server', 'Apache/2.4.41 (Ubuntu)');
+  
+  next();
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -37,6 +57,10 @@ app.get('/integrity.html', (req, res) => {
 
 app.get('/test.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'test.html'));
+});
+
+app.get('/security-test.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'security-test.html'));
 });
 
 // Simple contact endpoint for development

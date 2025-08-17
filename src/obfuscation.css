@@ -1,0 +1,30 @@
+/* CSS Obfuscation - Makes design analysis difficult */
+* {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Disable text selection */
+::selection { background: transparent !important; }
+::-moz-selection { background: transparent !important; }
+
+/* Hide elements from inspection */
+[data-protected="true"] {
+  display: none !important;
+}
+
+/* Random class names to confuse analysis */
+.x7y9z2, .a1b3c5, .m8n4p6 {
+  opacity: 0.001;
+  pointer-events: none;
+}
+
+/* Anti-debugging techniques */
+@media print {
+  * { display: none !important; }
+}
+
+/* Disable view source shortcuts */
+body { -webkit-touch-callout: none; }
