@@ -1,25 +1,50 @@
 {
   "name": "tw4-appyweb",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "appyChap - Norrländsk tech-consulting webbplats med modern design och PWA-funktionalitet",
+  "main": "server.js",
   "scripts": {
-    "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "dev": "concurrently \"npm run build:css:watch\" \"npm run start\"",
+    "dev:prod": "concurrently \"npm run build:css:watch\" \"npm run start:prod\"",
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "build:css:watch": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "build:css:prod": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "build": "npm run build:css:prod",
     "start": "node server.js",
-    "start:prod": "npx serve -s ./dist -l $PORT",
-    "watch": "tailwindcss -i ./input.css -o ./dist/output.css --watch"
+    "start:prod": "node server-prod.js",
+    "start:serve": "npx serve -s . -l $PORT",
+    "analyze": "npx lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html",
+    "optimize-images": "npx imagemin images/* --out-dir=images/optimized",
+    "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "tech-consulting",
+    "AI",
+    "web-development",
+    "automation",
+    "Norrland",
+    "PWA"
+  ],
+  "author": "appyChap",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.18",
+    "concurrently": "^9.2.0",
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^8.0.0",
+    "lighthouse": "^11.6.0",
     "postcss": "^8.4.35",
     "serve": "^14.2.4",
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^5.1.0",
+    "nodemailer": "^6.9.7"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }

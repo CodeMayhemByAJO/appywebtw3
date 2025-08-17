@@ -1,6 +1,111 @@
-/* ./src/input.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom CSS for appyChap */
+@layer base {
+  /* Optimize font loading */
+  @font-face {
+    font-family: 'Poppins';
+    font-display: swap;
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Optimize focus states */
+  *:focus {
+    outline: 2px solid #F7A42B;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Custom button styles */
+  .btn-primary {
+    @apply bg-yellow-400 text-black font-semibold px-4 py-2 rounded-md hover:bg-yellow-300 transition-colors duration-200 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border border-yellow-400 text-yellow-400 font-semibold px-4 py-2 rounded-md hover:bg-yellow-400 hover:text-black transition-all duration-200;
+  }
+  
+  /* Card styles */
+  .card {
+    @apply bg-black/50 backdrop-blur-sm border border-gray-700/50 rounded-lg p-6 shadow-lg;
+  }
+  
+  /* Form input styles */
+  .form-input {
+    @apply w-full px-4 py-3 bg-black border border-white/20 rounded-md placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  /* Loading states */
+  .loading {
+    @apply opacity-50 pointer-events-none;
+  }
+  
+  .loading::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
 

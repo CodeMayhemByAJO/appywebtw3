@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - appyChap</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { background: #F7A42B; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #e5941a; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 appyChap - Test Sida</h1>
+    
+    <div class="test-section success">
+        <h2>✅ Server Status</h2>
+        <p>Servern körs på <strong>http://localhost:3000</strong></p>
+        <p>Denna sida serveras av Express-servern</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📧 Testa Kontaktformulär</h2>
+        <form id="testForm">
+            <input type="text" name="name" placeholder="Namn" required>
+            <input type="email" name="email" placeholder="E-post" required>
+            <input type="tel" name="phone" placeholder="Telefon (valfritt)">
+            <textarea name="message" placeholder="Meddelande" required rows="4"></textarea>
+            <button type="submit">Skicka Test</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Länkar</h2>
+        <ul>
+            <li><a href="/">Huvudsida</a></li>
+            <li><a href="/about.html">Om oss</a></li>
+            <li><a href="/whatwedo.html">Vad vi gör</a></li>
+            <li><a href="/contact.html">Kontakt</a></li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Skickar...</p>';
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const res = await fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (res.ok) {
+                    const result = await res.json();
+                    resultDiv.innerHTML = `<div class="success"><h3>✅ Framgång!</h3><p>${result.message}</p><p>Kolla serverns konsol för detaljer.</p></div>`;
+                } else {
+                    const errorText = await res.text();
+                    resultDiv.innerHTML = `<div class="error"><h3>❌ Fel!</h3><p>Status: ${res.status}</p><p>${errorText}</p></div>`;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<div class="error"><h3>❌ Nätverksfel!</h3><p>${err.message}</p></div>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,8 +3,11 @@
     <!-- Illustration -->
     <div class="w-full md:w-1/2 flex justify-center self-center">
       <img src="images/contactillustration.webp"
-           alt="Kontakt illustration"
-           class="w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade" />
+           alt="Illustration som visar kommunikation och kontakt - symboliserar hur enkelt det är att komma i kontakt med appyChap"
+           class="w-full h-auto rounded-lg shadow-lg opacity-0 animate-fade"
+           loading="lazy"
+           width="400"
+           height="300" />
     </div>
 
     <!-- Formulär -->
@@ -80,10 +83,17 @@
         });
         
         if(res.ok) {
+          const result = await res.json();
           form.classList.add('hidden');
           heading.classList.add('hidden');
           successMsg.classList.remove('hidden');
           successMsg.classList.add('opacity-100');
+          
+          // Update success message for development mode
+          const successText = successMsg.querySelector('p');
+          if (successText && result.message) {
+            successText.innerHTML = result.message;
+          }
         } else {
           const text = await res.text();
           alert('Det gick inte att skicka meddelandet:\n' + text);
