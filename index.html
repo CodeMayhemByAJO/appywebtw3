@@ -3,30 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>appyChap - Digital Transformation & Automation Timrå | AI & Grafisk Formgivning</title>
+  <title>appyChap - Norrländsk tech utan krångel! | Digital Transformation & Automation Timrå</title>
   
   <!-- SEO Meta-taggar -->
-  <meta name="description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
+  <meta name="description" content="appyChap - Norrländsk tech utan krångel! Vi är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
   <meta name="keywords" content="digital transformation Timrå, automatisering Medelpad, AI, grafisk formgivning, hemsidor Norrland, app-utveckling, smarta automationer, mjukvara, Timrå, Medelpad, Norrland" />
   <meta name="author" content="appyChap" />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="sv" />
   <meta name="geo.region" content="SE-Y" />
   <meta name="geo.placename" content="Timrå, Medelpad, Norrland" />
-  <link rel="canonical" href="https://appychap.se/" />
+  <link rel="canonical" href="https://www.appychap.se/" />
   
   <!-- Delningsmetadata -->
   <meta property="og:title" content="appyChap - Digital Transformation & Automation Timrå | Experter på AI & Grafisk Formgivning" />
   <meta property="og:description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
-  <meta property="og:image" content="https://appychap.se/images/preview.webp" />
-  <meta property="og:url" content="https://appychap.se/" />
+  <meta property="og:image" content="https://www.appychap.se/images/indexnew.webp" />
+  <meta property="og:image:width" content="1920" />
+  <meta property="og:image:height" content="1080" />
+  <meta property="og:image:alt" content="appyChap - Norrländsk tech utan krångel! Digital Transformation & Automation i Timrå, Medelpad och Norrland" />
+  <meta property="og:url" content="https://www.appychap.se/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="appyChap" />
   <meta property="og:locale" content="sv_SE" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="appyChap - Digital Transformation & Automation Timrå" />
   <meta name="twitter:description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
-  <meta name="twitter:image" content="https://appychap.se/images/preview.webp" />
+  <meta name="twitter:image" content="https://appychap.se/images/indexnew.webp" />
+  <meta name="twitter:image:alt" content="appyChap - Norrländsk tech utan krångel! Digital Transformation & Automation i Timrå, Medelpad och Norrland" />
 
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link href="./dist/output.css" rel="stylesheet" />
@@ -256,8 +260,8 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "appyChap",
-    "url": "https://appychap.se",
-    "logo": "https://appychap.se/images/nyloggaweb.webp",
+            "url": "https://www.appychap.se",
+        "logo": "https://www.appychap.se/images/nyloggaweb.webp",
     "description": "appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar.",
     "address": {
       "@type": "PostalAddress",
@@ -341,35 +345,61 @@
         Välj vilka cookies du vill tillåta:
       </p>
       
-      <div class="cookie-options">
-        <div class="cookie-option">
-          <label>
-            <input type="checkbox" id="necessaryCookies" checked disabled />
-            <span>Nödvändiga cookies</span>
-            <small class="text-white/60">(alltid aktiverade)</small>
-          </label>
-        </div>
-        
-        <div class="cookie-option">
-          <label>
-            <span>Analytics cookies</span>
-            <small class="text-white/60">(hjälper oss förbättra sidan)</small>
-          </label>
-          <div class="cookie-toggle" id="analyticsToggle"></div>
-        </div>
-        
-        <div class="cookie-option">
-          <label>
-            <span>Funktionella cookies</span>
-            <small class="text-white/60">(förbättrar användarupplevelsen)</small>
-          </label>
-          <div class="cookie-toggle" id="functionalToggle"></div>
+      <!-- Enkel vy för "acceptera alla" -->
+      <div id="simple-view" class="text-center">
+        <p class="text-white/80 mb-6">
+          Vi använder cookies för att ge dig den bästa upplevelsen på vår hemsida.
+        </p>
+        <div class="cookie-buttons">
+          <button class="btn-primary" onclick="acceptAllCookies()">Acceptera alla cookies</button>
+          <button class="btn-secondary" onclick="showDetailedOptions()">Välj specifikt</button>
         </div>
       </div>
-      
-      <div class="cookie-buttons">
-        <button class="btn-secondary" onclick="acceptAllCookies()">Acceptera alla</button>
-        <button class="btn-primary" onclick="saveCookiePreferences()">Spara inställningar</button>
+
+      <!-- Detaljerad vy för specifika val -->
+      <div id="detailed-view" class="hidden">
+        <p class="text-white/80 mb-6">
+          Välj vilka cookies du vill tillåta:
+        </p>
+        
+        <div class="cookie-options">
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="necessaryCookies" checked disabled />
+              <span>Nödvändiga cookies</span>
+              <small class="text-white/60">(session, navigation - alltid aktiverade)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="analyticsCookies" checked />
+              <span>Analytics cookies</span>
+              <small class="text-white/60">(Google Analytics - hjälper oss förbättra sidan)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="marketingCookies" checked />
+              <span>Marketing cookies</span>
+              <small class="text-white/60">(Facebook Pixel - för relevanta annonser)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="functionalCookies" checked />
+              <span>Funktionella cookies</span>
+              <small class="text-white/60">(användarpreferenser - förbättrar upplevelsen)</small>
+            </label>
+          </div>
+        </div>
+        
+        <div class="cookie-buttons">
+          <button class="btn-secondary" onclick="acceptAllCookies()">Acceptera alla</button>
+          <button class="btn-primary" onclick="saveCookiePreferences()">Spara inställningar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -732,12 +762,14 @@
     }
 
     // cookie-stuff
-    let analyticsEnabled = false;
-    let functionalEnabled = false;
+    let analyticsEnabled = true;
+    let marketingEnabled = true;
+    let functionalEnabled = true;
 
     function initCookieToggles() {
-      const analyticsToggle = document.getElementById('analyticsToggle');
-      const functionalToggle = document.getElementById('functionalToggle');
+      const analyticsCheckbox = document.getElementById('analyticsCookies');
+      const marketingCheckbox = document.getElementById('marketingCookies');
+      const functionalCheckbox = document.getElementById('functionalCookies');
       const cookieOverlay = document.getElementById('cookieOverlay');
       
       // visa popup
@@ -748,31 +780,49 @@
         console.error('Cookie-overlay hittades inte!');
       }
       
-      // lägg till click handlers
-      if (analyticsToggle) {
-        analyticsToggle.addEventListener('click', () => {
-          analyticsEnabled = !analyticsEnabled;
-          analyticsToggle.classList.toggle('active', analyticsEnabled);
+      // lägg till click handlers för alla checkboxar
+      if (analyticsCheckbox) {
+        analyticsCheckbox.addEventListener('change', () => {
+          analyticsEnabled = analyticsCheckbox.checked;
         });
       }
       
-      if (functionalToggle) {
-        functionalToggle.addEventListener('click', () => {
-          functionalEnabled = !functionalEnabled;
-          functionalToggle.classList.toggle('active', functionalEnabled);
+      if (marketingCheckbox) {
+        marketingCheckbox.addEventListener('change', () => {
+          marketingEnabled = marketingCheckbox.checked;
         });
+      }
+      
+      if (functionalCheckbox) {
+        functionalCheckbox.addEventListener('change', () => {
+          functionalEnabled = functionalCheckbox.checked;
+        });
+      }
+    }
+
+    function showDetailedOptions() {
+      const simpleView = document.getElementById('simple-view');
+      const detailedView = document.getElementById('detailed-view');
+      
+      if (simpleView && detailedView) {
+        simpleView.classList.add('hidden');
+        detailedView.classList.remove('hidden');
       }
     }
 
     function acceptAllCookies() {
       analyticsEnabled = true;
+      marketingEnabled = true;
       functionalEnabled = true;
       
-      const analyticsToggle = document.getElementById('analyticsToggle');
-      const functionalToggle = document.getElementById('functionalToggle');
+      // Uppdatera alla checkboxar
+      const analyticsCheckbox = document.getElementById('analyticsCookies');
+      const marketingCheckbox = document.getElementById('marketingCookies');
+      const functionalCheckbox = document.getElementById('functionalCookies');
       
-      if (analyticsToggle) analyticsToggle.classList.add('active');
-      if (functionalToggle) functionalToggle.classList.add('active');
+      if (analyticsCheckbox) analyticsCheckbox.checked = true;
+      if (marketingCheckbox) marketingCheckbox.checked = true;
+      if (functionalCheckbox) functionalCheckbox.checked = true;
       
       saveCookiePreferences();
     }
@@ -782,6 +832,7 @@
       const cookiePreferences = {
         necessary: true,
         analytics: analyticsEnabled,
+        marketing: marketingEnabled,
         functional: functionalEnabled,
         timestamp: new Date().toISOString()
       };
@@ -794,12 +845,15 @@
         cookieOverlay.style.display = 'none';
       }
       
-      // starta analytics om aktiverat
+      // Starta cookies baserat på användarens val
       if (analyticsEnabled) {
         initAnalytics();
       }
       
-      // starta funktionella cookies om aktiverat
+      if (marketingEnabled) {
+        initMarketing();
+      }
+      
       if (functionalEnabled) {
         initFunctionalCookies();
       }
@@ -812,7 +866,9 @@
           'analytics_storage': 'granted'
         });
       }
-      
+    }
+
+    function initMarketing() {
       // starta facebook pixel
       if (typeof fbq !== 'undefined') {
         fbq('consent', 'grant');
@@ -838,12 +894,19 @@
           
           if (preferencesDate > oneYearAgo) {
             // använd sparade preferences
-            analyticsEnabled = preferences.analytics;
-            functionalEnabled = preferences.functional;
+            analyticsEnabled = preferences.analytics || true;
+            marketingEnabled = preferences.marketing || true;
+            functionalEnabled = preferences.functional || true;
             
+            // Starta cookies baserat på sparade preferences
             if (analyticsEnabled) {
               initAnalytics();
             }
+            
+            if (marketingEnabled) {
+              initMarketing();
+            }
+            
             if (functionalEnabled) {
               initFunctionalCookies();
             }

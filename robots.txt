@@ -2,18 +2,20 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://appychap.se/sitemap.xml
+Sitemap: https://www.appychap.se/sitemap.xml
 
 # Crawl-delay för respektfull crawling
 Crawl-delay: 1
 
-# Tillåt alla viktiga sidor
+# Tillåt endast huvudsidan för indexering
 Allow: /index.html
-Allow: /about.html
-Allow: /whatwedo.html
-Allow: /whatwevedone.html
-Allow: /contact.html
-Allow: /integrity.html
+
+# Blockera alla andra HTML-sidor från indexering
+Disallow: /about.html
+Disallow: /whatwedo.html
+Disallow: /whatwevedone.html
+Disallow: /contact.html
+Disallow: /integrity.html
 
 # Tillåt alla bilder och resurser
 Allow: /images/
@@ -27,3 +29,4 @@ Disallow: /postcss.config.js
 Disallow: /tailwind.config.js
 Disallow: /src/
 Disallow: /public/
+
