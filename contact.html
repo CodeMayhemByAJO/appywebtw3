@@ -52,49 +52,10 @@
         <h1 class="text-4xl font-semibold text-yellow-400">Tack för ditt meddelande!</h1>
         <p class="text-white/80 text-lg leading-relaxed">
           Får du inte svar direkt så är vi ute i skogen eller på flugfiskeäventyr.<br />
-          <span class="text-yellow-400">Håll ut – vi hörs snart!</span>
+          <span class="text-white/80">Håll ut – vi hörs snart!</span>
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  function initContactForm() {
-    const form = document.getElementById('contactForm');
-    const heading = document.getElementById('contactHeading');
-    const successMsg = document.getElementById('successMessage');
-    
-    if(!form) return;
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const data = Object.fromEntries(new FormData(form).entries());
-      
-      try {
-        const res = await fetch('/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        
-        if(res.ok) {
-          form.classList.add('hidden');
-          heading.classList.add('hidden');
-          successMsg.classList.remove('hidden');
-          successMsg.classList.add('opacity-100');
-        } else {
-          const text = await res.text();
-          alert('Det gick inte att skicka meddelandet:\n' + text);
-        }
-      } catch(err) {
-        alert('Ett nätverksfel inträffade.');
-        console.error(err);
-      }
-    });
-  }
-
-  // Initiera när innehållet laddas
-  document.addEventListener('DOMContentLoaded', () => initContactForm());
-</script>
