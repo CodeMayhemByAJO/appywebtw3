@@ -341,43 +341,61 @@
         Välj vilka cookies du vill tillåta:
       </p>
       
-      <div class="cookie-options">
-        <div class="cookie-option">
-          <label>
-            <input type="checkbox" id="necessaryCookies" checked disabled />
-            <span>Nödvändiga cookies</span>
-            <small class="text-white/60">(session, navigation - alltid aktiverade)</small>
-          </label>
-        </div>
-        
-        <div class="cookie-option">
-          <label>
-            <input type="checkbox" id="analyticsCookies" checked disabled />
-            <span>Analytics cookies</span>
-            <small class="text-white/60">(Google Analytics - alltid aktiverade)</small>
-          </label>
-        </div>
-        
-        <div class="cookie-option">
-          <label>
-            <input type="checkbox" id="marketingCookies" checked disabled />
-            <span>Marketing cookies</span>
-            <small class="text-white/60">(Facebook Pixel - alltid aktiverade)</small>
-          </label>
-        </div>
-        
-        <div class="cookie-option">
-          <label>
-            <span>Funktionella cookies</span>
-            <small class="text-white/60">(användarpreferenser - valfria)</small>
-          </label>
-          <div class="cookie-toggle" id="functionalToggle"></div>
+      <!-- Enkel vy för "acceptera alla" -->
+      <div id="simple-view" class="text-center">
+        <p class="text-white/80 mb-6">
+          Vi använder cookies för att ge dig den bästa upplevelsen på vår hemsida.
+        </p>
+        <div class="cookie-buttons">
+          <button class="btn-primary" onclick="acceptAllCookies()">Acceptera alla cookies</button>
+          <button class="btn-secondary" onclick="showDetailedOptions()">Välj specifikt</button>
         </div>
       </div>
-      
-      <div class="cookie-buttons">
-        <button class="btn-secondary" onclick="acceptAllCookies()">Acceptera alla</button>
-        <button class="btn-primary" onclick="saveCookiePreferences()">Spara inställningar</button>
+
+      <!-- Detaljerad vy för specifika val -->
+      <div id="detailed-view" class="hidden">
+        <p class="text-white/80 mb-6">
+          Välj vilka cookies du vill tillåta:
+        </p>
+        
+        <div class="cookie-options">
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="necessaryCookies" checked disabled />
+              <span>Nödvändiga cookies</span>
+              <small class="text-white/60">(session, navigation - alltid aktiverade)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="analyticsCookies" checked disabled />
+              <span>Analytics cookies</span>
+              <small class="text-white/60">(Google Analytics - alltid aktiverade)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <input type="checkbox" id="marketingCookies" checked disabled />
+              <span>Marketing cookies</span>
+              <small class="text-white/60">(Facebook Pixel - alltid aktiverade)</small>
+            </label>
+          </div>
+          
+          <div class="cookie-option">
+            <label>
+              <span>Funktionella cookies</span>
+              <small class="text-white/60">(användarpreferenser - valfria)</small>
+            </label>
+            <div class="cookie-toggle" id="functionalToggle"></div>
+          </div>
+        </div>
+        
+        <div class="cookie-buttons">
+          <button class="btn-secondary" onclick="acceptAllCookies()">Acceptera alla</button>
+          <button class="btn-primary" onclick="saveCookiePreferences()">Spara inställningar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -761,6 +779,16 @@
           functionalEnabled = !functionalEnabled;
           functionalToggle.classList.toggle('active', functionalEnabled);
         });
+      }
+    }
+
+    function showDetailedOptions() {
+      const simpleView = document.getElementById('simple-view');
+      const detailedView = document.getElementById('detailed-view');
+      
+      if (simpleView && detailedView) {
+        simpleView.classList.add('hidden');
+        detailedView.classList.remove('hidden');
       }
     }
 
