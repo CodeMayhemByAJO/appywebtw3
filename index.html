@@ -369,26 +369,26 @@
           
           <div class="cookie-option">
             <label>
-              <input type="checkbox" id="analyticsCookies" checked disabled />
+              <input type="checkbox" id="analyticsCookies" checked />
               <span>Analytics cookies</span>
-              <small class="text-white/60">(Google Analytics - alltid aktiverade)</small>
+              <small class="text-white/60">(Google Analytics - hjälper oss förbättra sidan)</small>
             </label>
           </div>
           
           <div class="cookie-option">
             <label>
-              <input type="checkbox" id="marketingCookies" checked disabled />
+              <input type="checkbox" id="marketingCookies" checked />
               <span>Marketing cookies</span>
-              <small class="text-white/60">(Facebook Pixel - alltid aktiverade)</small>
+              <small class="text-white/60">(Facebook Pixel - för relevanta annonser)</small>
             </label>
           </div>
           
           <div class="cookie-option">
             <label>
+              <input type="checkbox" id="functionalCookies" checked />
               <span>Funktionella cookies</span>
-              <small class="text-white/60">(användarpreferenser - valfria)</small>
+              <small class="text-white/60">(användarpreferenser - förbättrar upplevelsen)</small>
             </label>
-            <div class="cookie-toggle" id="functionalToggle"></div>
           </div>
         </div>
         
@@ -758,11 +758,14 @@
     }
 
     // cookie-stuff
-    let analyticsEnabled = true; // Google Analytics är alltid aktiverat
-    let functionalEnabled = false;
+    let analyticsEnabled = true;
+    let marketingEnabled = true;
+    let functionalEnabled = true;
 
     function initCookieToggles() {
-      const functionalToggle = document.getElementById('functionalToggle');
+      const analyticsCheckbox = document.getElementById('analyticsCookies');
+      const marketingCheckbox = document.getElementById('marketingCookies');
+      const functionalCheckbox = document.getElementById('functionalCookies');
       const cookieOverlay = document.getElementById('cookieOverlay');
       
       // visa popup
@@ -773,11 +776,22 @@
         console.error('Cookie-overlay hittades inte!');
       }
       
-      // lägg till click handlers för funktionella cookies
-      if (functionalToggle) {
-        functionalToggle.addEventListener('click', () => {
-          functionalEnabled = !functionalEnabled;
-          functionalToggle.classList.toggle('active', functionalEnabled);
+      // lägg till click handlers för alla checkboxar
+      if (analyticsCheckbox) {
+        analyticsCheckbox.addEventListener('change', () => {
+          analyticsEnabled = analyticsCheckbox.checked;
+        });
+      }
+      
+      if (marketingCheckbox) {
+        marketingCheckbox.addEventListener('change', () => {
+          marketingEnabled = marketingCheckbox.checked;
+        });
+      }
+      
+      if (functionalCheckbox) {
+        functionalCheckbox.addEventListener('change', () => {
+          functionalEnabled = functionalCheckbox.checked;
         });
       }
     }
@@ -793,12 +807,18 @@
     }
 
     function acceptAllCookies() {
-      analyticsEnabled = true; // Redan true
+      analyticsEnabled = true;
+      marketingEnabled = true;
       functionalEnabled = true;
       
-      const functionalToggle = document.getElementById('functionalToggle');
+      // Uppdatera alla checkboxar
+      const analyticsCheckbox = document.getElementById('analyticsCookies');
+      const marketingCheckbox = document.getElementById('marketingCookies');
+      const functionalCheckbox = document.getElementById('functionalCookies');
       
-      if (functionalToggle) functionalToggle.classList.add('active');
+      if (analyticsCheckbox) analyticsCheckbox.checked = true;
+      if (marketingCheckbox) marketingCheckbox.checked = true;
+      if (functionalCheckbox) functionalCheckbox.checked = true;
       
       saveCookiePreferences();
     }
@@ -807,7 +827,8 @@
       // spara i localStorage
       const cookiePreferences = {
         necessary: true,
-        analytics: true, // Alltid aktiverat
+        analytics: analyticsEnabled,
+        marketing: marketingEnabled,
         functional: functionalEnabled,
         timestamp: new Date().toISOString()
       };
@@ -820,10 +841,15 @@
         cookieOverlay.style.display = 'none';
       }
       
-      // Analytics är alltid aktiverat
-      initAnalytics();
+      // Starta cookies baserat på användarens val
+      if (analyticsEnabled) {
+        initAnalytics();
+      }
       
-      // starta funktionella cookies om aktiverat
+      if (marketingEnabled) {
+        initMarketing();
+      }
+      
       if (functionalEnabled) {
         initFunctionalCookies();
       }
@@ -836,7 +862,9 @@
           'analytics_storage': 'granted'
         });
       }
-      
+    }
+
+    function initMarketing() {
       // starta facebook pixel
       if (typeof fbq !== 'undefined') {
         fbq('consent', 'grant');
@@ -862,10 +890,18 @@
           
           if (preferencesDate > oneYearAgo) {
             // använd sparade preferences
-            functionalEnabled = preferences.functional;
+            analyticsEnabled = preferences.analytics || true;
+            marketingEnabled = preferences.marketing || true;
+            functionalEnabled = preferences.functional || true;
             
-            // Analytics är alltid aktiverat
-            initAnalytics();
+            // Starta cookies baserat på sparade preferences
+            if (analyticsEnabled) {
+              initAnalytics();
+            }
+            
+            if (marketingEnabled) {
+              initMarketing();
+            }
             
             if (functionalEnabled) {
               initFunctionalCookies();
