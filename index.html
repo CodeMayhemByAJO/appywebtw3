@@ -3,17 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Norrländsk tech - utan krängel!</title>
-
+  <title>appyChap - Digital Transformation & Automation Timrå | AI & Grafisk Formgivning</title>
+  
+  <!-- SEO Meta-taggar -->
+  <meta name="description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
+  <meta name="keywords" content="digital transformation Timrå, automatisering Medelpad, AI, grafisk formgivning, hemsidor Norrland, app-utveckling, smarta automationer, mjukvara, Timrå, Medelpad, Norrland" />
+  <meta name="author" content="appyChap" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="sv" />
+  <meta name="geo.region" content="SE-Y" />
+  <meta name="geo.placename" content="Timrå, Medelpad, Norrland" />
+  <link rel="canonical" href="https://appychap.se/" />
+  
   <!-- Delningsmetadata -->
-  <meta property="og:title" content="Din kompis på digitaliseringsresan!" />
-  <meta property="og:description" content='appyChap hjälper er med AI, hemsidor, appar, mjukvara, smarta automationer, fotografering, grafik, förstå tekniken, ja i princip allt "det digitala"!' />
+  <meta property="og:title" content="appyChap - Digital Transformation & Automation Timrå | Experter på AI & Grafisk Formgivning" />
+  <meta property="og:description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
   <meta property="og:image" content="https://appychap.se/images/preview.webp" />
   <meta property="og:url" content="https://appychap.se/" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="appyChap" />
+  <meta property="og:locale" content="sv_SE" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Din kompis på digitaliseringsresan!" />
-  <meta name="twitter:description" content='appyChap hjälper er med AI, hemsidor, appar, mjukvara, smarta automationer, fotografering, grafik, förstå tekniken, ja i princip allt "det digitala"!' />
+  <meta name="twitter:title" content="appyChap - Digital Transformation & Automation Timrå" />
+  <meta name="twitter:description" content="appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar." />
   <meta name="twitter:image" content="https://appychap.se/images/preview.webp" />
 
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
@@ -69,10 +81,23 @@
       footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
     }
 
-    .home-logo { max-width: 70vw; max-height: 50vh; height:auto; object-fit:contain; }
+    .home-logo { 
+      max-width: 90vw; 
+      max-height: 60vh; 
+      height: auto; 
+      object-fit: contain;
+    }
+    
+    @media (max-width: 767px) {
+      .home-logo {
+        margin-top: 15vh;
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+    }
 
     .bg-appybot-icon {
-      background-image:url('/images/appybot-icon.webp');
+      background-image:url('images/appybot-icon.webp');
       background-position:center;
       background-size:contain;
       background-repeat:no-repeat;
@@ -89,6 +114,132 @@
       overflow:hidden;
     }
     #chat-body { flex:1 1 auto; min-height:0; overflow-y:auto; }
+    
+    /* Cookie-varning stilar */
+    .cookie-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .cookie-popup {
+      background: #000;
+      border: 2px solid #fbbf24;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8);
+    }
+    
+    .cookie-image {
+      width: 110px;
+      height: 140px;
+      margin: 0 auto 1.5rem;
+      border-radius: 0;
+      border: none;
+    }
+    
+    .cookie-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .cookie-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .cookie-option label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .cookie-toggle {
+      position: relative;
+      width: 3rem;
+      height: 1.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .cookie-toggle.active {
+      background: #fbbf24;
+    }
+    
+    .cookie-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    
+    .cookie-toggle.active::after {
+      transform: translateX(1.5rem);
+    }
+    
+    .cookie-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    .btn-primary {
+      background: #fbbf24;
+      color: #000;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background: #f59e0b;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #fbbf24;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid #fbbf24;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: #fbbf24;
+      color: #000;
+    }
   </style>
 
   <!-- Analytics -->
@@ -97,6 +248,73 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date()); gtag('config', 'G-W0WY3PPVLL');
+  </script>
+  
+  <!-- Strukturerad data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "appyChap",
+    "url": "https://appychap.se",
+    "logo": "https://appychap.se/images/nyloggaweb.webp",
+    "description": "appyChap är experter på digital transformation, automatisering, AI och grafisk formgivning i Timrå, Medelpad och Norrland. Vi hjälper företag att digitalisera och effektivisera med moderna lösningar.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Timrå",
+      "addressRegion": "Medelpad",
+      "addressCountry": "SE"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "availableLanguage": "Swedish"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61574926967290",
+      "https://www.instagram.com/appychapsweden/",
+      "https://www.linkedin.com/company/appychap",
+      "https://x.com/chap_appy50509"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digitala tjänster",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Digital Transformation",
+            "description": "Strategisk digital transformation för företag"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automatisering",
+            "description": "Smarta automationer av företagsprocesser"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI-lösningar",
+            "description": "AI-implementation och strategi"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Grafisk Formgivning",
+            "description": "Professionell grafisk design och formgivning"
+          }
+        }
+      ]
+    }
+  }
   </script>
 
   <!-- Meta Pixel -->
@@ -113,10 +331,53 @@
 </head>
 
 <body class="bg-black text-white font-poppins min-h-screen flex flex-col">
+  <!-- Cookie-varning popup -->
+  <div id="cookieOverlay" class="cookie-overlay">
+    <div class="cookie-popup">
+      <img src="images/cookieappy.webp" alt="Cookie illustration" class="cookie-image" />
+      <h2 class="text-2xl font-semibold mb-4 text-yellow-400">Välkommen till appyChap!</h2>
+      <p class="text-white/80 mb-6">
+        Vi använder cookies för att ge dig den bästa upplevelsen på vår hemsida. 
+        Välj vilka cookies du vill tillåta:
+      </p>
+      
+      <div class="cookie-options">
+        <div class="cookie-option">
+          <label>
+            <input type="checkbox" id="necessaryCookies" checked disabled />
+            <span>Nödvändiga cookies</span>
+            <small class="text-white/60">(alltid aktiverade)</small>
+          </label>
+        </div>
+        
+        <div class="cookie-option">
+          <label>
+            <span>Analytics cookies</span>
+            <small class="text-white/60">(hjälper oss förbättra sidan)</small>
+          </label>
+          <div class="cookie-toggle" id="analyticsToggle"></div>
+        </div>
+        
+        <div class="cookie-option">
+          <label>
+            <span>Funktionella cookies</span>
+            <small class="text-white/60">(förbättrar användarupplevelsen)</small>
+          </label>
+          <div class="cookie-toggle" id="functionalToggle"></div>
+        </div>
+      </div>
+      
+      <div class="cookie-buttons">
+        <button class="btn-secondary" onclick="acceptAllCookies()">Acceptera alla</button>
+        <button class="btn-primary" onclick="saveCookiePreferences()">Spara inställningar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header class="sticky top-0 z-50 opacity-0 animate-fade w-full flex flex-col items-center justify-center bg-black transition-opacity duration-700 relative">
     <a role="button" onclick="showHome(); setActiveNav(); closeMenu(); return false;" class="block">
-      <img src="images/nyloggaweb.webp" alt="appyChap logotyp" class="appy-logo h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto mb-1 mx-auto" />
+      <img src="images/nyloggaweb.webp" alt="appyChap - Digital Transformation & Automation Timrå, AI & Grafisk Formgivning" class="appy-logo h-14 sm:h-16 md:h-18 lg:h-20 xl:h-24 w-auto mb-1 mx-auto" />
     </a>
 
     <button id="menu-btn" class="md:hidden mt-2 mb-2 text-3xl sm:text-4xl focus:outline-none hamburger" aria-label="Öppna meny" onclick="toggleMenu()">&#9776;</button>
@@ -130,7 +391,18 @@
   </header>
 
   <!-- MAIN -->
-  <main id="content" class="flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4 opacity-0 animate-fade"></main>
+  <main id="content" class="flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4 opacity-0 animate-fade">
+    <!-- Breadcrumbs för SEO -->
+    <nav aria-label="Breadcrumb" class="hidden md:block w-full max-w-6xl mx-auto px-6 py-4 text-left">
+      <ol class="flex items-center space-x-2 text-sm text-white/60">
+        <li><a href="#" onclick="showHome(); return false;" class="hover:text-yellow-400 transition">Hem</a></li>
+        <li class="flex items-center">
+          <span class="mx-2">/</span>
+          <span id="currentPage" class="text-white">Hem</span>
+        </li>
+      </ol>
+    </nav>
+  </main>
 
   <!-- FOOTER -->
   <footer class="opacity-0 animate-fade bg-black transition-opacity duration-700 flex flex-col justify-center items-center">
@@ -156,7 +428,9 @@
   </footer>
 
   <!-- Chat -->
-  <div id="chat-toggle" class="fixed bottom-4 right-4 sm:bottom-16 sm:right-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 border-2 sm:border-4 border-yellow-400 rounded-full bg-appybot-icon cursor-pointer z-50 opacity-0 animate-fade" title="Snacka med appyBot!"></div>
+  <div id="chat-toggle" class="fixed bottom-4 right-4 sm:bottom-16 sm:right-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 border-2 sm:border-4 border-yellow-400 rounded-full cursor-pointer z-50" title="Snacka med appyBot!">
+    <img src="images/appybot-icon.webp" alt="appyBot" class="w-full h-full object-contain rounded-full" />
+  </div>
 
   <div id="chat-window" class="fixed bottom-16 right-4 sm:bottom-[11rem] sm:right-20 bg-black/70 backdrop-blur-sm w-[320px] sm:w-[380px] h-[400px] sm:h-[500px] max-w-full scale-y-0 origin-bottom transition-transform duration-300 rounded-xl overflow-hidden z-50 shadow-2xl border border-gray-700/50">
     <div class="flex items-center justify-between bg-gray-800/70 backdrop-blur-sm px-4 py-2 border-b border-gray-700/50">
@@ -173,6 +447,14 @@
   <script>
     // Init
     window.addEventListener('DOMContentLoaded', () => {
+      // Kontrollera om användaren redan har gjort cookie-val
+      const hasPreferences = checkExistingPreferences();
+      
+      if (!hasPreferences) {
+        // Visa cookie-popup om inga inställningar finns
+        initCookieToggles();
+      }
+
       document.querySelector('header').classList.remove('opacity-0');
       document.querySelector('main').classList.remove('opacity-0');
       document.querySelector('footer').classList.remove('opacity-0');
@@ -199,29 +481,37 @@
       applyContentOffset();
     });
 
-    // Main fyller mellan header & footer
+    // fixar main höjd så den fyller mellan header och footer
     function layoutHeights() {
       const header = document.querySelector('header');
       const footer = document.querySelector('footer');
       const main = document.getElementById('content');
-      if (!header || !footer || !main) return;
+      if (!header || !footer || !main) return; // bail om något saknas
+      
       const h = header.getBoundingClientRect().height;
       const f = getComputedStyle(footer).display === 'none' ? 0 : footer.getBoundingClientRect().height;
       const available = Math.max(0, window.innerHeight - h - f);
+      
       main.style.height = available + 'px';
       main.style.maxHeight = available + 'px';
       main.style.overflowY = 'auto';
     }
 
-    // Topp-luft: 12px mobil, 24px tablet, 44px desktop
+    // padding på toppen - olika storlekar för olika skärmar
     function applyContentOffset() {
       const headerH = document.querySelector('header').getBoundingClientRect().height;
       document.documentElement.style.setProperty('--header-offset', headerH + 'px');
-      let pad = 12;
-      if (window.innerWidth >= 1024) pad = 44;
-      else if (window.innerWidth >= 768) pad = 24;
+      
+      let pad = 12; // default mobil
+      if (window.innerWidth >= 1024) pad = 44; // desktop
+      else if (window.innerWidth >= 768) pad = 24; // tablet
+      
       document.documentElement.style.setProperty('--content-top-pad', pad + 'px');
     }
+
+
+
+
 
     // Start
     function showHome() {
@@ -231,7 +521,7 @@
         content.className = 'flex-grow flex flex-col items-center justify-start lg:justify-center w-full text-center px-4';
         content.innerHTML = `
           <section class="flex flex-col items-center justify-start w-full">
-            <img src="images/indexnew.webp" alt="appyChap logotyp" class="home-logo mx-auto mb-4 rounded-lg shadow" style="opacity:0; transition: opacity .5s ease-in-out;" />
+            <img src="images/indexnew.webp" alt="appyChap - Digital Transformation & Automation Timrå, AI & Grafisk Formgivning" class="home-logo mx-auto mb-4 rounded-lg shadow" style="opacity:0; transition: opacity .5s ease-in-out;" />
             <p class="text-yellow-400 italic text-sm sm:text-base leading-tight mt-2"></p>
           </section>
         `;
@@ -279,32 +569,68 @@
       });
 
       let activeLink;
+      let pageTitle = 'Hem';
+      
       switch (key) {
-        case 'about': activeLink = document.getElementById('nav-about'); if (activeLink) activeLink.classList.add('text-yellow-400'); break;
-        case 'whatwedo': activeLink = document.getElementById('nav-whatwedo'); if (activeLink) activeLink.classList.add('text-blue-400'); break;
-        case 'whatwevedone': activeLink = document.getElementById('nav-whatwevedone'); if (activeLink) activeLink.classList.add('text-[#38776e]'); break;
-        case 'contact': activeLink = document.getElementById('nav-contact'); if (activeLink) activeLink.classList.add('text-orange-400'); break;
-        default: activeLink = document.querySelector('a[onclick*="showHome"]');
+        case 'about': 
+          activeLink = document.getElementById('nav-about'); 
+          if (activeLink) activeLink.classList.add('text-yellow-400'); 
+          pageTitle = 'Vem är appyChap?';
+          break;
+        case 'whatwedo': 
+          activeLink = document.getElementById('nav-whatwedo'); 
+          if (activeLink) activeLink.classList.add('text-blue-400'); 
+          pageTitle = 'Vad kan jag hjälpa till med?';
+          break;
+        case 'whatwevedone': 
+          activeLink = document.getElementById('nav-whatwevedone'); 
+          if (activeLink) activeLink.classList.add('text-[#38776e]'); 
+          pageTitle = 'Tidigare projekt';
+          break;
+        case 'contact': 
+          activeLink = document.getElementById('nav-contact'); 
+          if (activeLink) activeLink.classList.add('text-orange-400'); 
+          pageTitle = 'Hör av dig!';
+          break;
+        default: 
+          activeLink = document.querySelector('a[onclick*="showHome"]');
+          pageTitle = 'Hem';
       }
-      if (activeLink) { activeLink.classList.add('active'); activeLink.style.opacity = '1'; }
+      
+      if (activeLink) { 
+        activeLink.classList.add('active'); 
+        activeLink.style.opacity = '1'; 
+      }
+      
+      // Uppdatera breadcrumbs
+      const currentPageElement = document.getElementById('currentPage');
+      if (currentPageElement) {
+        currentPageElement.textContent = pageTitle;
+      }
     }
 
-    // Mobilmeny: visa/dölj (inuti headern)
+    // mobilmeny - öppna/stäng
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
-      if (nav.classList.contains('force-show')) { closeMenu(); return; }
+      
+      if (nav.classList.contains('force-show')) { 
+        closeMenu(); 
+        return; 
+      }
+      
       nav.classList.remove('hidden');
       nav.classList.add('force-show');
       btn.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden'; // lås bakgrundsscroll
-      layoutHeights(); // headern blev högre – räkna om main-höjd
+      document.body.style.overflow = 'hidden'; // låser scroll
+      layoutHeights(); // räkna om höjder
     }
 
     function closeMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      
       nav.classList.add('hidden');
       nav.classList.remove('force-show');
       btn.classList.remove('open');
@@ -313,29 +639,35 @@
       layoutHeights();
     }
 
+    // fixar menyn när skärmen ändras
     function fixMenu() {
       const nav = document.getElementById('main-nav');
       const btn = document.getElementById('menu-btn');
+      
       function apply() {
         if (window.innerWidth >= 768) {
+          // desktop - visa alltid
           nav.classList.remove('hidden','force-show');
           btn.classList.remove('open');
           document.body.style.overflow = '';
         } else {
+          // mobil - dölj om inte öppen
           if (!nav.classList.contains('force-show')) nav.classList.add('hidden');
         }
         layoutHeights();
       }
+      
       window.addEventListener('resize', apply, { passive: true });
-      apply();
+      apply(); // kör direkt också
     }
 
-    // Kontakt
+    // kontaktformulär
     function initContactForm() {
       const form = document.getElementById("contactForm");
       const heading = document.getElementById("contactHeading");
       const successMsg = document.getElementById("successMessage");
-      if(!form) return;
+      
+      if(!form) return; // inget formulär = inget att göra
 
       form.addEventListener("submit", async function(e) {
         e.preventDefault();
@@ -343,12 +675,14 @@
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
+        // kolla att telefon bara har siffror
         if(data.phone && !/^\d+$/.test(data.phone)) {
           alert("Telefonnummer får endast innehålla siffror.");
           return;
         }
 
         try {
+          // skicka till backend
           const res = await fetch("https://appybackend-production.up.railway.app/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -356,26 +690,177 @@
           });
 
           if(res.ok) {
+            // success - dölj formulär, visa tack-meddelande
             form.classList.add("hidden");
             if(heading) heading.classList.add("hidden");
             if(successMsg) {
               successMsg.classList.remove("hidden");
               successMsg.classList.add("opacity-100");
             }
-            setTimeout(() => showHome(), 5000);
+            setTimeout(() => showHome(), 5000); // tillbaka till hem efter 5s
           } else {
+            // error - visa felmeddelande
             let text = "";
-            try { text = await res.text(); } catch(e){}
+            try { 
+              text = await res.text(); 
+            } catch(e) {
+              console.warn('Kunde inte läsa felmeddelande från server:', e);
+            }
             const fallback = `${res.status} ${res.statusText}`;
-            alert(`Det gick inte att skicka meddelandet:\n${text || fallback}`);
-            console.error("Serverfel:", text || fallback);
+            const errorMessage = text || fallback;
+            
+            // Visa användarvänligt felmeddelande
+            if (res.status === 429) {
+              alert("För många försök. Vänta lite innan du försöker igen.");
+            } else if (res.status >= 500) {
+              alert("Serverfel. Försök igen senare eller kontakta oss direkt.");
+            } else {
+              alert(`Fel: ${errorMessage}`);
+            }
+            console.error("Serverfel:", errorMessage);
           }
         } catch(err) {
-          alert("Ett nätverksfel inträffade.");
+          // nätverksfel
+          if (err.name === 'TypeError' && err.message.includes('fetch')) {
+            alert("Ingen internetanslutning. Kontrollera din anslutning och försök igen.");
+          } else {
+            alert("Ett oväntat fel inträffade. Försök igen eller kontakta oss direkt.");
+          }
           console.error("Fetch error:", err);
         }
       });
     }
+
+    // cookie-stuff
+    let analyticsEnabled = false;
+    let functionalEnabled = false;
+
+    function initCookieToggles() {
+      const analyticsToggle = document.getElementById('analyticsToggle');
+      const functionalToggle = document.getElementById('functionalToggle');
+      const cookieOverlay = document.getElementById('cookieOverlay');
+      
+      // visa popup
+      if (cookieOverlay) {
+        cookieOverlay.style.display = 'flex';
+        cookieOverlay.style.zIndex = '9999';
+      } else {
+        console.error('Cookie-overlay hittades inte!');
+      }
+      
+      // lägg till click handlers
+      if (analyticsToggle) {
+        analyticsToggle.addEventListener('click', () => {
+          analyticsEnabled = !analyticsEnabled;
+          analyticsToggle.classList.toggle('active', analyticsEnabled);
+        });
+      }
+      
+      if (functionalToggle) {
+        functionalToggle.addEventListener('click', () => {
+          functionalEnabled = !functionalEnabled;
+          functionalToggle.classList.toggle('active', functionalEnabled);
+        });
+      }
+    }
+
+    function acceptAllCookies() {
+      analyticsEnabled = true;
+      functionalEnabled = true;
+      
+      const analyticsToggle = document.getElementById('analyticsToggle');
+      const functionalToggle = document.getElementById('functionalToggle');
+      
+      if (analyticsToggle) analyticsToggle.classList.add('active');
+      if (functionalToggle) functionalToggle.classList.add('active');
+      
+      saveCookiePreferences();
+    }
+
+    function saveCookiePreferences() {
+      // spara i localStorage
+      const cookiePreferences = {
+        necessary: true,
+        analytics: analyticsEnabled,
+        functional: functionalEnabled,
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('appyChapCookiePreferences', JSON.stringify(cookiePreferences));
+      
+      // dölj popup
+      const cookieOverlay = document.getElementById('cookieOverlay');
+      if (cookieOverlay) {
+        cookieOverlay.style.display = 'none';
+      }
+      
+      // starta analytics om aktiverat
+      if (analyticsEnabled) {
+        initAnalytics();
+      }
+      
+      // starta funktionella cookies om aktiverat
+      if (functionalEnabled) {
+        initFunctionalCookies();
+      }
+    }
+
+    function initAnalytics() {
+      // starta google analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        });
+      }
+      
+      // starta facebook pixel
+      if (typeof fbq !== 'undefined') {
+        fbq('consent', 'grant');
+      }
+    }
+
+    function initFunctionalCookies() {
+      // funktionella cookies
+      console.log('Funktionella cookies aktiverade');
+    }
+
+    function checkExistingPreferences() {
+      const savedPreferences = localStorage.getItem('appyChapCookiePreferences');
+      
+      if (savedPreferences) {
+        try {
+          const preferences = JSON.parse(savedPreferences);
+          
+          // kolla om preferences är för gamla (1 år)
+          const oneYearAgo = new Date();
+          oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+          const preferencesDate = new Date(preferences.timestamp);
+          
+          if (preferencesDate > oneYearAgo) {
+            // använd sparade preferences
+            analyticsEnabled = preferences.analytics;
+            functionalEnabled = preferences.functional;
+            
+            if (analyticsEnabled) {
+              initAnalytics();
+            }
+            if (functionalEnabled) {
+              initFunctionalCookies();
+            }
+            
+            return true;
+          } else {
+            localStorage.removeItem('appyChapCookiePreferences');
+          }
+        } catch (e) {
+          console.error('Fel vid läsning av cookie-inställningar:', e);
+        }
+      }
+      
+      return false;
+    }
+
+
   </script>
 
   <script src="/chat.js"></script>
